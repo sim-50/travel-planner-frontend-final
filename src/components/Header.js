@@ -5,7 +5,7 @@ class Header extends Component {
         return (
             <header className="App-header">
                 <p className="title">
-                    Travel Planner
+                    Travel Planner - change from upstream
                 </p>
             </header>
         );
