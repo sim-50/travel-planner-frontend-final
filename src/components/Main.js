@@ -25,8 +25,6 @@ return(
           </Col>
           <Col span={8}></Col>
         </Row>
-    
-        {/* <img src= {HomeBg} alt="welcome image" className = "home-bg"/> */}
       </Col>
     </Row>
  
