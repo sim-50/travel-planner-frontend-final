@@ -5,6 +5,8 @@ class Footer extends Component {
         return (
             <footer className="footer">
                 (c)2020 Travel Planner Test Github. All Rights Reserved. Website Made by Travel Planner team.
+                change from upstream test dev branch.
+                change from upstream test dev to master.
             </footer>
         );
     }
