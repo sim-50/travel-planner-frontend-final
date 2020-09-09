@@ -1,19 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
+// import HomeBg from '../assets/images/home_pic.jpeg';
+import {Row, Col, Input} from 'antd';
 
 
-class Main extends Component {
+const  {Search} = Input;
 
-    render() {
-        return (
-            <div className='main'>
-                <div className="left-side">
-                    Search Panel
-                </div>
-                <div className="right-side">
-                    Google Map
-                </div>
-            </div>
-        );
-    }
+const Main = () => {
+  // function write here...
+
+
+return(
+    <Row className = "home-body">
+      <Col span={24} className = "home-bg-col">
+        <Row className = "home-detail">
+          <Col span={8}></Col>
+          <Col span={8} className = "home-detail-child">
+              <p className = "bg-title">Hi, Let plan your next road trip efficiently! </p>
+            <Search
+              className = "home-search_bar"
+              placeholder="Where do you want to go?"
+              onSearch={value => console.log(value)}
+              // style={{ width: 200 }}
+            />
+          </Col>
+          <Col span={8}></Col>
+        </Row>
+      </Col>
+    </Row>
+ 
+  )
 }
+
+
 export default Main;
