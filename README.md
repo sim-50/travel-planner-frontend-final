@@ -6,8 +6,8 @@ This project is written in React.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## lib installed for team use
-1. Ant Design(Sep 9, 2020)
-$ npm instal l antd --save or $ yarn add antd
+1. Ant Design(Sep 9, 2020) <br />
+$ npm instal l antd --save <br /> $ yarn add antd
 
 Check the link if you have any questions: https://ant.design/docs/react/introduce
 
