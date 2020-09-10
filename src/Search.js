@@ -1,16 +1,16 @@
 import React from 'react';
-import NavBarSearch from './components/NavBarSearch';
+import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
 
-function App() {
+function Search() {
   return (
-    <div className="App">
-      <NavBarSearch />
+    <div className="searchPage">
+      <Header />
       <Main />
       <Footer />
     </div>
   );
 }
 
-export default App;
+export default Search;

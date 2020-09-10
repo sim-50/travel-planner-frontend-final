@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import MapContainer from './MapContainer';
 
 class Main extends Component {
 
@@ -10,7 +10,7 @@ class Main extends Component {
                     Search Panel
                 </div>
                 <div className="right-side">
-                    Google Map
+                    <MapContainer />
                 </div>
             </div>
         );

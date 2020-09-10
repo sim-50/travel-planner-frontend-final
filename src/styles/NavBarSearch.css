@@ -1,0 +1,21 @@
+.nav-search{
+    background: #E9F5FE;
+    position: 'relative';
+    display: 'flex';
+    justify-content: center;
+}
+
+.drop-down{
+    background: #E9F5FE;
+}
+
+.app-logo{
+    color: #353535;
+    float: center;
+    font-size: large;
+    
+}
+
+.user-icon{
+    float: right;
+}
