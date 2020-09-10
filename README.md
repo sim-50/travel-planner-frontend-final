@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 1. Ant Design(Sep 9, 2020)
 $ npm instal l antd --save or $ yarn add antd
 
-Check the link if you have any questions: https://ant.design/docs/react/introduce-cn
+Check the link if you have any questions: https://ant.design/docs/react/introduce
 
 ## Available Scripts
 
