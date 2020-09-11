@@ -1,14 +1,13 @@
 import React from 'react';
-import NavBarSearch from './components/NavBarSearch';
+import Header from './components/Header';
 import Main from './components/Main';
-import Footer from './components/Footer';
+
 
 function App() {
   return (
     <div className="App">
-      <NavBarSearch />
+      <Header />
       <Main />
-      <Footer />
     </div>
   );
 }
