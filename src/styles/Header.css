@@ -1,0 +1,54 @@
+.App-header {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    width: 100%;
+    color: #1f6099;
+    box-shadow: rgb(220, 220, 220) 0px 2px 10px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px;
+}
+
+.nav-search{
+    /* background: #E9F5FE; */
+    position: 'relative';
+    background: transparent;
+    display: 'flex';
+    justify-content: center;
+    line-height: 7;
+}
+
+/* .drop-down{
+    background: #E9F5FE;
+} */
+
+.app-logo{
+    color: #353535;
+    float: center;
+    font-size: large;
+    
+}
+
+.user-icon{
+    float: right;
+}
+
+
+.ant-menu-horizontal{
+  border-bottom: 0px;
+}
+
+.header-bar{
+  background: #E9F5FE;
+  height: 100px;
+}
+
+
+.logo2{
+  width:5em;
+  margin: 1em 0;
+}

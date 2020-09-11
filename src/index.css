@@ -1,6 +1,8 @@
 @import '~antd/dist/antd.css';
 @import "./App.css";
-
+@import "./styles/Header.css";
+@import "./styles/Main.css";
+@import "./styles/MapContainer.css";
 
 body {
   margin: 0;
