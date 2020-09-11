@@ -18,10 +18,10 @@ class Header extends Component{
         const { current } = this.state;
         return(
             <div>
-              <Row className = "header-bar">
+              <Row>
                 <Col span= {8}>
                   <Menu className="nav-search" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
-                      <SubMenu className="drop-down" icon={<BarsOutlined style={{fontSize: "35px", color: "#353535"}}/>}>
+                      <SubMenu className="drop-down" icon={<BarsOutlined style={{fontSize: "26px", color: "#353535"}}/>}>
                           <Menu.Item key="savedRoute">Saved Routes</Menu.Item>
                           <Menu.Item key="markedPoints">Marked Points History</Menu.Item>
                           <Menu.Item key="recommendation">Recommendation Routes</Menu.Item>
@@ -36,7 +36,7 @@ class Header extends Component{
                   <SubMenu 
                     className="user-icon" 
                     icon={<UserOutlined 
-                    style={{fontSize: "35px",color: "#353535"}}/>}>
+                    style={{fontSize: "26px",color: "#353535"}}/>}>
                     <Menu.Item key="logOut">Log out</Menu.Item>
                   </SubMenu>
                   </Menu>

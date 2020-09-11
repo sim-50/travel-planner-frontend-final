@@ -1,0 +1,7 @@
+.btn-group {
+    padding-bottom: 10px;
+}
+
+.btn-group label {
+    min-width: 110px;
+}
