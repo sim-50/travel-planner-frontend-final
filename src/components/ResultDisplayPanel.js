@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ImgContainer from './ImgContainer';
-import PlanerResult from './PlanerResult';
-import Search from './Search';
+import LocationOptionList from './LocationOptionList';
+import Filter from './Filter';
 
 class SearchPanel extends Component {
     state = {
@@ -40,8 +40,8 @@ class SearchPanel extends Component {
         return (
             <div className="container">
                 <ImgContainer cityImg={cityImg}/>
-                <Search />
-                <PlanerResult timeline={timeline} />
+                <Filter />
+                <LocationOptionList timeline={timeline} />
             </div>
         );
     }

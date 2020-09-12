@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MapContainer from './MapContainer';
-import SearchPanel from './SearchPanel';
+import ResultDisplayPanel from './ResultDisplayPanel';
 import Header from './Header';
 import '../styles/SearchResult.css';
 import { Row, Col } from 'antd';
@@ -21,7 +21,7 @@ class Main extends Component {
                 <Header />
                 <div className='main'>
                     <div className="left-side">
-                        <SearchPanel />
+                        <ResultDisplayPanel />
                     </div>
                     <div className="right-side">
                         <MapContainer />
