@@ -7,9 +7,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## lib installed for team use
 1. Ant Design(Sep 9, 2020) <br />
-$ npm install antd <br /> $ yarn add antd
-
+$ npm install antd <br /> 
+$ yarn add antd
 Check the link if you have any questions: https://ant.design/docs/react/introduce
+
+2. @reach/router(Sep 12 ,2020): React Router<br />
+npm install @reach/router<br />
+yarn add @reach/router
+
+
 
 ## Available Scripts
 
