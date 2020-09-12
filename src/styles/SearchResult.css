@@ -8,27 +8,31 @@
 }
 
 .main {
-    position: relative;
-    height: 780px;
+    display: flex;
 }
 
 .left-side {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 15px;
+    padding-top: 10px;
+}
+
+.left-side img {
+    margin-left: 5px;
+}
+
+.filterContainer {
+    padding:10px;
+    margin-left: 10px;
+    width: 440px !important;
+}
+
+.tableContainer {
+    margin-left: 10px;
+    max-width: 435px;
 }
 
 .right-side {
-    margin-left: 380px;
+    margin-left: 10px;
 }
 
-.btn-group {
-    padding-bottom: 10px;
-}
-
-.btn-group label {
-    min-width: 110px;
-}
 
 

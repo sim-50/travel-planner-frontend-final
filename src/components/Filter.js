@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Dropdown, Button, Radio, Input, message } from 'antd';
+import { Menu, Dropdown, Button, Input, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 const { Search: SearchField } = Input;
@@ -18,7 +18,7 @@ const menu = (
             Restaurant
         </Menu.Item>
         <Menu.Item key="3">
-            Hotel
+            Bar
         </Menu.Item>
     </Menu>
 );
@@ -26,22 +26,15 @@ const menu = (
 const Filter = () => {
     return (
         <div>
-            <div style={{ padding:10, display:"flex"}}>
+            <div className="filterContainer" style={{ display:"flex", width: 420}}>
                 <Dropdown overlay={menu}>
                     <Button>
-                        Filter <DownOutlined />
+                        Type <DownOutlined />
                     </Button>
                 </Dropdown>
 
                 <SearchField style={{marginLeft:10}} placeholder="input search text" onSearch={value => console.log(value)} enterButton />
             </div>
-            {/* <div className="btn-group">
-                <Radio.Group>
-                    <Radio.Button>name</Radio.Button>
-                    <Radio.Button>type</Radio.Button>
-                    <Radio.Button>description</Radio.Button>
-                </Radio.Group>
-            </div> */}
         </div>
     );
 }

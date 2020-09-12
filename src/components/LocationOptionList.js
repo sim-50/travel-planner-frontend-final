@@ -1,34 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { Timeline, Radio, List, Checkbox } from 'antd';
+import '../styles/SearchResult.css';
+import { Timeline, Radio, Checkbox, Table } from 'antd';
 
-//! mocking data
+// set the table header name
+const columns = [
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        // render: text => <a>{text}</a>,
+    },
+    {
+        title: 'Type',
+        dataIndex: 'type',
+    },
+    {
+        title: 'Description',
+        dataIndex: 'description',
+    },
+];
+
 const mockData = [
     {
-      title: 'Location Name 1',
+        key: '1',
+        name: 'LA Staple Center',
+        type: 'museum',
+        description: 'New York No. 1 Lake Park',
     },
     {
-      title: 'Location Name 2',
+        key: '2',
+        name: 'Jim Green',
+        type: 'bar',
+        description: 'London No. 1 Lake Park',
     },
     {
-      title: 'Location Name 3',
+        key: '3',
+        name: 'Joe Black',
+        type: 'restaurant',
+        description: 'Sidney No. 1 Lake Park',
     },
     {
-      title: 'Location Name 4',
+        key: '4',
+        name: 'Universal Park',
+        type: 'park',
+        description: 'Sidney No. 1 Lake Park',
     },
-  ];
+];
 
-function checkboxOnChange(e) {
-    console.log(`checked = ${e.target.checked}`);
-}
+// rowSelection object indicates the need for row selection
+const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    },
+    getCheckboxProps: record => ({
+        disabled: record.name === 'Disabled User', // Column configuration not to be checked
+        name: record.name,
+    }),
+};
 
 const LocationOptionList = () => {
     return (
-        1111
+        <div className='tableContainer'>
+            <Table
+            rowSelection={{ ...rowSelection }}
+            columns={columns}
+            dataSource={mockData}
+            />
+        </div>
     );
 }
-
 
 //! The traversal plan display style(for further consideration)
 // const LocationOptionList = ({ timeline }) => {
