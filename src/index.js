@@ -5,6 +5,6 @@ import './index.css';
 import App from './App';
 
 ReactDOM.render(
-  <SearchResult />,
+  <App />,
   document.getElementById('root')
 );
