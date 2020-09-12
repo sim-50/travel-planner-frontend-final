@@ -5,7 +5,7 @@ import Header from './Header';
 import '../styles/SearchResult.css';
 import { Row, Col } from 'antd';
 
-class Main extends Component {
+class SearchResult extends Component {
     render() {
         return (
             //TODO: replace the grid layout with below code
@@ -31,4 +31,4 @@ class Main extends Component {
         );
     }
 }
-export default Main;
+export default SearchResult;

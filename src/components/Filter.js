@@ -23,7 +23,7 @@ const menu = (
     </Menu>
 );
 
-const Search = () => {
+const Filter = () => {
     return (
         <div>
             <div style={{ padding:10, display:"flex"}}>
@@ -35,15 +35,15 @@ const Search = () => {
 
                 <SearchField style={{marginLeft:10}} placeholder="input search text" onSearch={value => console.log(value)} enterButton />
             </div>
-            <div className="btn-group">
+            {/* <div className="btn-group">
                 <Radio.Group>
                     <Radio.Button>name</Radio.Button>
                     <Radio.Button>type</Radio.Button>
                     <Radio.Button>description</Radio.Button>
                 </Radio.Group>
-            </div>
+            </div> */}
         </div>
     );
 }
 
-export default Search;
+export default Filter;

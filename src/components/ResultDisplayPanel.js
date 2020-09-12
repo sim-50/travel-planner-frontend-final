@@ -3,7 +3,7 @@ import ImgContainer from './ImgContainer';
 import LocationOptionList from './LocationOptionList';
 import Filter from './Filter';
 
-class SearchPanel extends Component {
+class ResultDisplayPanel extends Component {
     state = {
         cityName: "Los Angeles",
         cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
@@ -20,7 +20,7 @@ class SearchPanel extends Component {
             },
             {
                 id: 3,
-                name: "LA Downtown",
+                name: "Los Angeles is often characterized by the presence of low-rise buildings",
                 arrivedTime: "15:10:11"
             },
             {
@@ -30,7 +30,7 @@ class SearchPanel extends Component {
             },
             {
                 id: 5,
-                name: "Los Angeles is often characterized by the presence of low-rise buildings. Outside of a few centers such as Downtown, Warner Center, Century City, Koreatown, Miracle Mile, Hollywood, and Westwood, skyscrapers and high-rise buildings are not common.",
+                name: "LA Downtown",
                 arrivedTime: "17:10:11"
             },
         ]
@@ -47,4 +47,4 @@ class SearchPanel extends Component {
     }
 }
 
-export default SearchPanel;
+export default ResultDisplayPanel;
