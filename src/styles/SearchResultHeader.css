@@ -1,0 +1,53 @@
+.searchResult-container .ant-row {
+    flex-flow: nowrap;
+    height: 90px;
+    background-color:rgb(220, 234, 248);
+}
+
+.ant-col {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.ant-col ul {
+    background: transparent;
+    border-color: transparent;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px;
+}
+
+.nav-search{
+    position: 'relative';
+    background: transparent;
+    display: 'flex';
+    justify-content: center;
+    line-height: 7;
+}
+
+.app-logo{
+    color: #353535;
+    float: center;
+    font-size: large;
+}
+
+.user-icon{
+    float: right;
+}
+
+.ant-menu-horizontal{
+    border-bottom: 0px;
+}
+
+.header-bar{
+    background: #E9F5FE;
+    height: 100px;
+}
+
+.logo2{
+    width:5em;
+    margin: 1em 0;
+}
