@@ -7,12 +7,13 @@ import {Layout, Row, Col} from 'antd';
 
 const { Header, Content } = Layout;
 
-function App() {
+const App = () => {
   return (
     <Layout>
       <Header className = "home-header">
         <Row className = "row-class">
-          <Col span= {12}><img src= {Travel_planner_logo} className= "app-logo" alt="logo"/></Col>
+          <Col span= {12}>
+            <img src= {Travel_planner_logo} className= "app-logo" alt="logo"/></Col>
           <Col span= {12} className = "id-class">
             <span>Sign in</span>
             <img src= {User_icon} className= "user-icon" alt="user"/>
