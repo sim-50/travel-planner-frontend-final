@@ -1,13 +1,14 @@
 import React from 'react';
-import Main from './components/SearchResult';
+import Main from './components/Main';
 import Travel_planner_logo from './asset/image/travel_planner_logo.svg';
 import User_icon from './asset/image/user.svg';
 import {Layout, Row, Col} from 'antd';
+import './App.css';
 
 
 const { Header, Content } = Layout;
 
-function App() {
+const App = () => {
   return (
     <Layout>
       <Header className = "home-header">

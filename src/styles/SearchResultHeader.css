@@ -1,7 +1,17 @@
 .ant-row {
-  flex-flow: nowrap;
-  height: 90px;
-  background-color:rgba(78, 174, 253, 0.2);
+    flex-flow: nowrap;
+    height: 90px;
+    background-color:rgb(220, 234, 248);
+}
+
+.ant-col {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.ant-col ul {
+    background: transparent;
+    border-color: transparent;
 }
 
 .title {
@@ -11,7 +21,6 @@
 }
 
 .nav-search{
-    /* background: #E9F5FE; */
     position: 'relative';
     background: transparent;
     display: 'flex';
@@ -19,33 +28,26 @@
     line-height: 7;
 }
 
-/* .drop-down{
-    background: #E9F5FE;
-} */
-
 .app-logo{
     color: #353535;
     float: center;
     font-size: large;
-    
 }
 
 .user-icon{
     float: right;
 }
 
-
 .ant-menu-horizontal{
-  border-bottom: 0px;
+    border-bottom: 0px;
 }
 
 .header-bar{
-  background: #E9F5FE;
-  height: 100px;
+    background: #E9F5FE;
+    height: 100px;
 }
 
-
 .logo2{
-  width:5em;
-  margin: 1em 0;
+    width:5em;
+    margin: 1em 0;
 }

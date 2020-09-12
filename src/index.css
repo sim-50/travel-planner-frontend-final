@@ -1,6 +1,6 @@
 @import '~antd/dist/antd.css';
 @import "./App.css";
-@import "./styles/Header.css";
+@import "./styles/SearchResultHeader.css";
 @import "./styles/SearchResult.css";
 
 body {

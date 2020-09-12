@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Menu, Row, Col} from 'antd';
 import { BarsOutlined, UserOutlined } from '@ant-design/icons';
 import Travel_planner_logo from '../asset/image/travel_planner_logo.svg';
+import '../styles/SearchResultHeader.css';
 
-const { SubMenu } = Menu
-class Header extends Component{
+const { SubMenu } = Menu;
+class SearchResultHeader extends Component{
     state = {
         current: 'searchPage',
     };
@@ -47,4 +48,4 @@ class Header extends Component{
     }
 }
 
-export default Header;
+export default SearchResultHeader;

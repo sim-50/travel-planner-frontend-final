@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MapContainer from './MapContainer';
 import ResultDisplayPanel from './ResultDisplayPanel';
-import Header from './Header';
+import SearchResultHeader from './SearchResultHeader';
 import '../styles/SearchResult.css';
 import { Row, Col } from 'antd';
 
@@ -18,7 +18,7 @@ class SearchResult extends Component {
             //     </Col>
             // </Row>
             <div className='searchResult-container'>
-                <Header />
+                <SearchResultHeader />
                 <div className='main'>
                     <div className="left-side">
                         <ResultDisplayPanel />
