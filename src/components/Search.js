@@ -1,7 +1,6 @@
 import React from 'react';
-import '../styles/Search.css';
 import { Menu, Dropdown, Button, Radio, Input, message } from 'antd';
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 
 const { Search: SearchField } = Input;
 
@@ -12,14 +11,14 @@ function handleMenuClick(e) {
 
 const menu = (
     <Menu onClick={handleMenuClick}>
-        <Menu.Item key="1" icon={<UserOutlined />}>
-            1st menu item
+        <Menu.Item key="1">
+            Museum
         </Menu.Item>
-        <Menu.Item key="2" icon={<UserOutlined />}>
-            2nd menu item
+        <Menu.Item key="2">
+            Restaurant
         </Menu.Item>
-        <Menu.Item key="3" icon={<UserOutlined />}>
-            3rd menu item
+        <Menu.Item key="3">
+            Hotel
         </Menu.Item>
     </Menu>
 );

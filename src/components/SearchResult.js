@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import MapContainer from './MapContainer';
 import SearchPanel from './SearchPanel';
-import '../styles/Main.css';
+import Header from './Header';
+import '../styles/SearchResult.css';
 import { Row, Col } from 'antd';
 
 class Main extends Component {
@@ -16,13 +17,15 @@ class Main extends Component {
             //         <SearchPanel />
             //     </Col>
             // </Row>
-
-            <div className='main'>
-                <div className="left-side">
-                    <SearchPanel />
-                </div>
-                <div className="right-side">
-                    <MapContainer />
+            <div className='searchResult-container'>
+                <Header />
+                <div className='main'>
+                    <div className="left-side">
+                        <SearchPanel />
+                    </div>
+                    <div className="right-side">
+                        <MapContainer />
+                    </div>
                 </div>
             </div>
         );

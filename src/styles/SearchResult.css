@@ -1,0 +1,34 @@
+.searchResult-container {
+    text-align: center;
+    min-height: 100vh;
+    overflow: hidden;
+    display: block;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.main {
+    position: relative;
+    height: 780px;
+}
+
+.left-side {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 15px;
+}
+
+.right-side {
+    margin-left: 380px;
+}
+
+.btn-group {
+    padding-bottom: 10px;
+}
+
+.btn-group label {
+    min-width: 110px;
+}
+
+
