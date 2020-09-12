@@ -15,6 +15,8 @@ Check the link if you have any questions: https://ant.design/docs/react/introduc
 npm install @reach/router<br />
 yarn add @reach/router
 
+3. google map react library (Sep 12,2020)<br />
+npm install --save google-maps-react <br />
 
 
 ## Available Scripts
