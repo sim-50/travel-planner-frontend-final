@@ -10,9 +10,10 @@ class ResultDisplayPanel extends Component {
             <div className="container">
                 <ImgContainer cityImg={cityImg}/>
                 <LocationOptionList 
-                citySearchResult={citySearchResult} 
-                filterByName={this.props.filterByName} 
-                filterByType={this.props.filterByType} 
+                    onSelectionChange={this.props.onSelectionChange}
+                    citySearchResult={citySearchResult} 
+                    filterByName={this.props.filterByName} 
+                    filterByType={this.props.filterByType} 
                 />
             </div>
         );
