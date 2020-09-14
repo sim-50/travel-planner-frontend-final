@@ -10,11 +10,11 @@ import {
 
 const {Search} = Input;
 
-const Main = () => {  
+const Main = () => {
   return(
     <div>
         <Router>
-          <SearchResult path = "/searchResult"/>
+          <SearchResult path = "/searchResult/:city"/>
         </Router> 
         
         <Row className = "home-body">
@@ -27,7 +27,8 @@ const Main = () => {
                   <Search
                     className = "home-search_bar"
                     placeholder="Where do you want to go?"
-                    onSearch = {() => navigate(`/searchResult`)}
+                    onSearch = {(city) => {
+                      navigate(`/searchResult/`+city)}}
                   /> 
               </Col>
               <Col span={8}></Col>
