@@ -18,6 +18,8 @@ yarn add @reach/router
 3. google map react library (Sep 12,2020)<br />
 npm install --save google-maps-react <br />
 
+4. Axios (Sep 13, 2020) <br />
+npm install axios <br />
 
 ## Available Scripts
 
