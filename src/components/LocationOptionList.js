@@ -1,91 +1,99 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/SearchResult.css';
 import { Timeline, Radio, Checkbox, Table } from 'antd';
-import { Button, Tooltip} from 'antd';
-import { createFromIconfontCN } from '@ant-design/icons';
+import { Menu, Dropdown, Button, Input, message } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import '../styles/SearchResult.css';
 
-const IconFont = createFromIconfontCN({
-    scriptUrl: [
-      '//at.alicdn.com/t/font_2064551_fho540f8c18.js' // Search route icon
-    ],
-  });
+class LocationOptionList extends Component {
+    // set the table header name
+    columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            // render: text => <a>{text}</a>,
+        },
+        {
+            title: 'Type',
+            dataIndex: 'type',
+        },
+        {
+            title: 'Description',
+            dataIndex: 'description',
+        },
+    ];
+    
+    // rowSelection object indicates the need for row selection
+    rowSelection = {
+        onChange: (selectedRowKeys, selectedRows) => {
+            //* selectedRowKeys indicates the id for the selected row
+            //* selectedRows indicates the objects array of all the selected rows
+            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        },
+        getCheckboxProps: record => ({
+            disabled: record.name === 'Disabled User', // Column configuration not to be checked
+            name: record.name,
+        }),
+    };
 
-// const [numOfRows] = useState(0);
-// set the table header name
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        // render: text => <a>{text}</a>,
-    },
-    {
-        title: 'Type',
-        dataIndex: 'type',
-    },
-    {
-        title: 'Description',
-        dataIndex: 'description',
-    },
-];
+    //* filter by type
+    filterByType = (e) => {
+        const type = e.item.props.name;
 
-const mockData = [
-    {
-        key: '1',
-        name: 'LA Staple Center',
-        type: 'museum',
-        description: 'New York No. 1 Lake Park',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        type: 'bar',
-        description: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        type: 'restaurant',
-        description: 'Sidney No. 1 Lake Park',
-    },
-    {
-        key: '4',
-        name: 'Universal Park',
-        type: 'park',
-        description: 'Sidney No. 1 Lake Park',
-    },
-];
+        message.info('Display all ' + type + ' locations');
+        this.props.filterByType(type);
+    }
 
-// rowSelection object indicates the need for row selection
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-        console.log('selectedRows: ', selectedRows);
-        // [numOfRows] = useState(selectedRows.length);
-    },
-    getCheckboxProps: record => ({
-        disabled: record.name === 'Disabled User', // Column configuration not to be checked
-        name: record.name,
-    }),
-};
-
-const checkLength = (rows)=>{
-    return rows<2 ? true : false ;
-}
-
-const LocationOptionList = () => {
-    return (
-        <div className='tableContainer'>
-            <Table
-            rowSelection={{ ...rowSelection }}
-            columns={columns}
-            dataSource={mockData}
-            />
-            <Tooltip title="Search Route">
-                <Button className="search-route" type="primary" shape="circle" size="large" disabled={checkLength(3)} icon={<IconFont type="icon-route" style={{fontSize: "30px"}} />}></Button>
-            </Tooltip>
-        </div>
+    menu = (
+        <Menu onClick={this.filterByType}>
+            <Menu.Item key="1" name="">
+                All
+            </Menu.Item>
+            <Menu.Item key="2" name="museum">
+                Museum
+            </Menu.Item>
+            <Menu.Item key="3" name="restaurant">
+                Restaurant
+            </Menu.Item>
+            <Menu.Item key="4" name="bar">
+                Bar
+            </Menu.Item>
+        </Menu>
     );
+
+    //* filter by name
+    filterByName = (value) => {
+        this.props.filterByName(value);
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="filterContainer" style={{ display:"flex", width: 420}}>
+                    <Dropdown overlay={this.menu}>
+                        <Button>
+                            Type <DownOutlined />
+                        </Button>
+                    </Dropdown>
+
+                    <Input 
+                    style={{ marginLeft:10 }} 
+                    placeholder="filter by name or description" 
+                    onChange={e => this.filterByName(e.target.value)}   //? onChange or onSearch need to be discussed
+                    enterButton />
+                </div>
+
+                <div className='tableContainer'>
+                    <Table
+                    rowSelection={{ ...this.rowSelection }}
+                    columns={this.columns}
+                    dataSource={this.props.citySearchResult}
+                    />
+                </div>
+            </div>
+        );
+    }
 }
 
 //! The traversal plan display style(for further consideration)
@@ -122,7 +130,7 @@ const LocationOptionList = () => {
 // }
 
 LocationOptionList.propTypes = {
-    timeline: PropTypes.array.isRequired,
+    citySearchResult: PropTypes.array.isRequired,
 }
 
 export default LocationOptionList;
