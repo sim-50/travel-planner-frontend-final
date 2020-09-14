@@ -13,7 +13,7 @@ class App extends Component {
     cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
     citySearchResult: [
       {
-          key: '10',
+          key: '1',
           name: 'LA Staple Center',
           type: 'museum',
           description: 'New York No. 1 Lake Park',
@@ -26,6 +26,7 @@ class App extends Component {
           type: 'bar',
           description: 'London No. 1 Lake Park',
           display: true,
+          position:{lat: 51.5287714,lng: -0.2420238},
       },
       {
           key: '3',
@@ -33,6 +34,7 @@ class App extends Component {
           type: 'restaurant',
           description: 'Sidney No. 1 Lake Park',
           display: true,
+          position:{lat: -33.8779024,lng: 151.2086193},
       },
       {
           key: '4',
@@ -40,6 +42,7 @@ class App extends Component {
           type: 'park',
           description: 'Sidney No. 1 Lake Park',
           display: true,
+          position:{lat: -33.8473552,lng: 150.6511089},
       },
       {
         key: '5',
