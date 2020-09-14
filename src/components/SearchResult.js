@@ -8,21 +8,6 @@ import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
 class SearchResult extends Component {
-    constructor(){
-        super();
-        this.state={
-            selected: [],
-        }
-    }
-
-    updateSelected = (selectedRowKeys,selectedRows) => {
-        let { selected: selected } = this.state;
-        selected.length=0;
-        this.setState({
-            selected: selectedRows
-        })
-    }
-
     render() {
         const {cityImg, citySearchResult} = this.props;
 
@@ -42,16 +27,14 @@ class SearchResult extends Component {
                 <div className='main'>
                     <div className="left-side">
                         <ResultDisplayPanel 
-                            onSelectionChange={this.updateSelected}
-                            citySearchResult={citySearchResult} 
-                            cityImg={cityImg} 
-                            filterByName={this.props.filterByName} 
-                            filterByType={this.props.filterByType} 
+                        citySearchResult={citySearchResult} 
+                        cityImg={cityImg} 
+                        filterByName={this.props.filterByName} 
+                        filterByType={this.props.filterByType} 
                         />
                     </div>
                     <div className="right-side">
-                        <MapContainer 
-                            selected={this.state.selected}/>
+                        <MapContainer />
                     </div>
                 </div>
             </div>
