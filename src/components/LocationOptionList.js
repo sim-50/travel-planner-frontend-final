@@ -6,8 +6,6 @@ import { Menu, Dropdown, Button, Input, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import '../styles/SearchResult.css';
 
-const { Search: SearchField } = Input;
-
 class LocationOptionList extends Component {
     // set the table header name
     columns = [
@@ -79,7 +77,7 @@ class LocationOptionList extends Component {
                         </Button>
                     </Dropdown>
 
-                    <SearchField 
+                    <Input 
                     style={{ marginLeft:10 }} 
                     placeholder="filter by name" 
                     onChange={e => this.filterByName(e.target.value)}   //? onChange or onSearch need to be discussed
