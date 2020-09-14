@@ -48,7 +48,7 @@ class App extends Component {
     console.log(value);
     this.setState({
       citySearchResult: this.state.citySearchResult.map(res => {
-        if (res.name.indexOf(value) !== -1) {
+        if (res.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 || res.description.toLowerCase().indexOf(value.toLowerCase()) !== -1) {
           res.display = true;
         } else {
           res.display = false;
