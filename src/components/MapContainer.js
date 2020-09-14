@@ -7,23 +7,14 @@ const mapStyles = {
 };
 
 export class MapContainer extends Component {
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state={
             showingInfoWindow: false, //hides the infoWindow initially
             activeMarkers:{},
-            selectedPlaces:this.props.selected,
+            selectedPlaces:{}
         }
     }
-
-    componentDidUpdate(prevProps, prevState) {
-        const { selectedPlaces } = this.state
-        if(prevProps.selected !== this.props.selected) {
-            this.setState( {
-                selectedPlaces: this.props.selected
-            })
-        }
-      }
     
     onMarkerClick = (props, marker, e) =>{
         this.setState({
@@ -50,16 +41,17 @@ export class MapContainer extends Component {
                 lat: 34.0522342,
                 lng: -118.2436849
             }}>
-                {this.state.selectedPlaces.map((location,i) => {
-                    return (
-                        <Marker
-                            name={location.name}
-                            position={{ lat: location.position.lat, lng: location.position.lng }}
-                            onClick={this.onMarkerClick}
-                        />
-                    );
-                })}
-
+                <Marker 
+                    title={"The marker's title will appear as a tool tip."}
+                    name={'University of Southern California'}
+                    position={{lat:34.0224, lng:-118.2851 }}
+                />
+                <Marker
+                    name={'Chinatown LA'}
+                    position={{lat:34.0623, lng: -118.2383}}
+                />
+                {/* here is a marker with click listener */}
+                <Marker onClick={this.onMarkerClick} name={'Current location'} />
                 <InfoWindow 
                     marker={this.state.activeMarkers}
                     visible={this.state.showingInfoWindow}

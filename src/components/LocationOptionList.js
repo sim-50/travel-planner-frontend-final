@@ -5,7 +5,6 @@ import { Timeline, Radio, Checkbox, Table } from 'antd';
 import { Menu, Dropdown, Button, Input, message } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import '../styles/SearchResult.css';
-const { Search: SearchField } = Input;
 
 class LocationOptionList extends Component {
     // set the table header name
@@ -31,7 +30,6 @@ class LocationOptionList extends Component {
             //* selectedRowKeys indicates the id for the selected row
             //* selectedRows indicates the objects array of all the selected rows
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            this.props.onSelectionChange(selectedRowKeys, selectedRows);
         },
         getCheckboxProps: record => ({
             disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -75,7 +73,7 @@ class LocationOptionList extends Component {
                 <div className="filterContainer" style={{ display:"flex", width: 420}}>
                     <Dropdown overlay={this.menu}>
                         <Button>
-                             Type <DownOutlined />
+                            Type <DownOutlined />
                         </Button>
                     </Dropdown>
 
