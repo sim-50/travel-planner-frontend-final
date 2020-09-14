@@ -5,9 +5,12 @@ import ResultDisplayPanel from './ResultDisplayPanel';
 import SearchResultHeader from './SearchResultHeader';
 import '../styles/SearchResult.css';
 import { Row, Col } from 'antd';
+import PropTypes from 'prop-types';
 
 class SearchResult extends Component {
     render() {
+        const {cityImg, citySearchResult} = this.props;
+
         const url = `http://localhost:8080/travelplanner/search?city=Austin`;
         
         axios.get(url)
@@ -18,8 +21,23 @@ class SearchResult extends Component {
             console.log('err in fetch cityInfo -> ', error);
         })
         
-
         return (
+            <div className='searchResult-container'>
+                <SearchResultHeader />
+                <div className='main'>
+                    <div className="left-side">
+                        <ResultDisplayPanel 
+                        citySearchResult={citySearchResult} 
+                        cityImg={cityImg} 
+                        filterByName={this.props.filterByName} 
+                        filterByType={this.props.filterByType} 
+                        />
+                    </div>
+                    <div className="right-side">
+                        <MapContainer />
+                    </div>
+                </div>
+            </div>
             //TODO: replace the grid layout with below code
             // <Row>
             //     <Col span={18} push={6}>
@@ -29,18 +47,13 @@ class SearchResult extends Component {
             //         <SearchPanel />
             //     </Col>
             // </Row>
-            <div className='searchResult-container'>
-                <SearchResultHeader />
-                <div className='main'>
-                    <div className="left-side">
-                        <ResultDisplayPanel />
-                    </div>
-                    <div className="right-side">
-                        <MapContainer />
-                    </div>
-                </div>
-            </div>
         );
     }
 }
+
+SearchResult.propTypes = {
+    citySearchResult: PropTypes.array.isRequired,
+    cityImg: PropTypes.string.isRequired,
+}
+
 export default SearchResult;
