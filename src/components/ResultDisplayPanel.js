@@ -35,13 +35,18 @@ class ResultDisplayPanel extends Component {
             },
         ]
     }
+
     render() {
         const { cityImg, timeline } = this.state;
         return (
             <div className="container">
                 <ImgContainer cityImg={cityImg}/>
                 <Filter />
-                <LocationOptionList timeline={timeline} />
+                <LocationOptionList 
+                    timeline={timeline} 
+                    resultCityList={this.props.resultCityList}
+                    onSelectionChange={this.props.onSelectionChange}
+                    />
             </div>
         );
     }

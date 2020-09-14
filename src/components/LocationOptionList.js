@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,Component } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/SearchResult.css';
 import { Timeline, Radio, Checkbox, Table } from 'antd';
@@ -45,29 +45,55 @@ const mockData = [
         type: 'park',
         description: 'Sidney No. 1 Lake Park',
     },
+    {
+        key: '5',
+        name: 'Chinatown LA',
+        type: 'park',
+        description: 'Sidney No. 1 Lake Park',
+        position:{lat:34.0623, lng: -118.2383}
+    },
 ];
 
 // rowSelection object indicates the need for row selection
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-    getCheckboxProps: record => ({
-        disabled: record.name === 'Disabled User', // Column configuration not to be checked
-        name: record.name,
-    }),
-};
+// const rowSelection = {
+//     onChange: (selectedRowKeys, selectedRows) => {
+//         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+//     },
+//     getCheckboxProps: record => ({
+//         disabled: record.name === 'Disabled User', // Column configuration not to be checked
+//         name: record.name,
+//     }),
+// };
 
-const LocationOptionList = () => {
-    return (
-        <div className='tableContainer'>
-            <Table
-            rowSelection={{ ...rowSelection }}
-            columns={columns}
-            dataSource={mockData}
-            />
-        </div>
-    );
+class LocationOptionList extends Component  {
+
+    state = {
+        selectedRowKeys: [],
+      };
+    
+    onChange = (selectedRowKeys,selectedRows) => {
+        this.setState({ selectedRowKeys });
+        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        this.props.onSelectionChange(selectedRowKeys, selectedRows);
+    }
+
+    render(){
+        const { selectedRowKeys } = this.state;
+        const rowSelection = {
+            selectedRowKeys,
+            onChange: this.onChange,
+          };
+        return (
+            <div className='tableContainer'>
+                <Table
+                rowSelection={rowSelection}
+                columns={columns}
+                dataSource={this.props.resultCityList}
+                />
+            </div>
+        );
+    }
+    
 }
 
 //! The traversal plan display style(for further consideration)
