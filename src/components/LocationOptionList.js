@@ -2,7 +2,16 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/SearchResult.css';
 import { Timeline, Radio, Checkbox, Table } from 'antd';
+import { Button, Tooltip} from 'antd';
+import { createFromIconfontCN } from '@ant-design/icons';
 
+const IconFont = createFromIconfontCN({
+    scriptUrl: [
+      '//at.alicdn.com/t/font_2064551_fho540f8c18.js' // Search route icon
+    ],
+  });
+
+// const [numOfRows] = useState(0);
 // set the table header name
 const columns = [
     {
@@ -51,12 +60,18 @@ const mockData = [
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
         console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+        console.log('selectedRows: ', selectedRows);
+        // [numOfRows] = useState(selectedRows.length);
     },
     getCheckboxProps: record => ({
         disabled: record.name === 'Disabled User', // Column configuration not to be checked
         name: record.name,
     }),
 };
+
+const checkLength = (rows)=>{
+    return rows<2 ? true : false ;
+}
 
 const LocationOptionList = () => {
     return (
@@ -66,6 +81,9 @@ const LocationOptionList = () => {
             columns={columns}
             dataSource={mockData}
             />
+            <Tooltip title="Search Route">
+                <Button className="search-route" type="primary" shape="circle" size="large" disabled={checkLength(3)} icon={<IconFont type="icon-route" style={{fontSize: "30px"}} />}></Button>
+            </Tooltip>
         </div>
     );
 }
