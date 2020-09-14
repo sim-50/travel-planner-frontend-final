@@ -18,12 +18,10 @@ export class MapContainer extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         const { selectedPlaces } = this.state
-        console.log('old selectedPlaces: ', selectedPlaces);
         if(prevProps.selected !== this.props.selected) {
             this.setState( {
                 selectedPlaces: this.props.selected
             })
-            console.log('updated selectedPlaces: ', selectedPlaces);
         }
       }
     
@@ -53,8 +51,6 @@ export class MapContainer extends Component {
                 lng: -118.2436849
             }}>
                 {this.state.selectedPlaces.map((location,i) => {
-                    console.log('show marker: ', location);
-                    console.log('name: ', location.name);
                     return (
                         <Marker
                             name={location.name}
