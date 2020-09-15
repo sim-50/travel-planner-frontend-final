@@ -8,7 +8,23 @@ import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
 class SearchResult extends Component {
+    constructor(){
+        super();
+        this.state={
+            selected: [],
+        }
+    }
+
+    updateSelected = (selectedRowKeys,selectedRows) => {
+        let { selected } = this.state;
+        selected.length=0;
+        this.setState({
+            selected: selectedRows
+        })
+    }
+
     render() {
+        const { selected } = this.state;
         const {cityImg, citySearchResult} = this.props;
 
         const url = `http://localhost:8080/travelplanner/search?city=Austin`;
@@ -27,14 +43,18 @@ class SearchResult extends Component {
                 <div className='main'>
                     <div className="left-side">
                         <ResultDisplayPanel 
+                        onSelectionChange={this.updateSelected}
                         citySearchResult={citySearchResult} 
                         cityImg={cityImg} 
                         filterByName={this.props.filterByName} 
-                        filterByType={this.props.filterByType} 
+                        filterByType={this.props.filterByType}
+                        selectedList={selected}
                         />
                     </div>
                     <div className="right-side">
-                        <MapContainer />
+                        <MapContainer 
+                        selected={selected} 
+                        />
                     </div>
                 </div>
             </div>
