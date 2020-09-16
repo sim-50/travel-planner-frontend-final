@@ -54,6 +54,7 @@ export class MapContainer extends Component {
                 {this.state.selectedPlaces.map((location,i) => {
                     return (
                         <Marker
+                            key={location.key}
                             name={location.name}
                             position={{ lat: location.position.lat, lng: location.position.lng }}
                             onClick={this.onMarkerClick}
