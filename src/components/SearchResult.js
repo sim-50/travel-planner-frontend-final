@@ -1,59 +1,137 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import MapContainer from './MapContainer';
-import ResultDisplayPanel from './ResultDisplayPanel';
-import SearchResultHeader from './SearchResultHeader';
-import '../styles/SearchResult.css';
-import { Row, Col } from 'antd';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import axios from "axios";
+import MapContainer from "./MapContainer";
+import ResultDisplayPanel from "./ResultDisplayPanel";
+import SearchResultHeader from "./SearchResultHeader";
+import "../styles/SearchResult.css";
+import { Row, Col } from "antd";
 
 class SearchResult extends Component {
-    constructor(){
-        super();
-        this.state={
-            selected: [],
-        }
-    }
+    state = {
+        cityName: "Los Angeles",
+        cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
+        citySearchResult: [
+            {
+                key: "1",
+                name: "LA Staple Center",
+                type: "museum",
+                description: "New York No. 1 Lake Park",
+                display: true,
+                checked: false,
+                position: { lat: 34.0430219, lng: -118.2694428 },
+            },
+            {
+                key: "2",
+                name: "Jim Green",
+                type: "bar",
+                description: "London No. 1 Lake Park",
+                display: true,
+                checked: false,
+            },
+            {
+                key: "3",
+                name: "Joe Black",
+                type: "restaurant",
+                description: "Sidney No. 1 Lake Park",
+                display: true,
+                checked: false,
+            },
+            {
+                key: "4",
+                name: "Universal Park",
+                type: "park",
+                description: "Sidney No. 1 Lake Park",
+                display: true,
+                checked: false,
+            },
+            {
+                key: "5",
+                name: "University of Southern California",
+                type: "university",
+                description: "University",
+                display: true,
+                checked: false,
+                position: { lat: 34.0236816, lng: -118.3013553 },
+            },
+            {
+                key: "6",
+                name: "Chinatown LA",
+                type: "park",
+                description: "Chinatown",
+                display: true,
+                checked: false,
+                position: { lat: 34.0623, lng: -118.2383 },
+            },
+        ],
+        filterTypeName: "",
+    };
 
-    updateSelected = (selectedRowKeys,selectedRows) => {
-        let { selected } = this.state;
-        selected.length=0;
+    filterByName = (value) => {
         this.setState({
-            selected: selectedRows
+            citySearchResult: this.state.citySearchResult.map((res) => {
+                if (
+                    res.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
+                    res.description.toLowerCase().indexOf(value.toLowerCase()) !== -1
+                ) {
+                    res.display = true;
+                } else {
+                    res.display = false;
+                }
+                return res;
+            }),
+        });
+    };
+
+    filterByType = (type) => {
+        this.setState({
+            filterTypeName: type,
+        });
+    };
+
+    updateSelectedLocation = (selectedRowKeys) => {
+        this.setState({
+            citySearchResult: this.state.citySearchResult.map(res => {
+                if (selectedRowKeys.includes(res.key)) {
+                    res.checked = true;
+                } else {
+                    res.checked = false;
+                }
+                return res;
+            }),
         })
     }
 
     render() {
-        const { selected } = this.state;
-        const {cityImg, citySearchResult} = this.props;
-
+        const { cityImg, citySearchResult } = this.state;
+        
         const url = `http://localhost:8080/travelplanner/search?city=Austin`;
-        
-        axios.get(url)
-        .then(response => {
-            console.log(response.data)
-        })
-        .catch(error => {
-            console.log('err in fetch cityInfo -> ', error);
-        })
-        
+
+        axios
+            .get(url)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log("err in fetch cityInfo -> ", error);
+            });
+
         return (
-            <div className='searchResult-container'>
+            <div className="searchResult-container">
                 <SearchResultHeader />
-                <div className='main'>
+                <div className="main">
                     <div className="left-side">
-                        <ResultDisplayPanel 
-                        onSelectionChange={this.updateSelected}
-                        citySearchResult={citySearchResult} 
-                        cityImg={cityImg} 
-                        filterByName={this.props.filterByName} 
-                        filterByType={this.props.filterByType}
-                        selectedList={selected}
+                        <ResultDisplayPanel
+                            updateSelectedLocation={this.updateSelectedLocation}
+                            citySearchResult={citySearchResult.filter(res => res.display === true && (res.type === this.state.filterTypeName || !this.state.filterTypeName))}
+                            cityImg={cityImg}
+                            filterByName={this.filterByName}
+                            filterByType={this.filterByType}
+                            selectedList={citySearchResult.filter(item => item.checked === true)}
                         />
                     </div>
                     <div className="right-side">
                         <MapContainer 
-                        selected={selected} 
+                            selected={citySearchResult.filter(item => item.checked === true)} 
                         />
                     </div>
                 </div>
@@ -69,11 +147,6 @@ class SearchResult extends Component {
             // </Row>
         );
     }
-}
-
-SearchResult.propTypes = {
-    citySearchResult: PropTypes.array.isRequired,
-    cityImg: PropTypes.string.isRequired,
 }
 
 export default SearchResult;

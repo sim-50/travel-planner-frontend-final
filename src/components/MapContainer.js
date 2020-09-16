@@ -11,8 +11,8 @@ export class MapContainer extends Component {
         super(props);
         this.state={
             showingInfoWindow: false, //hides the infoWindow initially
-            activeMarkers:{},
-            selectedPlaces:this.props.selected,
+            activeMarkers: {},
+            selectedPlaces: this.props.selected,
         }
     }
     
@@ -34,7 +34,7 @@ export class MapContainer extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { selectedPlaces } = this.state
+        const { selectedPlaces } = this.state;
         if(prevProps.selected !== this.props.selected) {
             this.setState( {
                 selectedPlaces: this.props.selected
