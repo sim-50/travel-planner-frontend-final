@@ -32,11 +32,13 @@ class LocationOptionList extends Component {
     
     // rowSelection object indicates the need for row selection
     rowSelection = {
+        preserveSelectedRowKeys: true,              //* Keep selection key even when it removed from dataSource
         onChange: (selectedRowKeys, selectedRows) => {
             //* selectedRowKeys indicates the id for the selected row
             //* selectedRows indicates the objects array of all the selected rows
-            console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            this.props.onSelectionChange(selectedRowKeys, selectedRows);
+            //console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            this.props.updateSelectedLocation(selectedRowKeys);
+            console.log(selectedRowKeys);
         },
         getCheckboxProps: record => ({
             disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -75,7 +77,7 @@ class LocationOptionList extends Component {
     }
 
     render() {
-        const {selectedList} = this.props;
+        const { citySearchResult, selectedList } = this.props;
         return (
             <div>
                 <div className="filterContainer" style={{ display:"flex", width: 420}}>
@@ -86,21 +88,25 @@ class LocationOptionList extends Component {
                     </Dropdown>
 
                     <Input 
-                    style={{ marginLeft:10 }} 
-                    placeholder="filter by name or description" 
-                    onChange={e => this.filterByName(e.target.value)}   //? onChange or onSearch need to be discussed
-                    enterButton />
+                        style={{ marginLeft:10 }} 
+                        placeholder="filter by name or description" 
+                        onChange={e => this.filterByName(e.target.value)}   //? onChange or onSearch need to be discussed
+                        enterButton 
+                    />
                 </div>
 
                 <div className='tableContainer'>
                     <Table
-                    rowSelection={{ ...this.rowSelection }}
-                    columns={this.columns}
-                    dataSource={this.props.citySearchResult}
-                    rowKey={record => record.id}
+                        rowSelection={{ ...this.rowSelection }}
+                        columns={this.columns}
+                        dataSource={citySearchResult}
                     />
                     <Tooltip title="Search Route">
-                        <Button className="search-route" type="primary" shape="circle" size="large" disabled={selectedList.length < 2 ? true : false} icon={<IconFont type="icon-route" style={{fontSize: "40px"}} />}></Button>
+                        <Button 
+                            className="search-route" type="primary" shape="circle" size="large" 
+                            disabled={selectedList.length < 2 ? true : false} 
+                            icon={<IconFont type="icon-route" style={{fontSize: "40px"}} 
+                            />}></Button>
                     </Tooltip>
                 </div>
             </div>
