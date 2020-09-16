@@ -97,6 +97,7 @@ class LocationOptionList extends Component {
                     rowSelection={{ ...this.rowSelection }}
                     columns={this.columns}
                     dataSource={this.props.citySearchResult}
+                    rowKey={record => record.id}
                     />
                     <Tooltip title="Search Route">
                         <Button className="search-route" type="primary" shape="circle" size="large" disabled={selectedList.length < 2 ? true : false} icon={<IconFont type="icon-route" style={{fontSize: "40px"}} />}></Button>

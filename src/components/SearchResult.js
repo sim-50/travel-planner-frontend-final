@@ -12,6 +12,7 @@ class SearchResult extends Component {
         super();
         this.state={
             selected: [],
+            unselected: citySearchResult,
         }
     }
 

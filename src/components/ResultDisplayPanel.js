@@ -5,16 +5,16 @@ import PropTypes from 'prop-types';
 
 class ResultDisplayPanel extends Component {
     render() {
-        const {cityImg, citySearchResult} = this.props;
+        const {cityImg, citySearchResult, selectedList} = this.props;
         return (
             <div className="container">
                 <ImgContainer cityImg={cityImg}/>
                 <LocationOptionList
-                onSelectionChange={this.props.onSelectionChange} 
-                selectedList={this.props.selectedList}
-                citySearchResult={citySearchResult} 
-                filterByName={this.props.filterByName} 
-                filterByType={this.props.filterByType} 
+                    updateSelectedLocation={this.props.updateSelectedLocation} 
+                    selectedList={selectedList}
+                    citySearchResult={citySearchResult} 
+                    filterByName={this.props.filterByName} 
+                    filterByType={this.props.filterByType} 
                 />
             </div>
         );
