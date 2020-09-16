@@ -11,19 +11,10 @@ export class MapContainer extends Component {
         super(props);
         this.state={
             showingInfoWindow: false, //hides the infoWindow initially
-            activeMarkers:{},
-            selectedPlaces:this.props.selected,
+            activeMarkers: {},
+            selectedPlaces: this.props.selected,
         }
     }
-
-    componentDidUpdate(prevProps, prevState) {
-        const { selectedPlaces } = this.state
-        if(prevProps.selected !== this.props.selected) {
-            this.setState( {
-                selectedPlaces: this.props.selected
-            })
-        }
-      }
     
     onMarkerClick = (props, marker, e) =>{
         this.setState({
@@ -41,6 +32,16 @@ export class MapContainer extends Component {
             });
         }
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        const { selectedPlaces } = this.state;
+        if(prevProps.selected !== this.props.selected) {
+            this.setState( {
+                selectedPlaces: this.props.selected
+            })
+        }
+    }
+
     render() {
         return (
             <Map google={this.props.google}
@@ -60,7 +61,17 @@ export class MapContainer extends Component {
                         />
                     );
                 })}
-
+                {/* <Marker 
+                    title={"The marker's title will appear as a tool tip."}
+                    name={'University of Southern California'}
+                    position={{lat:34.0224, lng:-118.2851 }}
+                />
+                <Marker
+                    name={'Chinatown LA'}
+                    position={{lat:34.0623, lng: -118.2383}}
+                /> */}
+                {/* here is a marker with click listener */}
+                {/* <Marker onClick={this.onMarkerClick} name={'Current location'} /> */}
                 <InfoWindow 
                     marker={this.state.activeMarkers}
                     visible={this.state.showingInfoWindow}
