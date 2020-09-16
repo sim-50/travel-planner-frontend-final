@@ -16,10 +16,16 @@ class SearchResult extends Component {
     }
 
     updateSelected = (selectedRowKeys,selectedRows) => {
-        let { selected } = this.state;
-        selected.length=0;
+        let {selected: list} = this.state;
+        let latestSelection = selectedRows.filter(item => !list.includes(item));
+        if (latestSelection.length !== 0) {
+            list.push(latestSelection[0]);
+        } else {
+            list = list.filter(item => selectedRows.incldues(item));
+        }
+        console.log(list);
         this.setState({
-            selected: selectedRows
+            selected: list,
         })
     }
 
