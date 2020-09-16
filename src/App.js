@@ -13,11 +13,12 @@ class App extends Component {
     cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
     citySearchResult: [
       {
-          key: '10',
+          key: '1',
           name: 'LA Staple Center',
           type: 'museum',
           description: 'New York No. 1 Lake Park',
           display: true,
+          position:{lat:34.0430219, lng: -118.2694428},
       },
       {
           key: '2',
@@ -39,6 +40,22 @@ class App extends Component {
           type: 'park',
           description: 'Sidney No. 1 Lake Park',
           display: true,
+      },
+      {
+        key: '5',
+        name: 'University of Southern California',
+        type: 'university',
+        description: 'University',
+        display: true,
+        position:{lat:34.0236816, lng: -118.3013553},
+      },
+      {
+        key: '6',
+        name: 'Chinatown LA',
+        type: 'park',
+        description: 'Chinatown',
+        display: true,
+        position:{lat:34.0623, lng: -118.2383},
       },
     ],
     filterTypeName: '',

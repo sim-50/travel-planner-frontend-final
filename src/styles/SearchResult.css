@@ -34,5 +34,24 @@
     margin-left: 10px;
 }
 
+.search-route {
+    float: right;
+    margin-right: 15px;
+    color: #fff;
+    min-width: 75px !important;
+    min-height: 75px !important;
+}
+
+button.search-route{
+    background: transparent;
+    background-color:#4188E8;
+    
+}
+
+button.ant-btn-lg{
+    width: 75px !important;
+    height: 75px !important;
+}
+
 
 

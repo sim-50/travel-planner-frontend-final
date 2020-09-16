@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/SearchResult.css';
 import { Timeline, Radio, Checkbox, Table } from 'antd';
-import { Menu, Dropdown, Button, Input, message } from 'antd';
+import { Menu, Dropdown, Button, Input, message, Tooltip } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import '../styles/SearchResult.css';
+import { createFromIconfontCN } from '@ant-design/icons';
+
+const IconFont = createFromIconfontCN({
+    scriptUrl: [
+      '//at.alicdn.com/t/font_2064551_fho540f8c18.js' // Search route icon
+    ],
+  });
 
 class LocationOptionList extends Component {
     // set the table header name
@@ -30,6 +36,7 @@ class LocationOptionList extends Component {
             //* selectedRowKeys indicates the id for the selected row
             //* selectedRows indicates the objects array of all the selected rows
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            this.props.onSelectionChange(selectedRowKeys, selectedRows);
         },
         getCheckboxProps: record => ({
             disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -68,6 +75,7 @@ class LocationOptionList extends Component {
     }
 
     render() {
+        const {selectedList} = this.props;
         return (
             <div>
                 <div className="filterContainer" style={{ display:"flex", width: 420}}>
@@ -90,6 +98,9 @@ class LocationOptionList extends Component {
                     columns={this.columns}
                     dataSource={this.props.citySearchResult}
                     />
+                    <Tooltip title="Search Route">
+                        <Button className="search-route" type="primary" shape="circle" size="large" disabled={selectedList.length < 2 ? true : false} icon={<IconFont type="icon-route" style={{fontSize: "40px"}} />}></Button>
+                    </Tooltip>
                 </div>
             </div>
         );

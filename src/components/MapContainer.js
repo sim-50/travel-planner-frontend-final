@@ -7,12 +7,12 @@ const mapStyles = {
 };
 
 export class MapContainer extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
             showingInfoWindow: false, //hides the infoWindow initially
             activeMarkers:{},
-            selectedPlaces:{}
+            selectedPlaces:this.props.selected,
         }
     }
     
@@ -32,6 +32,16 @@ export class MapContainer extends Component {
             });
         }
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        const { selectedPlaces } = this.state
+        if(prevProps.selected !== this.props.selected) {
+            this.setState( {
+                selectedPlaces: this.props.selected
+            })
+        }
+    }
+
     render() {
         return (
             <Map google={this.props.google}
@@ -41,7 +51,16 @@ export class MapContainer extends Component {
                 lat: 34.0522342,
                 lng: -118.2436849
             }}>
-                <Marker 
+                {this.state.selectedPlaces.map((location,i) => {
+                    return (
+                        <Marker
+                            name={location.name}
+                            position={{ lat: location.position.lat, lng: location.position.lng }}
+                            onClick={this.onMarkerClick}
+                        />
+                    );
+                })}
+                {/* <Marker 
                     title={"The marker's title will appear as a tool tip."}
                     name={'University of Southern California'}
                     position={{lat:34.0224, lng:-118.2851 }}
@@ -49,9 +68,9 @@ export class MapContainer extends Component {
                 <Marker
                     name={'Chinatown LA'}
                     position={{lat:34.0623, lng: -118.2383}}
-                />
+                /> */}
                 {/* here is a marker with click listener */}
-                <Marker onClick={this.onMarkerClick} name={'Current location'} />
+                {/* <Marker onClick={this.onMarkerClick} name={'Current location'} /> */}
                 <InfoWindow 
                     marker={this.state.activeMarkers}
                     visible={this.state.showingInfoWindow}
