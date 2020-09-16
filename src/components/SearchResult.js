@@ -11,8 +11,7 @@ class SearchResult extends Component {
     constructor(){
         super();
         this.state={
-            selected: [],
-            unselected: citySearchResult,
+            selected: []
         }
     }
 
@@ -22,7 +21,7 @@ class SearchResult extends Component {
         if (latestSelection.length !== 0) {
             list.push(latestSelection[0]);
         } else {
-            list = list.filter(item => selectedRows.incldues(item));
+            list = list.filter(item => selectedRows.includes(item));
         }
         console.log(list);
         this.setState({
