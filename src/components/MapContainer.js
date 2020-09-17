@@ -56,7 +56,7 @@ export class MapContainer extends Component {
                         <Marker
                             key={location.key}
                             name={location.name}
-                            position={{ lat: location.position.lat, lng: location.position.lng }}
+                            position={{ lat: location.geometry.location.lat, lng: location.geometry.location.lng }}
                             onClick={this.onMarkerClick}
                         />
                     );

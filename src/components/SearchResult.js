@@ -10,59 +10,7 @@ class SearchResult extends Component {
     state = {
         cityName: "Los Angeles",
         cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
-        citySearchResult: [
-            {
-                key: "1",
-                name: "LA Staple Center",
-                type: "museum",
-                description: "New York No. 1 Lake Park",
-                display: true,
-                checked: false,
-                position: { lat: 34.0430219, lng: -118.2694428 },
-            },
-            {
-                key: "2",
-                name: "Jim Green",
-                type: "bar",
-                description: "London No. 1 Lake Park",
-                display: true,
-                checked: false,
-            },
-            {
-                key: "3",
-                name: "Joe Black",
-                type: "restaurant",
-                description: "Sidney No. 1 Lake Park",
-                display: true,
-                checked: false,
-            },
-            {
-                key: "4",
-                name: "Universal Park",
-                type: "park",
-                description: "Sidney No. 1 Lake Park",
-                display: true,
-                checked: false,
-            },
-            {
-                key: "5",
-                name: "University of Southern California",
-                type: "university",
-                description: "University",
-                display: true,
-                checked: false,
-                position: { lat: 34.0236816, lng: -118.3013553 },
-            },
-            {
-                key: "6",
-                name: "Chinatown LA",
-                type: "park",
-                description: "Chinatown",
-                display: true,
-                checked: false,
-                position: { lat: 34.0623, lng: -118.2383 },
-            },
-        ],
+        citySearchResult: [],
         filterTypeName: "",
     };
 
@@ -101,19 +49,27 @@ class SearchResult extends Component {
         })
     }
 
-    render() {
-        const { cityImg, citySearchResult } = this.state;
-        
+    componentDidMount() {
         const url = `http://localhost:8080/travelplanner/search?city=Austin`;
 
         axios
             .get(url)
             .then((response) => {
-                console.log(response.data);
+                console.log('response: ',response.data.responseObj.results);
+                this.setState({
+                    citySearchResult: response.data.responseObj.results,
+                });
+                console.log('state citySearchResult: ',this.state.citySearchResult);
             })
             .catch((error) => {
                 console.log("err in fetch cityInfo -> ", error);
             });
+    }
+
+    render() {
+        const { cityImg, citySearchResult } = this.state;
+        
+        
 
         return (
             <div className="searchResult-container">
@@ -150,3 +106,56 @@ class SearchResult extends Component {
 }
 
 export default SearchResult;
+
+
+// {
+//     key: "1",
+//     name: "LA Staple Center",
+//     type: "museum",
+//     description: "New York No. 1 Lake Park",
+//     display: true,
+//     checked: false,
+//     position: { lat: 34.0430219, lng: -118.2694428 },
+// },
+// {
+//     key: "2",
+//     name: "Jim Green",
+//     type: "bar",
+//     description: "London No. 1 Lake Park",
+//     display: true,
+//     checked: false,
+// },
+// {
+//     key: "3",
+//     name: "Joe Black",
+//     type: "restaurant",
+//     description: "Sidney No. 1 Lake Park",
+//     display: true,
+//     checked: false,
+// },
+// {
+//     key: "4",
+//     name: "Universal Park",
+//     type: "park",
+//     description: "Sidney No. 1 Lake Park",
+//     display: true,
+//     checked: false,
+// },
+// {
+//     key: "5",
+//     name: "University of Southern California",
+//     type: "university",
+//     description: "University",
+//     display: true,
+//     checked: false,
+//     position: { lat: 34.0236816, lng: -118.3013553 },
+// },
+// {
+//     key: "6",
+//     name: "Chinatown LA",
+//     type: "park",
+//     description: "Chinatown",
+//     display: true,
+//     checked: false,
+//     position: { lat: 34.0623, lng: -118.2383 },
+// },
