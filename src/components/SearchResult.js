@@ -80,11 +80,7 @@ class SearchResult extends Component {
                     <div className="left-side">
                         <ResultDisplayPanel
                             updateSelectedLocation={this.updateSelectedLocation}
-                            citySearchResult={citySearchResult.filter(
-                                (res) => {
-                                console.log(res);
-                                return res.display === true && (res.types.includes(this.state.filterTypeName) || !this.state.filterTypeName);
-                            })}
+                            citySearchResult={citySearchResult.filter(res => res.display === true && (res.types.includes(this.state.filterTypeName) || !this.state.filterTypeName))}
                             allTypes = {allTypes}
                             cityImg={cityImg}
                             filterByName={this.filterByName}
