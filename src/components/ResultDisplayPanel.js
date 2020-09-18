@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 class ResultDisplayPanel extends Component {
     render() {
-        const {cityImg, citySearchResult, selectedList} = this.props;
+        const {cityImg, citySearchResult, selectedList, allTypes } = this.props;
         return (
             <div className="container">
                 <ImgContainer cityImg={cityImg}/>
@@ -13,6 +13,7 @@ class ResultDisplayPanel extends Component {
                     updateSelectedLocation={this.props.updateSelectedLocation} 
                     selectedList={selectedList}
                     citySearchResult={citySearchResult} 
+                    allTypes = {allTypes}
                     filterByName={this.props.filterByName} 
                     filterByType={this.props.filterByType} 
                 />
@@ -24,6 +25,7 @@ class ResultDisplayPanel extends Component {
 ResultDisplayPanel.propTypes = {
     citySearchResult: PropTypes.array.isRequired,
     cityImg: PropTypes.string.isRequired,
+    allTypes: PropTypes.array.isRequired,
 }
 
 export default ResultDisplayPanel;

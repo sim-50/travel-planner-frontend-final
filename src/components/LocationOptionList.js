@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/SearchResult.css';
 import { Timeline, Radio, Checkbox, Table } from 'antd';
-import { Menu, Dropdown, Button, Input, message, Tooltip } from 'antd';
+import { Menu, Dropdown, Button, Input, message, Tooltip, Tag } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { createFromIconfontCN } from '@ant-design/icons';
 
@@ -22,7 +22,14 @@ class LocationOptionList extends Component {
         },
         {
             title: 'Type',
-            dataIndex: 'type',
+            dataIndex: 'types',
+            render: types => types.map((key, index) => {
+                return (
+                    <Tag key={index} name={key}>
+                        {key}
+                    </Tag>
+                )
+            })
         },
         {
             title: 'Description',
@@ -50,34 +57,34 @@ class LocationOptionList extends Component {
         this.props.filterByType(type);
     }
 
-    menu = (
-        <Menu onClick={this.filterByType}>
-            <Menu.Item key="1" name="">
-                All
-            </Menu.Item>
-            <Menu.Item key="2" name="museum">
-                Museum
-            </Menu.Item>
-            <Menu.Item key="3" name="restaurant">
-                Restaurant
-            </Menu.Item>
-            <Menu.Item key="4" name="bar">
-                Bar
-            </Menu.Item>
-        </Menu>
-    );
-
     //* filter by name
     filterByName = (value) => {
         this.props.filterByName(value);
     }
 
     render() {
-        const { citySearchResult, selectedList } = this.props;
+        const { citySearchResult, selectedList, allTypes } = this.props;
+
+        const menus = allTypes.map((key, index) => {
+            return (
+              <Menu.Item key={index} name={key}>
+                {key}
+              </Menu.Item>
+            )
+          });
+
+        const menu = () => {
+            return (
+                <Menu>
+                    {menus}
+                </Menu>
+            )
+        }
+
         return (
             <div>
                 <div className="filterContainer" style={{ display: "flex", width: 420 }}>
-                    <Dropdown overlay={this.menu}>
+                    <Dropdown overlay={menu}>
                         <Button>
                             Type <DownOutlined />
                         </Button>

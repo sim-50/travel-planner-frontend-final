@@ -6,11 +6,13 @@ import SearchResultHeader from "./SearchResultHeader";
 import "../styles/SearchResult.css";
 import { Row, Col } from "antd";
 
+
 class SearchResult extends Component {
     state = {
         cityName: "Los Angeles",
         cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
         citySearchResult: [],
+        allTypes : [],
         filterTypeName: "",
     };
 
@@ -50,16 +52,17 @@ class SearchResult extends Component {
     }
 
     componentDidMount() {
-        const url = `http://localhost:8080/travelplanner/search?city=Austin`;
-
+        // todo: put into const file
+        const url = `http://localhost:8080/travelplanner/search?city=${this.props.match.params.city}`;
         axios
             .get(url)
             .then((response) => {
                 console.log('response: ',response.data.responseObj.results);
+                console.log(response.data.responseObj.allTypes);
                 this.setState({
                     citySearchResult: response.data.responseObj.results,
+                    allTypes : response.data.responseObj.allTypes,
                 });
-                console.log('state citySearchResult: ',this.state.citySearchResult);
             })
             .catch((error) => {
                 console.log("err in fetch cityInfo -> ", error);
@@ -67,8 +70,7 @@ class SearchResult extends Component {
     }
 
     render() {
-        const { cityImg, citySearchResult } = this.state;
-        
+        const { cityImg, citySearchResult,allTypes } = this.state;
         
 
         return (
@@ -78,7 +80,8 @@ class SearchResult extends Component {
                     <div className="left-side">
                         <ResultDisplayPanel
                             updateSelectedLocation={this.updateSelectedLocation}
-                            citySearchResult={citySearchResult.filter(res => res.display === true && (res.type === this.state.filterTypeName || !this.state.filterTypeName))}
+                            citySearchResult={citySearchResult.filter(res => res.display === true && (res.types.includes(this.state.filterTypeName) || !this.state.filterTypeName))}
+                            allTypes = {allTypes}
                             cityImg={cityImg}
                             filterByName={this.filterByName}
                             filterByType={this.filterByType}
