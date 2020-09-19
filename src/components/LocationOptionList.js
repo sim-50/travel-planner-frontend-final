@@ -104,6 +104,7 @@ class LocationOptionList extends Component {
                         rowSelection={{ ...this.rowSelection }}
                         columns={this.columns}
                         dataSource={citySearchResult}
+                        pagination={{ pageSize: 5 }}
                     />
                     <Tooltip title="Search Route">
                         <Button
