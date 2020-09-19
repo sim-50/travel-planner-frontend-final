@@ -14,7 +14,71 @@ class SearchResult extends Component {
         citySearchResult: [],
         allTypes : [],
         filterTypeName: "",
+        waypoints:[],
+        isDraw: false,
+        result: null,
     };
+
+    updateWaypoints = (waypoints) => {
+        this.setState({
+            waypoints: waypoints
+            
+        })
+    }
+
+
+    //send route request
+    sendRequest = () => {
+        // console.log(this.state.waypoints);
+        const directionService = new window.google.maps.DirectionsService();
+        // const origin =  "San Antonio Winery" ;
+        // const destination = "Universal Studios Hollywood";
+        // const waypoints = [{location:"Los Angeles County Museum of Art"},{location: "The Greek Theatre"}];
+
+        //const origin = { lat: 34.0637293, lng: -118.223954 };
+        //const destination = {lat: 34.13811680000001,lng: -118.3533783};
+        //const waypoints = [{location:{ lat: 34.0639323, lng: -118.3592293 }},{location: {lat: 34.1195315,lng: -118.2962896}}];
+        const len = this.state.waypoints.length;
+        const origin = { lat: this.state.waypoints[0].geometry.location.lat, lng: this.state.waypoints[0].geometry.location.lng };
+        const destination = {lat: this.state.waypoints[len-1].geometry.location.lat,lng: this.state.waypoints[len-1].geometry.location.lng};
+        const waypoints = [];
+        if(len > 2) {
+            for(let i=1; i < len-1; i++) {
+                waypoints.push({location: {lat: this.state.waypoints[i].geometry.location.lat, lng: this.state.waypoints[i].geometry.location.lng}});
+            }
+        }
+        
+
+        //console.log(waypoints);
+        
+        
+        let request = {
+            origin: origin,
+            destination: destination,
+            travelMode: 'DRIVING',
+            waypoints: waypoints
+        };
+        
+        directionService.route(request, (response, status) => {
+            console.log(status);
+            console.log(response);
+            if (status === 'OK') {
+
+
+
+
+                // added by ZILE WANG
+                this.setState(
+                        { isDraw: true,
+                        result: response}
+                    );
+
+
+
+
+            }
+        });
+    }
 
     filterByName = (value) => {
         this.setState({
@@ -39,15 +103,21 @@ class SearchResult extends Component {
     };
 
     updateSelectedLocation = (selectedRowKeys) => {
+        
         this.setState({
             citySearchResult: this.state.citySearchResult.map(res => {
                 if (selectedRowKeys.includes(res.key)) {
                     res.checked = true;
+                    
+                    
                 } else {
                     res.checked = false;
+                    
                 }
                 return res;
             }),
+            
+            
         })
     }
 
@@ -86,11 +156,15 @@ class SearchResult extends Component {
                             filterByName={this.filterByName}
                             filterByType={this.filterByType}
                             selectedList={citySearchResult.filter(item => item.checked === true)}
+                            sendRequest={this.sendRequest}
+                            updateWaypoints={this.updateWaypoints}
                         />
                     </div>
                     <div className="right-side">
                         <MapContainer 
                             selected={citySearchResult.filter(item => item.checked === true)} 
+                            shouldDraw={this.state.isDraw}
+                            responseData={this.state.result}
                         />
                     </div>
                 </div>

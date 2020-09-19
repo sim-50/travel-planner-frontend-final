@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
+import { withGoogleMap, GoogleMap,  Marker, withScriptjs, DirectionsRenderer} from 'react-google-maps';
+import {  GoogleApiWrapper } from 'google-maps-react';
 
 const mapStyles = {
   width: '100%',
@@ -13,6 +14,7 @@ export class MapContainer extends Component {
             showingInfoWindow: false, //hides the infoWindow initially
             activeMarkers: {},
             selectedPlaces: this.props.selected,
+            responseData:this.props.responseData,
         }
     }
     
@@ -42,45 +44,39 @@ export class MapContainer extends Component {
         }
     }
 
-    render() {
-        return (
-            <Map google={this.props.google}
-            zoom={14}
-            style={mapStyles}
-            initialCenter={{
-                lat: 34.0522342,
-                lng: -118.2436849
-            }}>
-                {this.state.selectedPlaces.map((location,i) => {
+    render(){
+        
+        const MapWithMarker = withGoogleMap((props) => (
+            <GoogleMap
+                // defaultCenter={ { lat: 34.0522342, lng: -118.2436849 } }
+                defaultCenter={ { lat: 34.0522342, lng: -118.2436849 } }
+                defaultZoom={ 12 }
+            >
+                {this.state.selectedPlaces.map((location) => {
                     return (
                         <Marker
                             key={location.key}
                             name={location.name}
                             position={{ lat: location.geometry.location.lat, lng: location.geometry.location.lng }}
-                            onClick={this.onMarkerClick}
+                            //onClick={this.onMarkerClick}
                         />
                     );
                 })}
-                {/* <Marker 
-                    title={"The marker's title will appear as a tool tip."}
-                    name={'University of Southern California'}
-                    position={{lat:34.0224, lng:-118.2851 }}
+
+                <DirectionsRenderer
+                    directions={this.props.responseData}
                 />
-                <Marker
-                    name={'Chinatown LA'}
-                    position={{lat:34.0623, lng: -118.2383}}
-                /> */}
-                {/* here is a marker with click listener */}
-                {/* <Marker onClick={this.onMarkerClick} name={'Current location'} /> */}
-                <InfoWindow 
-                    marker={this.state.activeMarkers}
-                    visible={this.state.showingInfoWindow}
-                    onClose={this.onInfoWindowClose}>
-                    <div>
-                        <h4>{this.state.selectedPlaces.name}</h4>
-                    </div>
-                </InfoWindow>   
-            </Map>
+            </GoogleMap>
+        )); 
+        return(
+        <div>
+            <MapWithMarker
+                //containerElement={<div style={{height: window.innerHeight, width: window.innerWidth-380 }} />}
+                containerElement={<div style={{height: window.innerHeight, width: window.innerWidth-380 }} />}
+                loadingElement={<div style={{ height: `100%` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+            />
+        </div>
         );
     }
 }

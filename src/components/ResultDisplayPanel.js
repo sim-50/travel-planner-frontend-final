@@ -16,6 +16,8 @@ class ResultDisplayPanel extends Component {
                     allTypes = {allTypes}
                     filterByName={this.props.filterByName} 
                     filterByType={this.props.filterByType} 
+                    sendRequest={this.props.sendRequest}
+                    updateWaypoints={this.props.updateWaypoints}
                 />
             </div>
         );

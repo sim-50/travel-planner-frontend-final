@@ -45,6 +45,8 @@ class LocationOptionList extends Component {
             //* selectedRows indicates the objects array of all the selected rows
             //console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
             this.props.updateSelectedLocation(selectedRowKeys);
+            this.props.updateWaypoints(selectedRows);
+            //console.log("clicked", selectedRows);
             console.log(selectedRowKeys);
         },
     };
@@ -107,6 +109,7 @@ class LocationOptionList extends Component {
                         <Button
                             className="search-route" type="primary" shape="circle" size="large"
                             disabled={selectedList.length < 2 ? true : false}
+                            onClick={this.props.sendRequest}
                             icon={<IconFont type="icon-route" style={{ fontSize: "40px" }}
                             />}></Button>
                     </Tooltip>
