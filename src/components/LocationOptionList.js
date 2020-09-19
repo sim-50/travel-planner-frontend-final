@@ -17,11 +17,13 @@ class LocationOptionList extends Component {
         {
             title: 'Name',
             dataIndex: 'name',
+            width: '40%'
             // render: text => <a>{text}</a>,
         },
         {
             title: 'Type',
             dataIndex: 'types',
+            width: '40%',
             render: types => types.map((key, index) => {
                 return (
                     <Tag key={index} name={key}>
@@ -32,7 +34,8 @@ class LocationOptionList extends Component {
         },
         {
             title: 'rating',
-            dataIndex: 'rating'
+            dataIndex: 'rating',
+            width: '20%'
         },
     ];
 
