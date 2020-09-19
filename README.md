@@ -21,6 +21,9 @@ npm install --save google-maps-react <br />
 4. Axios (Sep 13, 2020) <br />
 npm install axios <br />
 
+5. react google map library (Sep 18, 2020)<br />
+npm install --save react-google-maps <br />
+
 ## Available Scripts
 
 In the project directory, you can run:
