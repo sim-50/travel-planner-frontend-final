@@ -5,7 +5,7 @@ import ResultDisplayPanel from "./ResultDisplayPanel";
 import SearchResultHeader from "./SearchResultHeader";
 import "../styles/SearchResult.css";
 import { Row, Col } from "antd";
-
+import { Travel_Plan_BASE_URL } from "../constant";
 
 class SearchResult extends Component {
     state = {
@@ -20,8 +20,7 @@ class SearchResult extends Component {
         this.setState({
             citySearchResult: this.state.citySearchResult.map((res) => {
                 if (
-                    res.name.toLowerCase().indexOf(value.toLowerCase()) !== -1 ||
-                    res.description.toLowerCase().indexOf(value.toLowerCase()) !== -1
+                    res.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
                 ) {
                     res.display = true;
                 } else {
@@ -53,7 +52,7 @@ class SearchResult extends Component {
 
     componentDidMount() {
         // todo: put into const file
-        const url = `http://localhost:8080/travelplanner/search?city=${this.props.match.params.city}`;
+        const url = Travel_Plan_BASE_URL + `/search?city=${this.props.match.params.city}`;
         axios
             .get(url)
             .then((response) => {
@@ -80,7 +79,8 @@ class SearchResult extends Component {
                     <div className="left-side">
                         <ResultDisplayPanel
                             updateSelectedLocation={this.updateSelectedLocation}
-                            citySearchResult={citySearchResult.filter(res => res.display === true && (res.types.includes(this.state.filterTypeName) || !this.state.filterTypeName))}
+                            citySearchResult={citySearchResult.filter(res => res.display === true && 
+                                (res.types.includes(this.state.filterTypeName) || !this.state.filterTypeName || this.state.filterTypeName == "All"))}
                             allTypes = {allTypes}
                             cityImg={cityImg}
                             filterByName={this.filterByName}
