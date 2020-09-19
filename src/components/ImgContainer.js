@@ -8,7 +8,7 @@ const ImgContainer = ({ cityImg }) => {
         <div className="ant-image" style={{display: "block"}}>
             <Image
                 className="ant-image-img"
-                style={{maxWidth: 420}}
+                style={{maxWidth: 800}}
                 src={cityImg}
                 alt="City Image Missing"
             />

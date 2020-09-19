@@ -22,12 +22,12 @@
 .filterContainer {
     padding:10px;
     margin-left: 10px;
-    width: 440px !important;
+    width: 800px !important;
 }
 
 .tableContainer {
     padding-left:20px;
-    max-width: 440px;
+    max-width: 800px;
 }
 
 .right-side {
