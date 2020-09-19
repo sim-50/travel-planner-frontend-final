@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/SearchResult.css';
-import { Timeline, Radio, Checkbox, Table } from 'antd';
-import { Menu, Dropdown, Button, Input, message, Tooltip, Tag } from 'antd';
+import { Menu, Dropdown, Button, Input, message, Tooltip, Tag, Table} from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { createFromIconfontCN } from '@ant-design/icons';
 
@@ -18,11 +17,13 @@ class LocationOptionList extends Component {
         {
             title: 'Name',
             dataIndex: 'name',
+            width: '40%'
             // render: text => <a>{text}</a>,
         },
         {
             title: 'Type',
             dataIndex: 'types',
+            width: '40%',
             render: types => types.map((key, index) => {
                 return (
                     <Tag key={index} name={key}>
@@ -32,8 +33,9 @@ class LocationOptionList extends Component {
             })
         },
         {
-            title: 'Description',
-            dataIndex: 'description',
+            title: 'rating',
+            dataIndex: 'rating',
+            width: '20%'
         },
     ];
 
@@ -54,7 +56,7 @@ class LocationOptionList extends Component {
     //* filter by type
     filterByType = (e) => {
         const type = e.item.props.name;
-
+        
         message.info('Display all ' + type + ' locations');
         this.props.filterByType(type);
     }
@@ -69,7 +71,7 @@ class LocationOptionList extends Component {
 
         const menus = allTypes.map((key, index) => {
             return (
-              <Menu.Item key={index} name={key}>
+              <Menu.Item key={index} name={key} onClick={this.filterByType}>
                 {key}
               </Menu.Item>
             )
@@ -94,7 +96,7 @@ class LocationOptionList extends Component {
 
                     <Input
                         style={{ marginLeft: 10 }}
-                        placeholder="filter by name or description"
+                        placeholder="filter by name"
                         onChange={e => this.filterByName(e.target.value)}   //? onChange or onSearch need to be discussed
                     />
                 </div>
@@ -104,6 +106,7 @@ class LocationOptionList extends Component {
                         rowSelection={{ ...this.rowSelection }}
                         columns={this.columns}
                         dataSource={citySearchResult}
+                        pagination={{ pageSize: 5 }}
                     />
                     <Tooltip title="Search Route">
                         <Button
