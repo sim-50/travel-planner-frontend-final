@@ -36,7 +36,7 @@ export class MapContainer extends Component {
             showingInfoWindow: false, //hides the infoWindow initially
             activeMarkers: {},
             selectedPlaces: this.props.selected,
-            responseData:this.props.responseData,
+            responseData:null,
             cityCoordinate: this.props.cityCoordinate,
         }
     }
@@ -62,6 +62,7 @@ export class MapContainer extends Component {
     componentDidUpdate(prevProps, prevState) {
         const { selectedPlaces } = this.state;
         if(prevProps.selected !== this.props.selected) {
+            //console.log("Map", this.props.responseData);
             this.setState( {
                 selectedPlaces: this.props.selected,
                 cityCoordinate:this.props.cityCoordinate,
@@ -85,6 +86,7 @@ export class MapContainer extends Component {
                 loadingElement={<div style={{ height: `100%` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
                 markers={this.state.selectedPlaces}
+                //markers={this.props.selected}
                 cityCoordinate={this.state.cityCoordinate}
                 // onMarkerClick={this.onMarkerClick}
                 responseData={this.state.responseData}
