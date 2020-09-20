@@ -36,8 +36,9 @@ class LocationOptionList extends Component {
             title: 'rating',
             dataIndex: 'rating',
             render: rating => rating === 0 ? 'N/A' : rating,
-            width: '20%'
-
+            width: '20%',
+            defaultSortOrder: 'descend',
+            sorter: (a, b) => a.rating - b.rating,
         },
     ];
 
