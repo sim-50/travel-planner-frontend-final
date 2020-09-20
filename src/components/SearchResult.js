@@ -8,8 +8,10 @@ import { Row, Col } from "antd";
 import { Travel_Plan_BASE_URL } from "../constant";
 
 class SearchResult extends Component {
+    
     state = {
         cityName: "Los Angeles",
+        cityCoordinate: {},
         cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
         citySearchResult: [],
         allTypes : [],
@@ -64,17 +66,10 @@ class SearchResult extends Component {
             console.log(response);
             if (status === 'OK') {
 
-
-
-
-                // added by ZILE WANG
                 this.setState(
                         { isDraw: true,
                         result: response}
                     );
-
-
-
 
             }
         });
@@ -126,9 +121,11 @@ class SearchResult extends Component {
         axios
             .get(url)
             .then((response) => {
+                console.log('response: ',response);
                 console.log('response: ',response.data.responseObj.results);
                 console.log(response.data.responseObj.allTypes);
                 this.setState({
+                    cityCoordinate: {lat: response.data.responseObj.coordinate[0], lng: response.data.responseObj.coordinate[1]},
                     citySearchResult: response.data.responseObj.results,
                     allTypes : response.data.responseObj.allTypes,
                 });
@@ -162,6 +159,7 @@ class SearchResult extends Component {
                     </div>
                     <div className="right-side">
                         <MapContainer 
+                            cityCoordinate={this.state.cityCoordinate}
                             selected={citySearchResult.filter(item => item.checked === true)} 
                             shouldDraw={this.state.isDraw}
                             responseData={this.state.result}
