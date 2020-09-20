@@ -18,19 +18,26 @@ class SearchResult extends Component {
         filterTypeName: "",
         waypoints:[],
         result: null,
+        isDraw: false,
     };
 
-    updateWaypoints = (waypoints) => {
+    updateWaypoints = (waypoint) => {
+        
         this.setState({
-            waypoints: waypoints
-            
+            waypoints: waypoint
         })
+
+        
+        if(this.state.isDraw && waypoint.length >= 2) {
+            this.sendRequest();
+        }
+        
     }
 
 
     //send route request
     sendRequest = () => {
-        // console.log(this.state.waypoints);
+        //console.log(this.state.waypoints);
         const directionService = new window.google.maps.DirectionsService();
         // const origin =  "San Antonio Winery" ;
         // const destination = "Universal Studios Hollywood";
@@ -61,15 +68,14 @@ class SearchResult extends Component {
         };
         
         directionService.route(request, (response, status) => {
-            //.log(status);
             //console.log(response);
             if (status === 'OK') {
-
                 this.setState(
-                        { 
-                        result: response}
-                    );
-
+                    { 
+                        result: response,
+                        isDraw: true,
+                    });
+                
             }
         });
     }
@@ -112,6 +118,8 @@ class SearchResult extends Component {
             
             
         })
+
+        
     }
 
     componentDidMount() {
@@ -161,6 +169,7 @@ class SearchResult extends Component {
                             cityCoordinate={this.state.cityCoordinate}
                             selected={citySearchResult.filter(item => item.checked === true)} 
                             responseData={this.state.result}
+                            sendRequest={this.sendRequest}
                         />
                     </div>
                 </div>
