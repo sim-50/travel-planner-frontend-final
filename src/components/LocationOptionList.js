@@ -35,7 +35,9 @@ class LocationOptionList extends Component {
         {
             title: 'rating',
             dataIndex: 'rating',
+            render: rating => rating === 0 ? 'N/A' : rating,
             width: '20%'
+
         },
     ];
 
@@ -49,7 +51,7 @@ class LocationOptionList extends Component {
             this.props.updateSelectedLocation(selectedRowKeys);
             this.props.updateWaypoints(selectedRows);
             //console.log("clicked", selectedRows);
-            console.log(selectedRowKeys);
+            //console.log(selectedRowKeys);
         },
     };
 

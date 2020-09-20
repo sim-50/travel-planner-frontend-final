@@ -13,11 +13,11 @@ const MapWithMarker = withGoogleMap((props) => (
     >
         {props.markers.map(location=>(
             <Marker
-            key={location.key}
-            name={location.name}
-            position={{ lat: location.geometry.location.lat, lng: location.geometry.location.lng }}
-            onClick={props.onMarkerClick}
-        />
+                key={location.key}
+                name={location.name}
+                position={{ lat: location.geometry.location.lat, lng: location.geometry.location.lng }}
+                onClick={props.onMarkerClick}
+            />
         )) }
 
 
@@ -42,7 +42,7 @@ export class MapContainer extends Component {
     }
     
     onMarkerClick = (props, marker, e) =>{
-        console.log(props)
+        //console.log(props)
         this.setState({
             selectedPlace: props,
             activeMarkers: marker,
@@ -72,7 +72,7 @@ export class MapContainer extends Component {
 
     render(){
         //this.props.cityCoordinate;
-        console.log(this.props.cityCoordinate);
+        //console.log(this.props.cityCoordinate);
         
         return(
         <div>

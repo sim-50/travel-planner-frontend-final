@@ -8,7 +8,7 @@ import { Row, Col } from "antd";
 import { Travel_Plan_BASE_URL } from "../constant";
 
 class SearchResult extends Component {
-    
+
     state = {
         cityName: "Los Angeles",
         cityCoordinate: {},
@@ -17,7 +17,6 @@ class SearchResult extends Component {
         allTypes : [],
         filterTypeName: "",
         waypoints:[],
-        isDraw: false,
         result: null,
     };
 
@@ -62,12 +61,12 @@ class SearchResult extends Component {
         };
         
         directionService.route(request, (response, status) => {
-            console.log(status);
-            console.log(response);
+            //.log(status);
+            //console.log(response);
             if (status === 'OK') {
 
                 this.setState(
-                        { isDraw: true,
+                        { 
                         result: response}
                     );
 
@@ -121,9 +120,9 @@ class SearchResult extends Component {
         axios
             .get(url)
             .then((response) => {
-                console.log('response: ',response);
-                console.log('response: ',response.data.responseObj.results);
-                console.log(response.data.responseObj.allTypes);
+                //console.log('response: ',response);
+                //console.log('response: ',response.data.responseObj.results);
+                //console.log(response.data.responseObj.allTypes);
                 this.setState({
                     cityCoordinate: {lat: response.data.responseObj.coordinate[0], lng: response.data.responseObj.coordinate[1]},
                     citySearchResult: response.data.responseObj.results,
@@ -161,7 +160,6 @@ class SearchResult extends Component {
                         <MapContainer 
                             cityCoordinate={this.state.cityCoordinate}
                             selected={citySearchResult.filter(item => item.checked === true)} 
-                            shouldDraw={this.state.isDraw}
                             responseData={this.state.result}
                         />
                     </div>
