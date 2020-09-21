@@ -25,10 +25,13 @@ class SearchResult extends Component {
         
         this.setState({
             waypoints: waypoint
-        })
-
+        }, this.updateRoute);
         
-        if(this.state.isDraw && waypoint.length >= 2) {
+    }
+
+    updateRoute = () => {
+        
+        if(this.state.isDraw && this.state.waypoints.length >= 2) {
             this.sendRequest();
         }
         
