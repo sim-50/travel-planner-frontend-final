@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/SearchResult.css';
-import { Timeline, Radio, Checkbox, Table } from 'antd';
-import { Menu, Dropdown, Button, Input, message, Tooltip } from 'antd';
+import { Menu, Dropdown, Button, Input, message, Tooltip, Tag, Table} from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { createFromIconfontCN } from '@ant-design/icons';
 
@@ -18,15 +17,28 @@ class LocationOptionList extends Component {
         {
             title: 'Name',
             dataIndex: 'name',
+            width: '40%'
             // render: text => <a>{text}</a>,
         },
         {
             title: 'Type',
-            dataIndex: 'type',
+            dataIndex: 'types',
+            width: '40%',
+            render: types => types.map((key, index) => {
+                return (
+                    <Tag key={index} name={key}>
+                        {key}
+                    </Tag>
+                )
+            })
         },
         {
-            title: 'Description',
-            dataIndex: 'description',
+            title: 'rating',
+            dataIndex: 'rating',
+            render: rating => rating === 0 ? 'N/A' : rating,
+            width: '20%',
+            sorter: (a, b) => a.rating - b.rating,
+            sortDirections: ['descend', 'ascend'],
         },
     ];
     
@@ -38,7 +50,9 @@ class LocationOptionList extends Component {
             //* selectedRows indicates the objects array of all the selected rows
             //console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
             this.props.updateSelectedLocation(selectedRowKeys);
-            console.log(selectedRowKeys);
+            this.props.updateWaypoints(selectedRows);
+            //console.log("clicked", selectedRows);
+            //console.log(selectedRowKeys);
         },
         getCheckboxProps: record => ({
             disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -49,27 +63,10 @@ class LocationOptionList extends Component {
     //* filter by type
     filterByType = (e) => {
         const type = e.item.props.name;
-
+        
         message.info('Display all ' + type + ' locations');
         this.props.filterByType(type);
     }
-
-    menu = (
-        <Menu onClick={this.filterByType}>
-            <Menu.Item key="1" name="">
-                All
-            </Menu.Item>
-            <Menu.Item key="2" name="museum">
-                Museum
-            </Menu.Item>
-            <Menu.Item key="3" name="restaurant">
-                Restaurant
-            </Menu.Item>
-            <Menu.Item key="4" name="bar">
-                Bar
-            </Menu.Item>
-        </Menu>
-    );
 
     //* filter by name
     filterByName = (value) => {
@@ -77,19 +74,47 @@ class LocationOptionList extends Component {
     }
 
     render() {
-        const { citySearchResult, selectedList } = this.props;
+        const { citySearchResult, selectedList, allTypes } = this.props;
+
+        const menus = allTypes.map((key, index) => {
+            return (
+              <Menu.Item key={index} name={key} onClick={this.filterByType}>
+                {key}
+              </Menu.Item>
+            )
+          });
+
+        const menu = () => {
+            return (
+                <Menu>
+                    {menus}
+                </Menu>
+            )
+        }
+
         return (
             <div>
+<<<<<<< HEAD
                 <div className="filterContainer" style={{ display:"flex", width: 420}}>
                     <Dropdown overlay={this.menu}>
+=======
+                <div className="filterContainer" style={{ display: "flex", width: 420 }}>
+                    <Dropdown overlay={menu}>
+>>>>>>> upstream/dev
                         <Button>
                             Type <DownOutlined />
                         </Button>
                     </Dropdown>
 
+<<<<<<< HEAD
                     <Input 
                         style={{ marginLeft:10 }} 
                         placeholder="filter by name or description" 
+=======
+                    <Input
+                        style={{ marginLeft: 10 }}
+                        placeholder="filter by name"
+>>>>>>> upstream/dev
                         onChange={e => this.filterByName(e.target.value)}   //? onChange or onSearch need to be discussed
                         enterButton 
                     />
@@ -100,12 +125,21 @@ class LocationOptionList extends Component {
                         rowSelection={{ ...this.rowSelection }}
                         columns={this.columns}
                         dataSource={citySearchResult}
+                        pagination={{ pageSize: 5 }}
                     />
                     <Tooltip title="Search Route">
+<<<<<<< HEAD
                         <Button 
                             className="search-route" type="primary" shape="circle" size="large" 
                             disabled={selectedList.length < 2 ? true : false} 
                             icon={<IconFont type="icon-route" style={{fontSize: "40px"}} 
+=======
+                        <Button
+                            className="search-route" type="primary" shape="circle" size="large"
+                            disabled={selectedList.length < 2 ? true : false}
+                            onClick={this.props.sendRequest}
+                            icon={<IconFont type="icon-route" style={{ fontSize: "40px" }}
+>>>>>>> upstream/dev
                             />}></Button>
                     </Tooltip>
                 </div>
