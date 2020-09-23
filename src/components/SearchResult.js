@@ -5,6 +5,7 @@ import ResultDisplayPanel from "./ResultDisplayPanel";
 import SearchResultHeader from "./SearchResultHeader";
 import "../styles/SearchResult.css";
 import { Row, Col } from "antd";
+import MapWithReact from "./MapWithReact";
 
 class SearchResult extends Component {
     state = {
@@ -130,9 +131,10 @@ class SearchResult extends Component {
                         />
                     </div>
                     <div className="right-side">
-                        <MapContainer 
+                        {/* <MapContainer 
                             selected={citySearchResult.filter(item => item.checked === true)} 
-                        />
+                        /> */}
+                        <MapWithReact />
                     </div>
                 </div>
             </div>
