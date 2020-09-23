@@ -1,0 +1,26 @@
+*{
+    text-align: center;
+}
+
+.header{
+    text-align: center;
+    background-color: #177ddc;
+}
+
+.body{
+
+}
+
+.input_field{
+
+}
+
+.space{
+    text-align: center;
+}
+
+.ant-input-suffix{
+    background-color: antiquewhite;
+    width: 0;
+    background: white;
+}
