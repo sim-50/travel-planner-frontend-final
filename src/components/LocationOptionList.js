@@ -1,83 +1,138 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/SearchResult.css';
-import { Timeline, Radio, Checkbox, Table } from 'antd';
+import { Menu, Dropdown, Button, Input, message, Tooltip, Tag, Table} from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import { createFromIconfontCN } from '@ant-design/icons';
 
-// set the table header name
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        // render: text => <a>{text}</a>,
-    },
-    {
-        title: 'Type',
-        dataIndex: 'type',
-    },
-    {
-        title: 'Description',
-        dataIndex: 'description',
-    },
-];
+const IconFont = createFromIconfontCN({
+    scriptUrl: [
+        '//at.alicdn.com/t/font_2064551_fho540f8c18.js' // Search route icon
+    ],
+});
 
-const mockData = [
-    {
-        key: '1',
-        name: 'LA Staple Center',
-        type: 'museum',
-        description: 'New York No. 1 Lake Park',
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        type: 'bar',
-        description: 'London No. 1 Lake Park',
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        type: 'restaurant',
-        description: 'Sidney No. 1 Lake Park',
-    },
-    {
-        key: '4',
-        name: 'Universal Park',
-        type: 'park',
-        description: 'Sidney No. 1 Lake Park',
-    },
-];
+class LocationOptionList extends Component {
+    // set the table header name
+    columns = [
+        {
+            title: 'Name',
+            dataIndex: 'name',
+            width: '40%'
+            // render: text => <a>{text}</a>,
+        },
+        {
+            title: 'Type',
+            dataIndex: 'types',
+            width: '40%',
+            render: types => types.map((key, index) => {
+                return (
+                    <Tag key={index} name={key}>
+                        {key}
+                    </Tag>
+                )
+            })
+        },
+        {
+            title: 'rating',
+            dataIndex: 'rating',
+            render: rating => rating === 0 ? 'N/A' : rating,
+            width: '20%',
+            sorter: (a, b) => a.rating - b.rating,
+            sortDirections: ['descend', 'ascend'],
+        },
+    ];
 
-// rowSelection object indicates the need for row selection
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-    getCheckboxProps: record => ({
-        disabled: record.name === 'Disabled User', // Column configuration not to be checked
-        name: record.name,
-    }),
-};
+    // rowSelection object indicates the need for row selection
+    rowSelection = {
+        preserveSelectedRowKeys: true,              //* Keep selection key even when it removed from dataSource
+        onChange: (selectedRowKeys, selectedRows) => {
+            //* selectedRowKeys indicates the id for the selected row
+            //* selectedRows indicates the objects array of all the selected rows
+            //console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+            this.props.updateSelectedLocation(selectedRowKeys);
+            this.props.updateWaypoints(selectedRows);
+            //console.log("clicked", selectedRows);
+            //console.log(selectedRowKeys);
+        },
+    };
 
-const LocationOptionList = () => {
-    return (
-        <div className='tableContainer'>
-            <Table
-            rowSelection={{ ...rowSelection }}
-            columns={columns}
-            dataSource={mockData}
-            />
-        </div>
-    );
+    //* filter by type
+    filterByType = (e) => {
+        const type = e.item.props.name;
+        
+        message.info('Display all ' + type + ' locations');
+        this.props.filterByType(type);
+    }
+
+    //* filter by name
+    filterByName = (value) => {
+        this.props.filterByName(value);
+    }
+
+    render() {
+        const { citySearchResult, selectedList, allTypes } = this.props;
+
+        const menus = allTypes.map((key, index) => {
+            return (
+              <Menu.Item key={index} name={key} onClick={this.filterByType}>
+                {key}
+              </Menu.Item>
+            )
+          });
+
+        const menu = () => {
+            return (
+                <Menu>
+                    {menus}
+                </Menu>
+            )
+        }
+
+        return (
+            <div>
+                <div className="filterContainer" style={{ display: "flex", width: 420 }}>
+                    <Dropdown overlay={menu}>
+                        <Button>
+                            Type <DownOutlined />
+                        </Button>
+                    </Dropdown>
+
+                    <Input
+                        style={{ marginLeft: 10 }}
+                        placeholder="filter by name"
+                        onChange={e => this.filterByName(e.target.value)}   //? onChange or onSearch need to be discussed
+                    />
+                </div>
+
+                <div className='tableContainer'>
+                    <Table
+                        rowSelection={{ ...this.rowSelection }}
+                        columns={this.columns}
+                        dataSource={citySearchResult}
+                        pagination={{ pageSize: 5 }}
+                    />
+                    <Tooltip title="Search Route">
+                        <Button
+                            className="search-route" type="primary" shape="circle" size="large"
+                            disabled={selectedList.length < 2 ? true : false}
+                            onClick={this.props.sendRequest}
+                            icon={<IconFont type="icon-route" style={{ fontSize: "40px" }}
+                            />}></Button>
+                    </Tooltip>
+                </div>
+            </div>
+        );
+    }
 }
 
 //! The traversal plan display style(for further consideration)
 // const LocationOptionList = ({ timeline }) => {
 //     const [mode, setMode] = useState('left');
-    
+
 //     const onChange = e => {
 //         setMode(e.target.value);
 //     };
-    
+
 //     return (
 //     <div className="container" style={{maxWidth:350}}>
 //         <Radio.Group
@@ -104,7 +159,7 @@ const LocationOptionList = () => {
 // }
 
 LocationOptionList.propTypes = {
-    timeline: PropTypes.array.isRequired,
+    citySearchResult: PropTypes.array.isRequired,
 }
 
 export default LocationOptionList;

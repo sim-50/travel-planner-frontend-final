@@ -1,22 +1,48 @@
 import React, { Component } from 'react';
-import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
+import { withGoogleMap, GoogleMap,  Marker, withScriptjs, DirectionsRenderer} from 'react-google-maps';
+import {  GoogleApiWrapper } from 'google-maps-react';
 
-const mapStyles = {
-  width: '100%',
-  height: '100%'
-};
+const MapWithMarker = withGoogleMap((props) => (
+    
+    <GoogleMap
+        
+        defaultCenter={ { lat: 34.0522342, lng: -118.2436849 } }
+        defaultZoom={ 12 }
+        center={props.cityCoordinate}
+
+    >
+        {props.markers.map(location=>(
+            <Marker
+                key={location.key}
+                name={location.name}
+                position={{ lat: location.geometry.location.lat, lng: location.geometry.location.lng }}
+                onClick={props.onMarkerClick}
+            />
+        )) }
+
+
+
+        <DirectionsRenderer
+            directions={props.responseData}
+            
+        />
+    </GoogleMap>
+)); 
 
 export class MapContainer extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
             showingInfoWindow: false, //hides the infoWindow initially
-            activeMarkers:{},
-            selectedPlaces:{}
+            activeMarkers: {},
+            selectedPlaces: this.props.selected,
+            responseData:null,
+            cityCoordinate: this.props.cityCoordinate,
         }
     }
     
     onMarkerClick = (props, marker, e) =>{
+        //console.log(props)
         this.setState({
             selectedPlace: props,
             activeMarkers: marker,
@@ -32,35 +58,41 @@ export class MapContainer extends Component {
             });
         }
     }
-    render() {
-        return (
-            <Map google={this.props.google}
-            zoom={14}
-            style={mapStyles}
-            initialCenter={{
-                lat: 34.0522342,
-                lng: -118.2436849
-            }}>
-                <Marker 
-                    title={"The marker's title will appear as a tool tip."}
-                    name={'University of Southern California'}
-                    position={{lat:34.0224, lng:-118.2851 }}
-                />
-                <Marker
-                    name={'Chinatown LA'}
-                    position={{lat:34.0623, lng: -118.2383}}
-                />
-                {/* here is a marker with click listener */}
-                <Marker onClick={this.onMarkerClick} name={'Current location'} />
-                <InfoWindow 
-                    marker={this.state.activeMarkers}
-                    visible={this.state.showingInfoWindow}
-                    onClose={this.onInfoWindowClose}>
-                    <div>
-                        <h4>{this.state.selectedPlaces.name}</h4>
-                    </div>
-                </InfoWindow>   
-            </Map>
+
+    componentDidUpdate(prevProps, prevState) {
+        const { selectedPlaces } = this.state;
+        if(prevProps.selected !== this.props.selected) {
+            //console.log("Map", this.props.responseData);
+            this.setState( {
+                selectedPlaces: this.props.selected,
+                cityCoordinate:this.props.cityCoordinate,
+                responseData: this.props.responseData,
+            })
+        }
+    }
+
+    render(){
+        //this.props.cityCoordinate;
+        //console.log(this.props.cityCoordinate);
+        
+        return(
+        <div>
+            <MapWithMarker
+                //containerElement={<div style={{height: "100vh", width: "64vw"}} />}
+                
+                 containerElement={<div style={{height: "100vh", width: window.innerWidth-640}} />}
+                // containerElement={<div style={{height: window.innerHeight-100, width: window.innerWidth-640 }} />}
+                
+                loadingElement={<div style={{ height: `100%` }} />}
+                mapElement={<div style={{ height: `100%` }} />}
+                markers={this.state.selectedPlaces}
+                //markers={this.props.selected}
+                cityCoordinate={this.state.cityCoordinate}
+                // onMarkerClick={this.onMarkerClick}
+                responseData={this.state.responseData}
+                
+            />
+        </div>
         );
     }
 }

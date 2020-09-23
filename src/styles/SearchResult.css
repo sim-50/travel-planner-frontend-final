@@ -22,16 +22,35 @@
 .filterContainer {
     padding:10px;
     margin-left: 10px;
-    width: 440px !important;
+    width: 600px !important;
 }
 
 .tableContainer {
-    margin-left: 10px;
-    max-width: 435px;
+    padding-left:20px;
+    max-width: 600px;
 }
 
 .right-side {
     margin-left: 10px;
+}
+
+.search-route {
+    float: right;
+    margin-right: 15px;
+    color: #fff;
+    min-width: 75px !important;
+    min-height: 75px !important;
+}
+
+button.search-route{
+    background: transparent;
+    background-color:#4188E8;
+    
+}
+
+button.ant-btn-lg{
+    width: 75px !important;
+    height: 75px !important;
 }
 
 

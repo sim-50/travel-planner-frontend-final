@@ -11,7 +11,7 @@ class SearchResultHeader extends Component{
     };
     //This click function still need to learn in the future
     handleClick = e => {
-        console.log('click ', e);
+        //console.log('click ', e);
         this.setState({ current: e.key });
     };
 
