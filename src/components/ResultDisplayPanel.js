@@ -1,25 +1,43 @@
-import React, { Component } from 'react';
-import ImgContainer from './ImgContainer';
-import LocationOptionList from './LocationOptionList';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import ImgContainer from "./ImgContainer";
+import LocationOptionList from "./LocationOptionList";
+import TravelSchedulePanel from "./TravelSchedulePanel";
+import "../styles/SearchResult.css";
+import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
+import PropTypes from "prop-types";
+import history from "../history";
 
 class ResultDisplayPanel extends Component {
     render() {
-        const {cityImg, citySearchResult, selectedList, allTypes } = this.props;
+        const { cityName, cityImg, citySearchResult, selectedList, allTypes } = this.props;
+
         return (
-            <div className="container">
-                <ImgContainer cityImg={cityImg}/>
-                <LocationOptionList
-                    updateSelectedLocation={this.props.updateSelectedLocation} 
-                    selectedList={selectedList}
-                    citySearchResult={citySearchResult} 
-                    allTypes = {allTypes}
-                    filterByName={this.props.filterByName} 
-                    filterByType={this.props.filterByType} 
-                    sendRequest={this.props.sendRequest}
-                    updateWaypoints={this.props.updateWaypoints}
-                />
-            </div>
+            <BrowserRouter>
+                <Router history={history}>
+                    <div className="container">
+                        <ImgContainer cityImg={cityImg} />
+                        <Switch>
+                            <Route exact path={`/searchResult/${cityName}`}>
+                                <LocationOptionList
+                                    updateSelectedLocation={this.props.updateSelectedLocation}
+                                    selectedList={selectedList}
+                                    citySearchResult={citySearchResult}
+                                    allTypes={allTypes}
+                                    filterByName={this.props.filterByName}
+                                    filterByType={this.props.filterByType}
+                                    sendRequest={this.props.sendRequest}
+                                    updateWaypoints={this.props.updateWaypoints}
+                                />
+                            </Route>
+
+                            <Route
+                                path={`/searchResult/${cityName}/travelSchedule`}
+                                component={TravelSchedulePanel}
+                            />
+                        </Switch>
+                    </div>
+                </Router>
+            </BrowserRouter>
         );
     }
 }
@@ -28,6 +46,6 @@ ResultDisplayPanel.propTypes = {
     citySearchResult: PropTypes.array.isRequired,
     cityImg: PropTypes.string.isRequired,
     allTypes: PropTypes.array.isRequired,
-}
+};
 
 export default ResultDisplayPanel;

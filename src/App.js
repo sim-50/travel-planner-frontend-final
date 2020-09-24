@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Main from "./components/Main";
+import SearchResult from "./components/SearchResult";
 import Travel_planner_logo from "./asset/image/travel_planner_logo.svg";
 import User_icon from "./asset/image/user.svg";
 import { Layout, Row, Col } from "antd";
 import "./App.css";
 import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
 import history from './history';
-import SearchResult from "./components/SearchResult";
 
 const { Header, Content } = Layout;
 
@@ -38,7 +38,7 @@ class App extends Component {
                 </Content>
               </Layout>
             </Route>
-            <Route exact path="/searchResult/:city" component={SearchResult} />
+            <Route path="/searchResult/:city" component={SearchResult} />
           </Switch>
         </Router>
       </BrowserRouter>
