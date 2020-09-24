@@ -94,27 +94,16 @@ class LocationOptionList extends Component {
 
         return (
             <div>
-<<<<<<< HEAD
-                <div className="filterContainer" style={{ display:"flex", width: 420}}>
-                    <Dropdown overlay={this.menu}>
-=======
                 <div className="filterContainer" style={{ display: "flex", width: 420 }}>
                     <Dropdown overlay={menu}>
->>>>>>> upstream/dev
                         <Button>
                             Type <DownOutlined />
                         </Button>
                     </Dropdown>
 
-<<<<<<< HEAD
-                    <Input 
-                        style={{ marginLeft:10 }} 
-                        placeholder="filter by name or description" 
-=======
                     <Input
                         style={{ marginLeft: 10 }}
                         placeholder="filter by name"
->>>>>>> upstream/dev
                         onChange={e => this.filterByName(e.target.value)}   //? onChange or onSearch need to be discussed
                         enterButton 
                     />
@@ -128,18 +117,11 @@ class LocationOptionList extends Component {
                         pagination={{ pageSize: 5 }}
                     />
                     <Tooltip title="Search Route">
-<<<<<<< HEAD
-                        <Button 
-                            className="search-route" type="primary" shape="circle" size="large" 
-                            disabled={selectedList.length < 2 ? true : false} 
-                            icon={<IconFont type="icon-route" style={{fontSize: "40px"}} 
-=======
                         <Button
                             className="search-route" type="primary" shape="circle" size="large"
                             disabled={selectedList.length < 2 ? true : false}
                             onClick={this.props.sendRequest}
                             icon={<IconFont type="icon-route" style={{ fontSize: "40px" }}
->>>>>>> upstream/dev
                             />}></Button>
                     </Tooltip>
                 </div>

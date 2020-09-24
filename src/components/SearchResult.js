@@ -5,11 +5,7 @@ import ResultDisplayPanel from "./ResultDisplayPanel";
 import SearchResultHeader from "./SearchResultHeader";
 import "../styles/SearchResult.css";
 import { Row, Col } from "antd";
-<<<<<<< HEAD
-import MapWithReact from "./MapWithReact";
-=======
 import { Travel_Plan_BASE_URL } from "../constant";
->>>>>>> upstream/dev
 
 class SearchResult extends Component {
 
@@ -172,19 +168,12 @@ class SearchResult extends Component {
                         />
                     </div>
                     <div className="right-side">
-<<<<<<< HEAD
-                        {/* <MapContainer 
-                            selected={citySearchResult.filter(item => item.checked === true)} 
-                        /> */}
-                        <MapWithReact />
-=======
                         <MapContainer 
                             cityCoordinate={this.state.cityCoordinate}
                             selected={citySearchResult.filter(item => item.checked === true)} 
                             responseData={this.state.result}
                             sendRequest={this.sendRequest}
                         />
->>>>>>> upstream/dev
                     </div>
                 </div>
             </div>
@@ -201,9 +190,6 @@ class SearchResult extends Component {
     }
 }
 
-<<<<<<< HEAD
-export default SearchResult;
-=======
 export default SearchResult;
 
 
@@ -258,4 +244,3 @@ export default SearchResult;
 //     checked: false,
 //     position: { lat: 34.0623, lng: -118.2383 },
 // },
->>>>>>> upstream/dev

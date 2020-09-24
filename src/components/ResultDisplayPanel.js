@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ImgContainer from './ImgContainer';
 import LocationOptionList from './LocationOptionList';
 import PropTypes from 'prop-types';
+import {Button} from 'antd';
 
 class ResultDisplayPanel extends Component {
     render() {
@@ -9,6 +10,9 @@ class ResultDisplayPanel extends Component {
         return (
             <div className="container">
                 <ImgContainer cityImg={cityImg}/>
+                <Button type="primary" block>
+                    Have no idea about your journey? Check out recommended travel plan on us! 
+                </Button>
                 <LocationOptionList
                     updateSelectedLocation={this.props.updateSelectedLocation} 
                     selectedList={selectedList}
