@@ -163,7 +163,7 @@ class TravelSchedulePanel extends Component {
 }
 
 TravelSchedulePanel.propTypes = {
-    citySearchResult: PropTypes.array.isRequired,
+    selectedList: PropTypes.array.isRequired,
 }
 
 export default TravelSchedulePanel;
