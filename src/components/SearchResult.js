@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import SearchResultHeader from "./SearchResultHeader";
 import ResultDisplayPanel from "./ResultDisplayPanel";
+import SavedRoute from "./SavedRoute";
 import MapContainer from "./MapContainer";
 import "../styles/SearchResult.css";
 import axios from "axios";
+import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
 import { Travel_Plan_BASE_URL } from "../constant";
 import history from "../history";
 
@@ -85,11 +87,15 @@ class SearchResult extends Component {
                 });
             }
         });
+    };
+
+    switchToTravelSchedulePanel = () => {
+        this.sendRequest();
 
         //* switch to the travelSchedulePanel component
         const { match: { params } } = this.props;
         history.push(`/searchResult/${params.city}/travelSchedule`);
-    };
+    }
 
     filterByName = (value) => {
         this.setState({
@@ -152,43 +158,57 @@ class SearchResult extends Component {
         const { match: { params } } = this.props;
 
         return (
-            <div className="searchResult-container">
-                <SearchResultHeader />
-                <div className="main">
-                    <div className="left-side">
-                        <ResultDisplayPanel
-                            updateSelectedLocation={this.updateSelectedLocation}
-                            citySearchResult={citySearchResult.filter(
-                                (res) =>
-                                    res.display === true &&
-                                    (res.types.includes(this.state.filterTypeName) ||
-                                        !this.state.filterTypeName ||
-                                        this.state.filterTypeName === "All")
-                            )}
-                            allTypes={allTypes}
-                            cityName={params.city}
-                            cityImg={cityImg}
-                            filterByName={this.filterByName}
-                            filterByType={this.filterByType}
-                            selectedList={citySearchResult.filter(
-                                (item) => item.checked === true
-                            )}
-                            sendRequest={this.sendRequest}
-                            updateWaypoints={this.updateWaypoints}
-                        />
+            <BrowserRouter>
+                <Router history={history}>
+                    <div className="searchResult-container">
+                        <SearchResultHeader cityName={params.city} />
+                        <div className="main">
+                            <div className="left-side">
+                                <Switch>
+                                    <Route
+                                        path={`/searchResult/${params.city}/savedRoute`}
+                                        component={SavedRoute}
+                                    />
+
+                                    <Route path={`/searchResult/${params.city}`}>
+                                        <ResultDisplayPanel
+                                            updateSelectedLocation={this.updateSelectedLocation}
+                                            citySearchResult={citySearchResult.filter(
+                                                (res) =>
+                                                    res.display === true &&
+                                                    (res.types.includes(this.state.filterTypeName) ||
+                                                        !this.state.filterTypeName ||
+                                                        this.state.filterTypeName === "All")
+                                            )}
+                                            allTypes={allTypes}
+                                            cityName={params.city}
+                                            cityImg={cityImg}
+                                            filterByName={this.filterByName}
+                                            filterByType={this.filterByType}
+                                            selectedList={citySearchResult.filter(
+                                                (item) => item.checked === true
+                                            )}
+                                            switchToTravelSchedulePanel={this.switchToTravelSchedulePanel}
+                                            updateWaypoints={this.updateWaypoints}
+                                        />
+                                    </Route>
+
+                                </Switch>
+                            </div>
+                            <div className="right-side">
+                                <MapContainer
+                                    cityCoordinate={this.state.cityCoordinate}
+                                    selected={citySearchResult.filter(
+                                        (item) => item.checked === true
+                                    )}
+                                    responseData={this.state.result}
+                                    sendRequest={this.sendRequest}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className="right-side">
-                        <MapContainer
-                            cityCoordinate={this.state.cityCoordinate}
-                            selected={citySearchResult.filter(
-                                (item) => item.checked === true
-                            )}
-                            responseData={this.state.result}
-                            sendRequest={this.sendRequest}
-                        />
-                    </div>
-                </div>
-            </div>
+                </Router>
+            </BrowserRouter>
         );
     }
 }

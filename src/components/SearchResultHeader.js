@@ -3,16 +3,19 @@ import { Menu, Row, Col} from 'antd';
 import { BarsOutlined, UserOutlined } from '@ant-design/icons';
 import Travel_planner_logo from '../asset/image/travel_planner_logo.svg';
 import '../styles/SearchResultHeader.css';
+import history from "../history";
 
 const { SubMenu } = Menu;
 class SearchResultHeader extends Component{
     state = {
-        current: 'searchPage',
+        current: 'searchResult',
     };
-    //This click function still need to learn in the future
+    
     handleClick = e => {
-        //console.log('click ', e);
+        console.log(`/${e.key}`);
         this.setState({ current: e.key });
+        const { cityName } = this.props;
+        history.push(`/searchResult/${cityName}/${e.key}`);
     };
 
     render(){
@@ -24,8 +27,8 @@ class SearchResultHeader extends Component{
                   <Menu className="nav-search" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
                       <SubMenu className="drop-down" icon={<BarsOutlined style={{fontSize: "26px", color: "#353535"}}/>}>
                           <Menu.Item key="savedRoute">Saved Routes</Menu.Item>
-                          <Menu.Item key="markedPoints">Marked Points History</Menu.Item>
-                          <Menu.Item key="recommendation">Recommendation Routes</Menu.Item>
+                          {/* <Menu.Item key="markedPoints">Marked Points History</Menu.Item>
+                          <Menu.Item key="recommendation">Recommendation Routes</Menu.Item> */}
                       </SubMenu>
                     </Menu>
                 </Col>

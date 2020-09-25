@@ -25,7 +25,7 @@ class ResultDisplayPanel extends Component {
                                     allTypes={allTypes}
                                     filterByName={this.props.filterByName}
                                     filterByType={this.props.filterByType}
-                                    sendRequest={this.props.sendRequest}
+                                    switchToTravelSchedulePanel={this.props.switchToTravelSchedulePanel}
                                     updateWaypoints={this.props.updateWaypoints}
                                 />
                             </Route>
