@@ -28,6 +28,26 @@
 .tableContainer {
     padding-left:20px;
     max-width: 600px;
+    padding-top: 10px;
+}
+
+.recommend-button{
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #4188E8;
+    width: 600px;
+}
+
+.backwardButton{
+    float: left;
+    background-color: #4188E8;
+    margin-left: 20px;
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .right-side {
