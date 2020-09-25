@@ -161,12 +161,12 @@ class SearchResult extends Component {
             <BrowserRouter>
                 <Router history={history}>
                     <div className="searchResult-container">
-                        <SearchResultHeader cityName={params.city} />
+                        <SearchResultHeader />
                         <div className="main">
                             <div className="left-side">
                                 <Switch>
                                     <Route
-                                        path={`/searchResult/${params.city}/savedRoute`}
+                                        path={`/searchResult/savedRoute`}
                                         component={SavedRoute}
                                     />
 
@@ -192,7 +192,6 @@ class SearchResult extends Component {
                                             updateWaypoints={this.updateWaypoints}
                                         />
                                     </Route>
-
                                 </Switch>
                             </div>
                             <div className="right-side">
