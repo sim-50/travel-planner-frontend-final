@@ -3,16 +3,22 @@ import { Menu, Row, Col} from 'antd';
 import { BarsOutlined, UserOutlined } from '@ant-design/icons';
 import Travel_planner_logo from '../asset/image/travel_planner_logo.svg';
 import '../styles/SearchResultHeader.css';
+import history from "../history";
 
 const { SubMenu } = Menu;
 class SearchResultHeader extends Component{
     state = {
-        current: 'searchPage',
+        current: 'searchResult',
     };
-    //This click function still need to learn in the future
-    handleClick = e => {
-        //console.log('click ', e);
+    
+    handleMenuClick = e => {
+        console.log(`/${e.key}`);
         this.setState({ current: e.key });
+        if (e.key === "logOut") {
+          history.push(`/login`);
+        } else {
+          history.push(`/searchResult/${e.key}`);
+        }
     };
 
     render(){
@@ -21,11 +27,11 @@ class SearchResultHeader extends Component{
             <div>
               <Row>
                 <Col span= {8}>
-                  <Menu className="nav-search" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
+                  <Menu className="nav-search" onClick={this.handleMenuClick} selectedKeys={[current]} mode="horizontal">
                       <SubMenu className="drop-down" icon={<BarsOutlined style={{fontSize: "26px", color: "#353535"}}/>}>
                           <Menu.Item key="savedRoute">Saved Routes</Menu.Item>
-                          <Menu.Item key="markedPoints">Marked Points History</Menu.Item>
-                          <Menu.Item key="recommendation">Recommendation Routes</Menu.Item>
+                          {/* <Menu.Item key="markedPoints">Marked Points History</Menu.Item>
+                          <Menu.Item key="recommendation">Recommendation Routes</Menu.Item> */}
                       </SubMenu>
                     </Menu>
                 </Col>
@@ -33,7 +39,7 @@ class SearchResultHeader extends Component{
                   <a href="/"><img src= {Travel_planner_logo} alt="logo" className = "logo2"/></a>
                 </Col>
                 <Col span= {8}>
-                <Menu className="nav-search" onClick={this.handleClick} selectedKeys={[current]} mode="horizontal">
+                <Menu className="nav-search" onClick={this.handleMenuClick} selectedKeys={[current]} mode="horizontal">
                   <SubMenu 
                     className="user-icon" 
                     icon={<UserOutlined 
