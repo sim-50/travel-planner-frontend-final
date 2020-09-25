@@ -30,10 +30,11 @@ class ResultDisplayPanel extends Component {
                                 />
                             </Route>
 
-                            <Route
-                                path={`/searchResult/${cityName}/travelSchedule`}
-                                component={TravelSchedulePanel}
-                            />
+                            <Route path={`/searchResult/${cityName}/travelSchedule`} >
+                                <TravelSchedulePanel 
+                                    selectedList={selectedList}
+                                />
+                            </Route>
                         </Switch>
                     </div>
                 </Router>

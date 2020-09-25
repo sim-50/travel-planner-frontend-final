@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import "../styles/SearchResult.css";
 import { Transfer, Switch, Table, Tag } from 'antd';
 import difference from 'lodash/difference';
@@ -6,7 +7,7 @@ import difference from 'lodash/difference';
 
 // Customize Table Transfer
 const TableTransfer = ({ leftColumns, rightColumns, ...restProps }) => (
-    <Transfer {...restProps} showSelectAll={false}>
+    <Transfer {...restProps} showSelectAll={true}>
         {({
             direction,
             filteredItems,
@@ -61,8 +62,8 @@ for (let i = 0; i < 20; i++) {
         key: i.toString(),
         title: `content${i + 1}`,
         description: `description of content${i + 1}`,
-        disabled: i % 4 === 0,
-        tag: mockTags[i % 3],
+        disabled: false,
+        type: mockTags[i % 3],
     });
 }
 
@@ -74,13 +75,13 @@ const leftTableColumns = [
         title: 'Name',
     },
     {
-        dataIndex: 'tag',
-        title: 'Tag',
-        render: tag => <Tag>{tag}</Tag>,
+        dataIndex: 'type',
+        title: 'Type',
+        render: type => <Tag>{type}</Tag>,
     },
     {
-        dataIndex: 'description',
-        title: 'Description',
+        dataIndex: 'rating',
+        title: 'Rating',
     },
 ];
 const rightTableColumns = [
@@ -88,14 +89,20 @@ const rightTableColumns = [
         dataIndex: 'title',
         title: 'Name',
     },
+    {
+        dataIndex: 'type',
+        title: 'Type',
+        render: type => <Tag>{type}</Tag>,
+    },
 ];
 
 
-export class TravelSchedulePanel extends Component {
+class TravelSchedulePanel extends Component {
 
     state = {
         targetKeys: originTargetKeys,
         showSearch: false,
+        dataResource: [],
     };
 
     onChange = nextTargetKeys => {
@@ -106,16 +113,28 @@ export class TravelSchedulePanel extends Component {
         this.setState({ showSearch });
     };
 
+    updateDataResource = selectedList => {
+        const data = [];
+        for (let i = 0; i < selectedList.length; i++) {
+            data.push({
+                key: selectedList[i].key,
+                title: selectedList[i].name,
+                rating: selectedList[i].rating,
+                disabled: false,
+                type: selectedList[i].types[0],
+            });
+        }
 
+        this.setState({ dataResource: data });
+    };
 
     render() {
         const { targetKeys, disabled, showSearch } = this.state;
 
-
         return (
             <div className="travelScheduleContainer">
                 <TableTransfer
-                    dataSource={mockData}
+                    dataSource={this.state.dataResource}
                     targetKeys={targetKeys}
                     disabled={disabled}
                     showSearch={showSearch}
@@ -126,16 +145,25 @@ export class TravelSchedulePanel extends Component {
                     leftColumns={leftTableColumns}
                     rightColumns={rightTableColumns}
                 />
-                <Switch
+                {/* <Switch
                     unCheckedChildren="showSearch"
                     checkedChildren="showSearch"
                     checked={showSearch}
                     onChange={this.triggerShowSearch}
                     style={{ marginTop: 16 }}
-                />
+                /> */}
             </div>
         );
     }
+
+    componentDidMount() {
+        const { selectedList } = this.props;
+        this.updateDataResource(selectedList);
+    }
+}
+
+TravelSchedulePanel.propTypes = {
+    citySearchResult: PropTypes.array.isRequired,
 }
 
 export default TravelSchedulePanel;
