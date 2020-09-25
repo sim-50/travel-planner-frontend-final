@@ -18,7 +18,7 @@ class Main extends Component {
                       className = "home-search_bar"
                       placeholder="Where do you want to go?"
                       onSearch = { (city) => {
-                        history.push(`/searchResult/` + city);
+                        history.push(`/searchResult/${city}`);
                       }}
                     />
                 </Col>
