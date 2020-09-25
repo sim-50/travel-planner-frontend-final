@@ -78,11 +78,11 @@ class LocationOptionList extends Component {
 
         const menus = allTypes.map((key, index) => {
             return (
-              <Menu.Item key={index} name={key} onClick={this.filterByType}>
+            <Menu.Item key={index} name={key} onClick={this.filterByType}>
                 {key}
-              </Menu.Item>
+            </Menu.Item>
             )
-          });
+        });
 
         const menu = () => {
             return (
@@ -120,7 +120,7 @@ class LocationOptionList extends Component {
                         <Button
                             className="search-route" type="primary" shape="circle" size="large"
                             disabled={selectedList.length < 2 ? true : false}
-                            onClick={this.props.sendRequest}
+                            onClick={this.props.switchToTravelSchedulePanel}
                             icon={<IconFont type="icon-route" style={{ fontSize: "40px" }}
                             />}></Button>
                     </Tooltip>

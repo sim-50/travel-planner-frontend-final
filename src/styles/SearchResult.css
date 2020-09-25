@@ -13,6 +13,7 @@
 
 .left-side {
     padding-top: 10px;
+    width: 50%;
 }
 
 .left-side img {
@@ -73,5 +74,9 @@ button.ant-btn-lg{
     height: 75px !important;
 }
 
-
-
+.travelScheduleContainer {
+    font-size: 14px;
+    padding: 10px;
+    margin-left: 10px;
+    width: 50%;
+}
