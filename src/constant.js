@@ -1,1 +1,1 @@
-export const Travel_Plan_BASE_URL = "";
+export const Travel_Plan_BASE_URL = "http://localhost:8080/travelplanner";

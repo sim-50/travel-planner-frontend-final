@@ -5,6 +5,25 @@ This project is written in React.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## lib installed for team use
+1. Ant Design(Sep 9, 2020) <br />
+$ npm install antd <br /> 
+$ yarn add antd
+Check the link if you have any questions: https://ant.design/docs/react/introduce
+
+2. @reach/router(Sep 12 ,2020): React Router<br />
+npm install @reach/router<br />
+yarn add @reach/router
+
+3. google map react library (Sep 12,2020)<br />
+npm install --save google-maps-react <br />
+
+4. Axios (Sep 13, 2020) <br />
+npm install axios <br />
+
+5. react google map library (Sep 18, 2020)<br />
+npm install --save react-google-maps <br />
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -57,6 +76,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/co
 This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
 ### Making a Progressive Web App
+
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
