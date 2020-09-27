@@ -53,11 +53,7 @@ class LocationOptionList extends Component {
             this.props.updateWaypoints(selectedRows);
             //console.log("clicked", selectedRows);
             //console.log(selectedRowKeys);
-        },
-        getCheckboxProps: record => ({
-            disabled: record.name === 'Disabled User', // Column configuration not to be checked
-            name: record.name,
-        }),
+        }
     };
 
     //* filter by type
