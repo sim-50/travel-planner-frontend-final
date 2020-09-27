@@ -364,9 +364,9 @@ class SearchResult extends Component {
         //     })
         // }
     };
-    showOnMap = (plan) => {
-        const routes = [];
-        plan.map((day) =>{
+    showOnMap = (plan) => {
+        const routes = [];
+        plan.map((day) =>{
             routes.push(day.route)
         });
 
