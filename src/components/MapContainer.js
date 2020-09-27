@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap,  Marker, DirectionsRenderer, Polyline, InfoWindow } from 'react-google-maps';
 import {  GoogleApiWrapper } from 'google-maps-react';
 
+
 const MapWithMarker = withGoogleMap((props) => (
     
     <GoogleMap
@@ -14,9 +15,9 @@ const MapWithMarker = withGoogleMap((props) => (
         {props.markers.map( location => (
             
             <Marker
-           
+            
                 icon={{
-                    url: 'data:image/svg+xml;utf-8, <svg t="1601188015625" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10824" width="32" height="32"><path d="M832 172.32C908.48 172.32 977.088 130.688 1024 99.2L1024 694.88C977.088 726.368 908.48 768 832 768 755.52 768 686.912 745.344 640 713.856 593.088 682.368 524.48 659.68 448 659.68 371.52 659.68 302.912 698.624 256 730.08L256 134.4C302.912 102.912 371.52 64 448 64 524.48 64 593.088 86.656 640 118.144 686.912 149.632 755.52 172.32 832 172.32ZM128 0C163.36 0 192 28.64 192 64L192 1024 64 1024 64 64C64 28.64 92.64 0 128 0Z" p-id="10825"></path></svg>'
+                    url: 'data:image/svg+xml;utf-8, <svg t="1600837384302" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1844" width="30" height="30"><path d="M832 172.32C908.48 172.32 977.088 130.688 1024 99.2L1024 694.88C977.088 726.368 908.48 768 832 768 755.52 768 686.912 745.344 640 713.856 593.088 682.368 524.48 659.68 448 659.68 371.52 659.68 302.912 698.624 256 730.08L256 134.4C302.912 102.912 371.52 64 448 64 524.48 64 593.088 86.656 640 118.144 686.912 149.632 755.52 172.32 832 172.32ZM128 0C163.36 0 192 28.64 192 64L192 1024 64 1024 64 64C64 28.64 92.64 0 128 0Z" p-id="1845"></path></svg>'
                 }}
                 key={location.key}
                 name={location.name}
@@ -77,8 +78,6 @@ export class MapContainer extends Component {
     constructor(props){
         super(props);
         this.state={
-            //showingInfoWindow: false, //hides the infoWindow initially
-            //activeMarkers: [],
             activeMarker: null,
             selectedPlaces: this.props.selected,
             responseData:[],
@@ -89,41 +88,52 @@ export class MapContainer extends Component {
     onRouteClick = (route) => {
         
         let newResponseData = this.state.responseData;
+        let highlight = this.state.highlight;
 
-        newResponseData = newResponseData.map(entry => {
-            if(entry === route) {
-                entry.actualColor = entry.color === entry.actualColor ? '#FF0000' : entry.color;
-            }
-            return entry;
-        })
+        // newResponseData = newResponseData.map(entry => {
+        //     if(entry === route) {
+        //         entry.actualColor = entry.color === entry.actualColor ? '#FF0000' : entry.color;
+        //     }
+        //     return entry;
+        // })
+
+        if(highlight === null) {
+            highlight = route;
+            newResponseData = newResponseData.map(entry => {
+                if(entry !== route) {
+                    entry.actualColor = '#b2b2b2';
+                }
+                return entry;
+            })
+        }else if(highlight !== null && route === highlight) {
+            highlight = null;
+            newResponseData = newResponseData.map(entry => {
+                
+                entry.actualColor = entry.color;
+                
+                return entry;
+            })
+        }else if(highlight !== null && route !== highlight) {
+            highlight = route;
+            newResponseData = newResponseData.map(entry => {
+                if(entry === route) {
+                    entry.actualColor = entry.color;
+                } else {
+                    entry.actualColor = '#b2b2b2';
+                }
+                return entry;
+            })
+        }
 
         this.setState({
-            responseData: newResponseData
+            highlight: highlight,
+            responseData: newResponseData,
         })
         
     }
 
     
     onMarkerClick = (location) => {
-        
-        // let newActiveMarkers = this.state.activeMarkers;
-
-        // const found = newActiveMarkers.some(entry => entry === location);
-
-        // if(!found) {
-        //     newActiveMarkers.push(location);
-        // } 
-        
-        // if(found) {
-            
-        //     newActiveMarkers = newActiveMarkers.filter(entry => {
-        //         return entry !== location;
-        //     });
-        // }
-        
-        // this.setState({
-        //     activeMarkers: newActiveMarkers,
-        // });
 
         let newActive = this.state.activeMarker;
         if(newActive === location) {
@@ -137,42 +147,13 @@ export class MapContainer extends Component {
         });
     }
 
-    // onClose = (location) => {
-
-    //     let newActiveMarkers = this.state.activeMarkers;
-
-    //     newActiveMarkers = newActiveMarkers.filter(entry => {
-    //         return entry !== location;
-    //     });
-
-    //     this.setState({
-    //         activeMarkers: newActiveMarkers,
-    //     });
-
-    // }
-    
-
-    // onClose = props =>{
-    //     if(this.state.showingInfoWindow){
-    //         this.setState({
-    //             showingInfoWindow: false,
-    //             activeMarkers:null
-    //         });
-    //     }
-    // }
-
     componentDidUpdate(prevProps, prevState) {
         const { selectedPlaces } = this.state;
         if(prevProps.selected !== this.props.selected) {
             //console.log("Map", this.props.responseData);
 
-             let newActiveMarker = this.state.activeMarker;
-            // this.state.activeMarkers.map(activeMarker => {
-            //     if(!this.props.selected.some(location => location === activeMarker)) {
-            //         newActiveMarkers = newActiveMarkers.filter(entry => {return entry !== activeMarker})
-            //     }
-            // })
-
+            let newActiveMarker = this.state.activeMarker;
+            
             if(!this.props.selected.some(location => location === newActiveMarker)) {
                 newActiveMarker = null;
             }
@@ -204,8 +185,6 @@ export class MapContainer extends Component {
                 onRouteClick = {this.onRouteClick}
 
                 onMarkerClick={this.onMarkerClick}
-                //onClose = {this.onClose}
-                //activeMarkers={this.state.activeMarkers}
                 activeMarker={this.state.activeMarker}
                 showingInfoWindow={this.state.showingInfoWindow}
                 selectedPlaces={this.selectedPlaces}

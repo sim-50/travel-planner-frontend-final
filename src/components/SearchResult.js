@@ -11,6 +11,8 @@ import { sendRequest } from "./RouteUtils";
 import { randomColor } from "randomcolor";
 import history from "../history";
 
+
+
 class SearchResult extends Component {
     state = {
         cityName: "Los Angeles",
@@ -372,19 +374,26 @@ class SearchResult extends Component {
             routes: routes,
         },this.sendRequest);
     };
+    
+    color = ['#411b5e', '#0026ff', '#22bab5', '#55ff00', '#aaff00', '#ffff00', '#ffbb00', '#ff9900', '#ff5500', '#ff3300', '#bf2a2a', '#780765', '#000000'];
+
     //send route request
     sendRequest = () => {
 
         const routes = this.state.routes;
 
-        for(let i = 0; i < routes.length; i++) {
+        this.setState({
+          result: [],
+        }, ()=> {
+          for(let i = 0; i < routes.length; i++) {
 
             sendRequest(routes[i], (response) => {
                 let newResult = this.state.result;
-                response.color=randomColor({
-                    luminosity: 'random',
-                    hue: 'random'
-                 });
+                // response.color=randomColor({
+                //     luminosity: 'random',
+                //     hue: 'random'
+                //  });
+                response.color=this.color[newResult.length];
                 response.actualColor=response.color;
     
                 newResult.push(response);
@@ -396,6 +405,8 @@ class SearchResult extends Component {
                     });
             });
         }
+        })
+        
 
     }
 
