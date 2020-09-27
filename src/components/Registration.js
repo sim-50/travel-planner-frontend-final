@@ -92,7 +92,7 @@ class Registration extends Component{
                 <div className="registerarea">
 
                     <Form {...layout} ref={this.formRef} name="control-ref" className="registerBox" onFinish={this.onFinishing}>
-                        <h3 className="boxHeader"> Register</h3>
+                        <h3 className="boxHeader"> Register.</h3>
 
                         <Form.Item name="email" rules={[{required: true, message: 'Username should not be empty!'}]} className="">
                             <Input placeholder="Username" className="input1" size="default"/>
