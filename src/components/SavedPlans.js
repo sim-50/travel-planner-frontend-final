@@ -4,22 +4,25 @@ import Modal from 'antd/lib/modal/Modal';
 import MapContainer from "./MapContainer";
 import { Travel_Plan_BASE_URL } from "../constant";
 import axios from "axios";
+import { sendRequest } from "./RouteUtils";
+import SearchResultHeader from "./SearchResultHeader";
 
 const { TabPane } = Tabs;
 
-class SavedRoute extends Component {
+class SavedPlans extends Component {
     state = {
         cityName: "Los Angeles",
-        cityCoordinate: {lat: 40.7128, lng: -74.0060},
+        cityCoordinate: {},
+        cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
         waypoints: [],
-        result: this.props.responseData,
+        result: [],
         isDraw: false,
         // needed by modal
         modalVisible: false,
         // needed by functions in RecommendedPlanList
         selectedPlanName: "",
         selectedPlanDetail: [],
-        planList : [
+        savedPlanList : [
           {
             key: 0,
             name: "Life's journey after graduation",
@@ -314,32 +317,81 @@ class SavedRoute extends Component {
                }]
             }
         ]}],
-        routes: [],      //list of list
+        savedRoutes: [],      //list of list
       };
 
-    // componentDidMount() {
-    //     // todo: put into const file
-    //     const url =
-    //         Travel_Plan_BASE_URL + `/search?city=${this.props.match.params.city}`;
-    //     axios
-    //         .get(url)
-    //         .then((response) => {
-    //             //console.log('response: ',response);
-    //             //console.log('response: ',response.data.responseObj.results);
-    //             //console.log(response.data.responseObj.allTypes);
-    //             this.setState({
-    //                 cityCoordinate: {
-    //                     lat: response.data.responseObj.coordinate[0],
-    //                     lng: response.data.responseObj.coordinate[1],
-    //                 },
-    //                 citySearchResult: response.data.responseObj.results,
-    //                 allTypes: response.data.responseObj.allTypes,
-    //             });
-    //         })
-    //         .catch((error) => {
-    //             console.log("err in fetch cityInfo -> ", error);
-    //         });
-    // }
+    showOnMap = (plan) => {
+      const routes = [];
+      plan.map((day) =>{
+          routes.push(day.route)
+      });
+
+      this.setState({
+          savedRoutes: routes,
+      },this.sendRequest);
+    };
+    
+    color = ['#411b5e', '#0026ff', '#22bab5', '#55ff00', '#aaff00', '#ffff00', '#ffbb00', '#ff9900', '#ff5500', '#ff3300', '#bf2a2a', '#780765', '#000000'];
+
+    //send route request
+    sendRequest = () => {
+
+        const routes = this.state.savedRoutes;
+
+        this.setState({
+          result: [],
+        }, ()=> {
+          for(let i = 0; i < routes.length; i++) {
+
+            sendRequest(routes[i], (response) => {
+                let newResult = this.state.result;
+                // response.color=randomColor({
+                //     luminosity: 'random',
+                //     hue: 'random'
+                //  });
+                response.color=this.color[newResult.length];
+                response.actualColor=response.color;
+    
+                newResult.push(response);
+                // newResult = [response];
+                this.setState(
+                    { 
+                        result: newResult,
+                        isDraw: true,
+                    });
+            });
+        }
+        })
+    }
+
+    componentDidMount() {
+      // todo: put into const file
+      // const url =
+      //     Travel_Plan_BASE_URL + `/search?city=${this.props.match.params.city}`;
+      const url =
+          Travel_Plan_BASE_URL + `/search?city=new%20york`;
+      axios
+          .get(url)
+          .then((response) => {
+              //console.log('response: ',response);
+              //console.log('response: ',response.data.responseObj.results);
+              //console.log(response.data.responseObj.allTypes);
+              console.log(response.data.responseObj.coordinate[0]);
+              console.log(response.data.responseObj.coordinate[1]);
+              this.setState({
+                  cityCoordinate: {
+                      lat: response.data.responseObj.coordinate[0],
+                      lng: response.data.responseObj.coordinate[1],
+                  },
+                  // citySearchResult: response.data.responseObj.results,
+                  // allTypes: response.data.responseObj.allTypes,
+              });
+              console.log(this.state.cityCoordinate);
+          })
+          .catch((error) => {
+              console.log("err in fetch cityInfo -> ", error);
+          });
+  }
 
     columns= [
       {
@@ -367,7 +419,7 @@ class SavedRoute extends Component {
               Details
             </Button>
             <Button onClick={()=>{
-              this.props.showOnMap(record.planDetail);
+              this.showOnMap(record.planDetail);
             }}>Show on map</Button>
             <Button>Delete</Button>
           </Space>
@@ -387,54 +439,53 @@ class SavedRoute extends Component {
     setPlanName = (planName) =>{
       this.setState({selectedPlanName: planName});
     }
-  
-    
 
     render() {
-        console.log(this.state.cityCoordinate);
         return (
-            <div className="saved-routes">
-                <div className="left-side">
-                    <div className='tableContainer'>
-                        <Table
-                            columns={this.columns}
-                            dataSource={this.state.planList}
-                            pagination={{ pageSize: 5 }}
-                        />
-                        <Modal
-                        title={this.state.selectedPlanName}
-                        style={{float: "left", marginLeft:"30px", width:"500px", top:"250px"}}
-                        visible={this.state.modalVisible}
-                        onOk={() => this.setModalVisible(false)}
-                        onCancel={() => this.setModalVisible(false)}
-                        >
-                          <Tabs defaultActiveKey="1" tabPosition="top" onChange={(key) =>{console.log(key)}} style={{ height: "70%" }}>
-                            {this.state.selectedPlanDetail.map(i => (
-                              <TabPane tab={`Day ${i.day}`} key={i.day}>
-                                <Timeline>
-                                  {
-                                    i.route.map(j =>(
-                                      <Timeline.Item>{j.name}</Timeline.Item>
-                                    ))
-                                  }
-                                </Timeline>
-                              </TabPane>
-                            ))}
-                          </Tabs>
-                        </Modal>
-                    </div>
+          <div className="searchResult-container">
+            <SearchResultHeader />
+            <div className="main">
+              <div className="left-side">    
+                <div className='tableContainer'>
+                    <Table
+                        columns={this.columns}
+                        dataSource={this.state.savedPlanList}
+                        pagination={{ pageSize: 5 }}
+                    />
+                    <Modal
+                    title={this.state.selectedPlanName}
+                    style={{float: "left", marginLeft:"30px", width:"500px", top:"250px"}}
+                    visible={this.state.modalVisible}
+                    onOk={() => this.setModalVisible(false)}
+                    onCancel={() => this.setModalVisible(false)}
+                    >
+                      <Tabs defaultActiveKey="1" tabPosition="top" onChange={(key) =>{console.log(key)}} style={{ height: "70%" }}>
+                        {this.state.selectedPlanDetail.map(i => (
+                          <TabPane tab={`Day ${i.day}`} key={i.day}>
+                            <Timeline>
+                              {
+                                i.route.map(j =>(
+                                  <Timeline.Item>{j.name}</Timeline.Item>
+                                ))
+                              }
+                            </Timeline>
+                          </TabPane>
+                        ))}
+                      </Tabs>
+                    </Modal>
                 </div>
-                <div className="right-side">
+              </div>
+              <div className="right-side">
                 <MapContainer
-                    cityCoordinate={this.state.cityCoordinate}
-                    selected={[]}
-                    responseData={this.state.result}
-                    sendRequest={this.props.sendRequest}
+                  cityCoordinate={this.state.cityCoordinate}
+                  selected={[]}
+                  responseData={this.state.result}
                 />
-                </div>
+              </div>
             </div>
+          </div>
         );
     }
 }
 
-export default SavedRoute;
+export default SavedPlans;

@@ -17,7 +17,7 @@ class SearchResultHeader extends Component{
         if (e.key === "logOut") {
           history.push(`/login`);
         } else {
-          history.push(`/searchResult/${e.key}`);
+          history.push(`/${e.key}`);
         }
     };
 

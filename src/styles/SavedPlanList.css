@@ -1,0 +1,27 @@
+.left-side {
+    padding-top: 10px;
+    width: 50%;
+}
+
+.tableContainer {
+    padding-left:20px;
+    max-width: 600px;
+    padding-top: 10px;
+}
+
+.right-side {
+    margin-left: 10px;
+}
+
+.backwardButton{
+    float: left;
+    background-color: #4188E8;
+    margin-left: 20px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.ant-modal-body{
+    padding-left: 30px;
+    padding-top: 12px;
+}
