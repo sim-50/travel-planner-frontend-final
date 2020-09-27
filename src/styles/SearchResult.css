@@ -7,6 +7,13 @@
     padding-bottom: 5px;
 }
 
+.container {
+  padding: 1em;
+}
+.container img{
+  width: 100%;
+}
+
 .main {
     display: flex;
 }
@@ -16,41 +23,40 @@
     width: 50%;
 }
 
-.left-side img {
-    margin-left: 5px;
-}
 
 .filterContainer {
-    padding:10px;
-    margin-left: 10px;
-    width: 600px !important;
+    width: 100% !important;
+    margin:1em 0;
 }
 
 .tableContainer {
-    padding-left:20px;
-    max-width: 600px;
-    padding-top: 10px;
+    max-width: 100%;
 }
 
+.ant-pagination-next,
+.ant-pagination-prev{
+  line-height: 1;
+} 
+
+
+
 .recommend-div{
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding-top: 15px;
     height: 50px;
-    font-size: 15px;
+    font-size: 1em;
+    padding:1em;
     font-weight: bold;
     background-color: #4188E8;
-    width: 600px;
+    width: 100%;
     color: #fff;
+    margin-top:1em;
+    border-radius: 10px;
 }
 
 .backwardButton{
-    float: left;
-    background-color: #4188E8;
-    margin-left: 20px;
-    font-size: 15px;
-    font-weight: bold;
+  background-color: #4188E8;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 10px;
 }
 
 .ant-modal-body{
@@ -62,10 +68,6 @@
     margin-left: 4px;
     margin-right: 4px;
     color:#FFD700;
-}
-
-.right-side {
-    margin-left: 10px;
 }
 
 .search-route {
@@ -92,4 +94,20 @@ button.ant-btn-lg{
     padding: 10px;
     margin-left: 10px;
     width: 50%;
+}
+
+.filterBtn{
+  height:2.5em;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.filterInput{
+  height:2.5em;
+  background: none !important;
+}
+
+.signupLink span{
+  margin-left: .5em;
+  font-weight: 700;
 }
