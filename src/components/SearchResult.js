@@ -59,7 +59,10 @@ class SearchResult extends Component {
 
         const routes = this.state.routes;
 
-        for(let i = 0; i < routes.length; i++) {
+        this.setState({
+          result: [],
+        }, ()=> {
+          for(let i = 0; i < routes.length; i++) {
 
             sendRequest(routes[i], (response) => {
                 let newResult = this.state.result;
@@ -67,8 +70,7 @@ class SearchResult extends Component {
                 //     luminosity: 'random',
                 //     hue: 'random'
                 //  });
-
-                response.color = this.color[newResult.length];
+                response.color=this.color[newResult.length];
                 response.actualColor=response.color;
     
                 newResult.push(response);
@@ -80,6 +82,8 @@ class SearchResult extends Component {
                     });
             });
         }
+        })
+        
 
     }
 

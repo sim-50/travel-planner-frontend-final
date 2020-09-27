@@ -88,16 +88,46 @@ export class MapContainer extends Component {
     onRouteClick = (route) => {
         
         let newResponseData = this.state.responseData;
+        let highlight = this.state.highlight;
 
-        newResponseData = newResponseData.map(entry => {
-            if(entry === route) {
-                entry.actualColor = entry.color === entry.actualColor ? '#FF0000' : entry.color;
-            }
-            return entry;
-        })
+        // newResponseData = newResponseData.map(entry => {
+        //     if(entry === route) {
+        //         entry.actualColor = entry.color === entry.actualColor ? '#FF0000' : entry.color;
+        //     }
+        //     return entry;
+        // })
+
+        if(highlight === null) {
+            highlight = route;
+            newResponseData = newResponseData.map(entry => {
+                if(entry !== route) {
+                    entry.actualColor = '#b2b2b2';
+                }
+                return entry;
+            })
+        }else if(highlight !== null && route === highlight) {
+            highlight = null;
+            newResponseData = newResponseData.map(entry => {
+                
+                entry.actualColor = entry.color;
+                
+                return entry;
+            })
+        }else if(highlight !== null && route !== highlight) {
+            highlight = route;
+            newResponseData = newResponseData.map(entry => {
+                if(entry === route) {
+                    entry.actualColor = entry.color;
+                } else {
+                    entry.actualColor = '#b2b2b2';
+                }
+                return entry;
+            })
+        }
 
         this.setState({
-            responseData: newResponseData
+            highlight: highlight,
+            responseData: newResponseData,
         })
         
     }
