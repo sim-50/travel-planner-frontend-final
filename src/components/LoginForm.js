@@ -24,14 +24,17 @@ class LoginForm extends Component{
            <Header className="home-header">
               <Row className="row-class main-header">
                 <Col span={12}>
+                <Link to = "/">
                   <img
                     src={Travel_planner_logo}
                     className="app-logo"
                     alt="logo"
                   />
+                </Link>
                 </Col>
                
-                <Col span={12} className="id-class">
+               
+                <Col span={12} className="id-class"> 
                   {
                     this.state.login ? <span>Sign out</span> : <span>Sign in</span>
                   }
