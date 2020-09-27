@@ -105,7 +105,6 @@ class LocationOptionList extends Component {
                         style={{ marginLeft: 10 }}
                         placeholder="filter by name"
                         onChange={e => this.filterByName(e.target.value)}   //? onChange or onSearch need to be discussed
-                        enterButton 
                     />
                 </div>
 
