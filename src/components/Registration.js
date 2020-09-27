@@ -5,8 +5,6 @@ import Axios from 'axios';
 import RegistrationHeader from './RegistrationHeader';
 import { Travel_Plan_BASE_URL } from '../constant';
 
-//git resubmit 
-
 
 const layout = {
     labelCol: {
