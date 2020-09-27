@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import ImgContainer from './ImgContainer';
 import LocationOptionList from './LocationOptionList';
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
 import {Button} from 'antd';
+=======
+import {Button, Typography} from 'antd';
+>>>>>>> upstream/dev
 import RecommendPlanList from './RecommendPlanList';
 import TravelSchedulePanel from "./TravelSchedulePanel";
 import "../styles/SearchResult.css";
 import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
 import history from "../history";
+
+const {Text} =  Typography;
 
 class ResultDisplayPanel extends Component {
     state = {
@@ -48,14 +54,24 @@ class ResultDisplayPanel extends Component {
                         <Switch>
                             <Route exact path={`/searchResult/${cityName}`}>
                             {this.state.showRecommendButton &&
+<<<<<<< HEAD
                                 <Button className="recommend-button"type="primary" block onClick = {this.clickRecommendButton}>
                                     Have no idea about the following places? Click here to get inspiration!
                                 </Button>
+=======
+                                <div className="recommend-div">
+                                    Have no idea about the following places? <Text onClick = {this.clickRecommendButton} underline> Click here</Text> to get inspiration!
+                                </div>
+>>>>>>> upstream/dev
                             }
                             {this.state.showPlanList && 
                             <RecommendPlanList
                                 showOnMap={this.props.showOnMap}
                                 planList={this.props.planList}
+<<<<<<< HEAD
+=======
+                               // recommendPlanList = {this.props.recommendationPlanList}
+>>>>>>> upstream/dev
                             />}
                             {this.state.showLocationList &&
                                 <LocationOptionList
@@ -93,6 +109,7 @@ ResultDisplayPanel.propTypes = {
     allTypes: PropTypes.array.isRequired,
 };
 
+<<<<<<< HEAD
 export default ResultDisplayPanel;
 
 // import React, { Component } from "react";
@@ -147,3 +164,6 @@ export default ResultDisplayPanel;
 // };
 
 // export default ResultDisplayPanel;
+=======
+export default ResultDisplayPanel;
+>>>>>>> upstream/dev

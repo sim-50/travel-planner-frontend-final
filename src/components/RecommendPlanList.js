@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Table, Space,Tabs,Button, Timeline } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
+import axios from "axios";
+import { Travel_Plan_BASE_URL } from "../constant";
 
 const { TabPane } = Tabs;
 
@@ -22,6 +24,7 @@ class RecommendPlanList extends Component {
     setPlanName = (planName) =>{
       this.setState({selectedPlanName: planName});
     }
+    
 
     columns= [
         {
@@ -51,18 +54,36 @@ class RecommendPlanList extends Component {
               <Button onClick={()=>{
                 this.props.showOnMap(record.planDetail);
               }}>Show on map</Button>
-              <Button>Save</Button>
+              <Button onClick = {()=>{
+                //still need to double check!!
+                const planObject = {
+                  name: record.name,
+                  days: record.days,
+                  planDetail: record.planDetail,
+                };
+                //here username and planid are hardcode!!
+                const url = Travel_Plan_BASE_URL + `/saverecommendedplan?username=test&planid=10`
+                axios
+                  .post(url, planObject)
+                  .then((res) => {
+                    console.log(res.data)
+                  })
+                  .catch((error) =>{
+                    console.log(error)
+                  })
+              }}>Save</Button>
             </Space>
           )
         },
       ];
-  
+    
     render() {
         return(
             <div className='tableContainer'>
                 <Table
                     columns={this.columns}
                     dataSource={this.props.planList}
+                    //dataSource = {this.props.recommendedPlanList}
                     pagination={{ pageSize: 5 }}
                 />
                 <Modal
