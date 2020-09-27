@@ -393,9 +393,9 @@ class SearchResult extends Component {
                 //     luminosity: 'random',
                 //     hue: 'random'
                 //  });
-                response.color=this.color[newResult.length];
+                response.color=this.color[i];
                 response.actualColor=response.color;
-    
+                response.key=i+1;
                 newResult.push(response);
                 // newResult = [response];
                 this.setState(
