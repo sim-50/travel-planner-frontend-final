@@ -3,6 +3,7 @@
 @import "./styles/SearchResultHeader.css";
 @import "./styles/SearchResult.css";
 @import "./styles/Registration.css";
+@import "./styles/SavedPlanList.css";
 
 body {
   margin: 0;
