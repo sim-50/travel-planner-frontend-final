@@ -7,9 +7,9 @@ import { createFromIconfontCN } from '@ant-design/icons';
 
 const IconFont = createFromIconfontCN({
     scriptUrl: [
-        '//at.alicdn.com/t/font_2064551_fho540f8c18.js' // Search route icon
+      '//at.alicdn.com/t/font_2064551_fho540f8c18.js' // Search route icon
     ],
-});
+  });
 
 class LocationOptionList extends Component {
     // set the table header name
@@ -41,7 +41,7 @@ class LocationOptionList extends Component {
             sortDirections: ['descend', 'ascend'],
         },
     ];
-
+    
     // rowSelection object indicates the need for row selection
     rowSelection = {
         preserveSelectedRowKeys: true,              //* Keep selection key even when it removed from dataSource
@@ -53,7 +53,7 @@ class LocationOptionList extends Component {
             this.props.updateWaypoints(selectedRows);
             //console.log("clicked", selectedRows);
             //console.log(selectedRowKeys);
-        },
+        }
     };
 
     //* filter by type

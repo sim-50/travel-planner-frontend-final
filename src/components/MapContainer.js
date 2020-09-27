@@ -146,7 +146,6 @@ export class MapContainer extends Component {
             activeMarker: newActive,
         });
     }
-    
 
     componentDidUpdate(prevProps, prevState) {
         const { selectedPlaces } = this.state;
@@ -186,7 +185,6 @@ export class MapContainer extends Component {
                 onRouteClick = {this.onRouteClick}
 
                 onMarkerClick={this.onMarkerClick}
-
                 activeMarker={this.state.activeMarker}
                 showingInfoWindow={this.state.showingInfoWindow}
                 selectedPlaces={this.selectedPlaces}
