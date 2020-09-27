@@ -36,7 +36,7 @@ const TableTransfer = ({ leftColumns, rightColumns, ...restProps }) => (
             };
 
             return (
-                <Table
+                <Table 
                     rowSelection={rowSelection}
                     columns={columns}
                     dataSource={filteredItems}
