@@ -8,11 +8,17 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.6.3",
+<<<<<<< HEAD
     "axios": "^0.20.0",
     "google-maps-react": "^2.0.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-google-maps": "^9.4.5",
+=======
+    "google-maps-react": "^2.0.6",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+>>>>>>> parent of 23bd796... Unupdated change
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
