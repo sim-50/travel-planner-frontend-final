@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import ImgContainer from './ImgContainer';
 import LocationOptionList from './LocationOptionList';
 import PropTypes from 'prop-types';
-import {Button, Tooltip} from 'antd';
+import {Button, Typography} from 'antd';
 import RecommendPlanList from './RecommendPlanList';
 import TravelSchedulePanel from "./TravelSchedulePanel";
 import "../styles/SearchResult.css";
 import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
 import history from "../history";
+
+const {Text} =  Typography;
 
 class ResultDisplayPanel extends Component {
     state = {
@@ -34,36 +36,13 @@ class ResultDisplayPanel extends Component {
             showBackwardButton: false,
         })
     }
+
+    
     
     render() {
         const { cityName, cityImg, citySearchResult, selectedList, allTypes } = this.props;
 
-        return (
-            // <div className="container">
-            //     <ImgContainer cityImg={cityImg}/>
-            //     {this.state.showRecommendButton &&
-            //         <Button className="recommend-button"type="primary" block onClick = {this.clickRecommendButton}>
-            //             Have no idea about the following places? Click here to get inspiration!
-            //         </Button>
-            //     }
-            //     {this.state.showPlanList && <RecommendPlanList />}
-            //     {this.state.showLocationList &&
-            //         <LocationOptionList
-            //             updateSelectedLocation={this.props.updateSelectedLocation} 
-            //             selectedList={selectedList}
-            //             citySearchResult={citySearchResult} 
-            //             allTypes = {allTypes}
-            //             filterByName={this.props.filterByName} 
-            //             filterByType={this.props.filterByType} 
-            //             sendRequest={this.props.sendRequest}
-            //             updateWaypoints={this.props.updateWaypoints}
-            //         />
-            //     }
-            //     {this.state.showBackwardButton &&
-            //         <Button type="primary" className="backwardButton" onClick = {this.clickBackButton}>Back to places list</Button>
-            //     }
-                
-            // </div>
+        return ( 
             <BrowserRouter>
                 <Router history={history}>
                     <div className="container">
@@ -71,11 +50,16 @@ class ResultDisplayPanel extends Component {
                         <Switch>
                             <Route exact path={`/searchResult/${cityName}`}>
                             {this.state.showRecommendButton &&
-                                <Button className="recommend-button"type="primary" block onClick = {this.clickRecommendButton}>
-                                    Have no idea about the following places? Click here to get inspiration!
-                                </Button>
+                                <div className="recommend-div">
+                                    Have no idea about the following places? <Text onClick = {this.clickRecommendButton} underline> Click here</Text> to get inspiration!
+                                </div>
                             }
-                            {this.state.showPlanList && <RecommendPlanList />}
+                            {this.state.showPlanList && 
+                            <RecommendPlanList
+                                showOnMap={this.props.showOnMap}
+                                planList={this.props.planList}
+                               // recommendPlanList = {this.props.recommendationPlanList}
+                            />}
                             {this.state.showLocationList &&
                                 <LocationOptionList
                                     updateSelectedLocation={this.props.updateSelectedLocation} 
