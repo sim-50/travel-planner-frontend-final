@@ -45,7 +45,6 @@ const MapWithMarker = withGoogleMap((props) => (
 
         {props.responseData.map( route => (
             <React.Fragment key={route.key}>
-                
                 <DirectionsRenderer
                     directions={route}
                     options={{
@@ -82,7 +81,7 @@ export class MapContainer extends Component {
             activeMarker: null,
             selectedPlaces: this.props.selected,
             responseData:[],
-            cityCoordinate: null,
+            cityCoordinate: this.props.cityCoordinate,
         }
     }
 

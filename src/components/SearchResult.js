@@ -16,7 +16,7 @@ import history from "../history";
 class SearchResult extends Component {
     state = {
         cityName: "Los Angeles",
-        cityCoordinate: {},
+        cityCoordinate: null,
         cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
         citySearchResult: [],
         allTypes: [],
