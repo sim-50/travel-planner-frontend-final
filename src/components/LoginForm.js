@@ -8,7 +8,7 @@ import Travel_planner_logo from "../asset/image/travel_planner_logo.svg";
 
 const { Header} = Layout;
 
-class Login extends Component{
+class LoginForm extends Component{
   constructor(props){
     super(props);
     this.state = {
@@ -79,4 +79,5 @@ class Login extends Component{
     }
   }
 
-export default Login;
+export default LoginForm;
+
