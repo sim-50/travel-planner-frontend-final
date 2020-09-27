@@ -69,8 +69,8 @@ margin-top: 20%;
 }
 
 .ant-input-suffix{
-width: 5em;
-background: #285FC2;
+width: 5em !important;
+background: #285FC2 !important;
 margin-right: .3em;
 border-radius: 10px;
 }
