@@ -4,6 +4,8 @@ import Travel_planner_logo from '../asset/image/travel_planner_logo.svg';
 import User_logo from '../asset/image/user.svg';
 import "../styles/Registration.css";
 
+// git resubmit
+
 class RegistrationHeader extends Component{
 
     render(){
