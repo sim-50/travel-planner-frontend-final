@@ -1,6 +1,7 @@
 import React,{Component}from 'react';
 import { Layout, Row, Col} from 'antd';
 import {Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import '../styles/loginStyle.css';
 import User_icon from "../asset/image/user.svg";
@@ -41,7 +42,7 @@ class LoginForm extends Component{
           </Header>
           <Layout className = "loginarea">
             <div className ='loginBox'>
-                <h3>Login | Register</h3>
+                <h3>Log in.</h3>
                 <div className = 'input'>
                     <input type="text" placeholder= "Username"  id = 'input1' ref = {(input) => {this.username = input}}/>
                     <input type="password" placeholder= "Password" id = 'input2' ref = {(input) => {this.password = input}}/>
@@ -50,6 +51,13 @@ class LoginForm extends Component{
               <div className = "button">
                 <button onClick = {() => this.login(this.username, this.password)}>Log in</button>
               </div>
+
+        
+                <p className= 'signupLink'>Don't have an account? 
+                <Link to = "/Registration">
+                  <span>Sign up</span>
+                </Link>
+                </p>
             </div>
           </Layout>
         </Layout>

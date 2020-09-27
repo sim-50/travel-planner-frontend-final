@@ -3,6 +3,8 @@
     height: 100vh;
 }
 
+
+
 .loginarea{
   width: 100%;
   height: 100%;
@@ -22,7 +24,6 @@
 
 .loginBox>h3{
   font-size: 1.6em;
-  text-align: center;
 }
 
 
@@ -75,4 +76,16 @@ button{
 
 .button{
   margin-top:2em;
+}
+
+.signupLink{
+  display: block;
+  padding-top: 3em;
+  font-size: .9em;
+}
+.signupLink>span{
+  margin-left:.2em;
+  color: #6cb5f5;
+  font-weight: bold;
+
 }
