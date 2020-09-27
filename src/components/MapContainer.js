@@ -78,8 +78,6 @@ export class MapContainer extends Component {
     constructor(props){
         super(props);
         this.state={
-            //showingInfoWindow: false, //hides the infoWindow initially
-            //activeMarkers: [],
             activeMarker: null,
             selectedPlaces: this.props.selected,
             responseData:[],
@@ -106,25 +104,6 @@ export class MapContainer extends Component {
 
     
     onMarkerClick = (location) => {
-        
-        // let newActiveMarkers = this.state.activeMarkers;
-
-        // const found = newActiveMarkers.some(entry => entry === location);
-
-        // if(!found) {
-        //     newActiveMarkers.push(location);
-        // } 
-        
-        // if(found) {
-            
-        //     newActiveMarkers = newActiveMarkers.filter(entry => {
-        //         return entry !== location;
-        //     });
-        // }
-        
-        // this.setState({
-        //     activeMarkers: newActiveMarkers,
-        // });
 
         let newActive = this.state.activeMarker;
         if(newActive === location) {
@@ -137,20 +116,6 @@ export class MapContainer extends Component {
             activeMarker: newActive,
         });
     }
-
-    // onClose = (location) => {
-
-    //     let newActiveMarkers = this.state.activeMarkers;
-
-    //     newActiveMarkers = newActiveMarkers.filter(entry => {
-    //         return entry !== location;
-    //     });
-
-    //     this.setState({
-    //         activeMarkers: newActiveMarkers,
-    //     });
-
-    // }
     
 
     componentDidUpdate(prevProps, prevState) {
@@ -158,13 +123,8 @@ export class MapContainer extends Component {
         if(prevProps.selected !== this.props.selected) {
             //console.log("Map", this.props.responseData);
 
-             let newActiveMarker = this.state.activeMarker;
-            // this.state.activeMarkers.map(activeMarker => {
-            //     if(!this.props.selected.some(location => location === activeMarker)) {
-            //         newActiveMarkers = newActiveMarkers.filter(entry => {return entry !== activeMarker})
-            //     }
-            // })
-
+            let newActiveMarker = this.state.activeMarker;
+            
             if(!this.props.selected.some(location => location === newActiveMarker)) {
                 newActiveMarker = null;
             }
@@ -196,8 +156,7 @@ export class MapContainer extends Component {
                 onRouteClick = {this.onRouteClick}
 
                 onMarkerClick={this.onMarkerClick}
-                //onClose = {this.onClose}
-                //activeMarkers={this.state.activeMarkers}
+
                 activeMarker={this.state.activeMarker}
                 showingInfoWindow={this.state.showingInfoWindow}
                 selectedPlaces={this.selectedPlaces}
