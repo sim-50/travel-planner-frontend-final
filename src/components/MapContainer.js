@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap,  Marker, DirectionsRenderer, Polyline, InfoWindow } from 'react-google-maps';
-<<<<<<< HEAD
-import {InfoBox} from 'react-google-maps/lib/components/addons/InfoBox' 
-=======
->>>>>>> 8866ba84f54ef5450bc5d0c58135b29a4b85dbdd
 import {  GoogleApiWrapper } from 'google-maps-react';
 
 
@@ -28,11 +24,6 @@ const MapWithMarker = withGoogleMap((props) => (
                 position={{ lat: location.geometry.location.lat, lng: location.geometry.location.lng }}
                 onClick={() => {props.onMarkerClick(location);}}        //Click on marker
             />
-<<<<<<< HEAD
-
-        ))}
-=======
->>>>>>> 8866ba84f54ef5450bc5d0c58135b29a4b85dbdd
 
         ))}
 
@@ -62,11 +53,7 @@ const MapWithMarker = withGoogleMap((props) => (
                             strokeColor: route.actualColor,
                             clickable: false,
                         },
-<<<<<<< HEAD
                         preserveViewport: true
-=======
-              
->>>>>>> 8866ba84f54ef5450bc5d0c58135b29a4b85dbdd
                 }}
                 />
                 <Polyline
@@ -166,18 +153,6 @@ export class MapContainer extends Component {
     // }
     
 
-<<<<<<< HEAD
-=======
-    // onClose = props =>{
-    //     if(this.state.showingInfoWindow){
-    //         this.setState({
-    //             showingInfoWindow: false,
-    //             activeMarkers:null
-    //         });
-    //     }
-    // }
-
->>>>>>> 8866ba84f54ef5450bc5d0c58135b29a4b85dbdd
     componentDidUpdate(prevProps, prevState) {
         const { selectedPlaces } = this.state;
         if(prevProps.selected !== this.props.selected) {
