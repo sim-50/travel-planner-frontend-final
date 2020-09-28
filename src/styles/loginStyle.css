@@ -70,7 +70,7 @@ button{
   padding: .8em;
   border-radius: 8px;
   border: transparent;
-  background: #6cb5f5;
+  background: #4188E8;
   color: #fff;
 }
 
@@ -85,6 +85,6 @@ button{
 }
 .signupLink>span{
   margin-left:.2em;
-  color: #6cb5f5;
+  color: #4188E8;
   font-weight: bold;
 }
