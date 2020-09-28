@@ -3,6 +3,7 @@ import { Table, Space,Tabs,Button, Timeline } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import axios from "axios";
 import { Travel_Plan_BASE_URL } from "../constant";
+import styled from 'styled-components';
 
 const { TabPane } = Tabs;
 
@@ -15,6 +16,7 @@ class RecommendPlanList extends Component {
 
     setModalVisible(modalVisible) {
       this.setState({ modalVisible });
+      
     }
 
     setPlanDetail = (routes) =>{
@@ -81,19 +83,23 @@ class RecommendPlanList extends Component {
         return(
             <div className='tableContainer'>
                 <Table
+                    bodyStyle={{fontSize:"6em"}}
+                    className = 'tableChild'
                     columns={this.columns}
                     dataSource={this.props.planList}
                     //dataSource = {this.props.recommendedPlanList}
                     pagination={{ pageSize: 5 }}
                 />
                 <Modal
+                  className = "jsj"
                   title={this.state.selectedPlanName}
-                  style={{float: "left", marginLeft:"30px", width:"500px", top:"250px"}}
+                  cancelButtonStyle = {{width:"100px"}}
+                  style={{margin:"10% 30%"}}
                   visible={this.state.modalVisible}
                   onOk={() => this.setModalVisible(false)}
                   onCancel={() => this.setModalVisible(false)}
                 >
-                  <Tabs defaultActiveKey="1" tabPosition="top" onChange={(key) =>{console.log(key)}} style={{ height: "70%" }}>
+                  <Tabs defaultActiveKey="1" tabPosition="top" onChange={(key) =>{console.log(key)}}>
                     {this.state.selectedPlanDetail.map(i => (
                       <TabPane tab={`Day ${i.day}`} key={i.day}>
                         <Timeline>

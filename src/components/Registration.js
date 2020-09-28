@@ -94,25 +94,25 @@ class Registration extends Component{
                     <Form {...layout} ref={this.formRef} name="control-ref" className="registerBox" onFinish={this.onFinishing}>
                         <h3 className="boxHeader"> Register.</h3>
 
-                        <Form.Item name="email" rules={[{required: true, message: 'Username should not be empty!'}]} className="">
-                            <Input placeholder="Username" className="input1" size="default"/>
+                        <Form.Item name="email" rules={[{required: true, message: 'Username should not be empty!'}]} className="regiForm">
+                            <Input placeholder="Username" className="regiInput" id = "input1"/>
                         </Form.Item>
 
-                        <Form.Item name="password" rules={[{required: true, message: 'Password should not be empty!'}]} className="">
-                            <Input.Password placeholder="Password" className="input2" style={{width: "100%"}}/>
+                        <Form.Item name="password" rules={[{required: true, message: 'Password should not be empty!'}]} className="regiForm">
+                            <Input.Password placeholder="Password" className="regiInput" id = "input2" style={{width: "100%"}}/>
                         </Form.Item>
 
-                        <Form.Item name="confirm" rules={[{required: true, message: 'Confirmed password should not be empty!'}]} className="">
-                            <Input.Password placeholder="Confirm password" style={{width: "100%"} } className="input3"/>
+                        <Form.Item name="confirm" rules={[{required: true, message: 'Confirmed password should not be empty!'}]} className="regiForm">
+                            <Input.Password placeholder="Confirm password" style={{width: "100%"} } id = "input3" className="regiInput"/>
                         </Form.Item>
-
-                        <Divider />
-
-                        <Form.Item className="button2 button">
-                            <Button type="primary" htmlType="submit" onClick={this.onFinish}  className="button button2"> 
-                                <p className="button2">Join Us</p>
-                            </Button>
-                        </Form.Item>
+                       
+                      
+                      <div className = "button">
+                        <button type="primary" htmlType="submit" onClick={this.onFinish}  className="button button2"> 
+                            Join Us
+                        </button>
+                      </div>
+  
                     </Form>
                 </div>
             </div>            

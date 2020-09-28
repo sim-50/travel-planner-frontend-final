@@ -38,7 +38,6 @@ class LoginForm extends Component{
                   {
                     this.state.login ? <span>Sign out</span> : <span>Sign in</span>
                   }
-                   
                   <img src={User_icon} className="user-icon" alt="user" />
                 </Col>
               </Row>
@@ -46,10 +45,10 @@ class LoginForm extends Component{
           <Layout className = "loginarea">
             <div className ='loginBox'>
                 <h3>Log in.</h3>
-                <div className = 'input'>
-                    <input type="text" placeholder= "Username"  id = 'input1' ref = {(input) => {this.username = input}}/>
-                    <input type="password" placeholder= "Password" id = 'input2' ref = {(input) => {this.password = input}}/>
-                </div>
+                <form className = 'input'>
+                    <input type="text" placeholder= "Username" required="true"  id = 'input1' ref = {(input) => {this.username = input}}/>
+                    <input type="password" placeholder= "Password"  id = 'input2' ref = {(input) => {this.password = input}}/>
+                </form>
   
               <div className = "button">
                 <button onClick = {() => this.login(this.username, this.password)}>Log in</button>

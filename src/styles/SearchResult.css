@@ -30,7 +30,7 @@
 }
 
 .tableContainer {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .ant-pagination-next,
@@ -111,3 +111,19 @@ button.ant-btn-lg{
   margin-left: .5em;
   font-weight: 700;
 }
+
+.jsj button{
+  margin: .5em 0;
+  margin-left:.6em;
+}
+
+.ant-modal-title{
+  margin-left: 1em;
+  margin-top: 0.5em;
+}
+
+
+
+
+
+
