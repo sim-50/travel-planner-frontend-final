@@ -9,6 +9,7 @@
 
 .container {
   padding: 1em;
+  text-align: left;
 }
 .container img{
   width: 100%;
