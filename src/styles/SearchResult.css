@@ -39,8 +39,6 @@
   line-height: 1;
 } 
 
-
-
 .recommend-div{
     height: 50px;
     font-size: 1em;
@@ -55,13 +53,13 @@
 
 .backwardButton{
   background-color: #4188E8;
-  font-size:1em;
+  font-size: 1em;
   font-weight: bold;
   border-radius: 10px;
+  float: left;
   padding: .3em 1em;
   width: 13em;
   margin-left: .5em;
-
 }
 
 .ant-modal-body{

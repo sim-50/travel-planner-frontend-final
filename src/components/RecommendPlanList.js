@@ -93,7 +93,7 @@ class RecommendPlanList extends Component {
                   className = "jsj"
                   title={this.state.selectedPlanName}
                   cancelButtonStyle = {{width:"100px"}}
-                  style={{margin:"10% 30%"}}
+                  style={{float: "left", marginLeft:"3%", top:"30%"}}
                   visible={this.state.modalVisible}
                   onOk={() => this.setModalVisible(false)}
                   onCancel={() => this.setModalVisible(false)}
