@@ -3,7 +3,6 @@ import { Table, Space,Tabs,Button, Timeline } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import axios from "axios";
 import { Travel_Plan_BASE_URL } from "../constant";
-import styled from 'styled-components';
 
 const { TabPane } = Tabs;
 
