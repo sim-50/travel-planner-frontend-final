@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Main from "./components/Main";
 import SearchResult from "./components/SearchResult";
 import LoginForm from "./components/LoginForm";
+import SavedPlans from "./components/SavedPlans";
+import Registration from "./components/Registration";
 import Travel_planner_logo from "./asset/image/travel_planner_logo.svg";
 import User_icon from "./asset/image/user.svg";
 import { Layout, Row, Col } from "antd";
@@ -45,7 +47,7 @@ class App extends Component {
                     </Col>
                     <Col span={12} className="id-class">
                       {/* if user logged in, click the link either go to user profile or user's savedRoute page. need to be discussed */}
-                      <Link to={userName === null ? `/login` : `/searchResult/savedRoute`}>{this.checkLoggedIn()}</Link>
+                      <Link to={userName === null ? `/login` : `/savedRoute`}>{this.checkLoggedIn()}</Link>
                       <img src={User_icon} className="user-icon" alt="user" />
                     </Col>
                   </Row>
@@ -57,6 +59,8 @@ class App extends Component {
             </Route>
             <Route path="/searchResult/:city" component={SearchResult} />
             <Route path='/login' component={LoginForm} />
+            <Route path='/savedRoute' component={SavedPlans} />
+            <Route path='/registration' component={Registration}/>
           </Switch>
         </Router>
       </BrowserRouter>

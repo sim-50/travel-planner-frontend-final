@@ -12,6 +12,8 @@
   background-repeat: no-repeat;
 }
 
+
+
 .loginWrapper>img{
   width: 7em;
   display: block;
@@ -22,7 +24,6 @@
 
 .loginBox>h3{
   font-size: 1.6em;
-  text-align: center;
 }
 
 
@@ -69,10 +70,21 @@ button{
   padding: .8em;
   border-radius: 8px;
   border: transparent;
-  background: #6cb5f5;
+  background: #4188E8;
   color: #fff;
 }
 
 .button{
   margin-top:2em;
+}
+
+.signupLink{
+  display: block;
+  padding-top: 3em;
+  font-size: .9em;
+}
+.signupLink>span{
+  margin-left:.2em;
+  color: #4188E8;
+  font-weight: bold;
 }

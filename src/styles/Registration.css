@@ -9,7 +9,10 @@
   margin-right: .3em;
   border-radius: 10px;
 }
-
+.rigiSpan{
+  line-height: 3;
+  color:#545656;
+}
 .ant-input{
   background-color:rgb(236, 245, 249);
   border-radius: 8px;
@@ -30,7 +33,6 @@ background-repeat: no-repeat;
 
 .boxHeader{
 font-size: 1.6em;
-text-align: center;
 }
 
 
@@ -44,22 +46,23 @@ box-sizing: border-box;
 
 }
 
-.input1{
+#input1{
+border-top-left-radius: 8px;
+border-top-right-radius: 8px;
 border-bottom-left-radius: 0;
 border-bottom-right-radius: 0;
-border-bottom: .5px solid #b5b5b5;
+border-bottom: transparent;
 }
 
 
-.input2{
+#input2{
 border-top-left-radius: 0;
 border-top-right-radius: 0;
 border-bottom-left-radius: 0;
 border-bottom-right-radius: 0;
-border-bottom: .5px solid #b5b5b5;
 }
 
-.input3{
+#input3{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-left-radius: 8px;
@@ -72,14 +75,17 @@ border-bottom: .5px solid #b5b5b5;
 }
 
 .button{
-width:100%;   
-padding:0.2em;
-border-radius: 8px;
-background: #6cb5f5;
-color: #fff;
-border: black;
+  margin-top:1em;
 }
 
+button{
+  width:100%;   
+  padding: .8em;
+  border-radius: 8px;
+  border: transparent;
+  background: #6cb5f5;
+  color: #fff;
+}
 
 .logoRight{
   width:3em;
@@ -87,6 +93,26 @@ border: black;
 }
 
 .deletePadding{
-  padding: 0%;
-  background: rgb(236, 245, 249);
+  padding: 1em 2em;
+  background: #fff;
+  height: -moz-fit-content;
+  height: fit-content;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  opacity: .9;
+}
+
+.regiInput > .ant-input-suffix{
+  background: transparent;
+  width: 0 !important;
+}
+
+.regiInput> input {
+  height: 3em;
+}
+
+.regiForm span{
+  display: flex;
+  margin-right: 1em;
 }
