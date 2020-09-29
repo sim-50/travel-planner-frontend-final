@@ -7,6 +7,14 @@
     padding-bottom: 5px;
 }
 
+.container {
+  padding: 1em;
+  text-align: left;
+}
+.container img{
+  width: 100%;
+}
+
 .main {
     display: flex;
 }
@@ -16,23 +24,53 @@
     width: 50%;
 }
 
-.left-side img {
-    margin-left: 5px;
-}
 
 .filterContainer {
-    padding:10px;
-    margin-left: 10px;
-    width: 600px !important;
+    width: 100% !important;
+    margin:1em 0;
 }
 
 .tableContainer {
-    padding-left:20px;
-    max-width: 600px;
+  max-width: 100%;
 }
 
-.right-side {
-    margin-left: 10px;
+.ant-pagination-next,
+.ant-pagination-prev{
+  line-height: 1;
+} 
+
+.recommend-div{
+    height: 50px;
+    font-size: 1em;
+    padding:1em;
+    font-weight: bold;
+    background-color: #4188E8;
+    width: 100%;
+    color: #fff;
+    margin-top:1em;
+    border-radius: 10px;
+}
+
+.backwardButton{
+  background-color: #4188E8;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 10px;
+  float: left;
+  padding: .3em 1em;
+  width: 13em;
+  margin-left: .5em;
+}
+
+.ant-modal-body{
+    padding-left: 30px;
+    padding-top: 12px;
+}
+
+.ant-typography{
+    margin-left: 4px;
+    margin-right: 4px;
+    color:#FFD700;
 }
 
 .search-route {
@@ -60,7 +98,39 @@ button.ant-btn-lg{
 }
 
 .tabsContainer {
-    padding:10px;
+    padding: 10px;
     margin-left: 10px;
-    width: 600px;
 }
+
+.filterBtn{
+  height:2.5em;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.filterInput{
+  height:2.5em;
+  background: none !important;
+}
+
+.signupLink span{
+  margin-left: .5em;
+  font-weight: 700;
+}
+
+.jsj button{
+  margin: .5em 0;
+  margin-left:.6em;
+  width: 8em;
+}
+
+.ant-modal-title{
+  margin-left: 1em;
+  margin-top: 0.5em;
+}
+
+
+
+
+
+
