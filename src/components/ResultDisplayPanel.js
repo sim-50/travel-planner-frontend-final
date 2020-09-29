@@ -62,7 +62,8 @@ class ResultDisplayPanel extends Component {
                             />}
                             {this.state.showLocationList &&
                                 <LocationOptionList
-                                    updateSelectedLocation={this.props.updateSelectedLocation} 
+                                    updateSelectedLocation={this.props.updateSelectedLocation}
+                                    switchToTravelSchedulePanel={this.props.switchToTravelSchedulePanel}
                                     selectedList={selectedList}
                                     citySearchResult={citySearchResult} 
                                     allTypes = {allTypes}

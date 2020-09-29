@@ -94,9 +94,12 @@ button.ant-btn-lg{
 
 .travelScheduleContainer {
     font-size: 14px;
+    min-width: 580px;
+}
+
+.tabsContainer {
     padding: 10px;
     margin-left: 10px;
-    width: 50%;
 }
 
 .filterBtn{
