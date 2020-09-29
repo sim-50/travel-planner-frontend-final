@@ -56,7 +56,11 @@ button.ant-btn-lg{
 
 .travelScheduleContainer {
     font-size: 14px;
-    padding: 10px;
+    min-width: 580px;
+}
+
+.tabsContainer {
+    padding:10px;
     margin-left: 10px;
-    width: 50%;
+    width: 600px;
 }
