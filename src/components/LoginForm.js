@@ -1,12 +1,11 @@
 import React,{Component}from 'react';
-import { Layout, Row, Col} from 'antd';
+import { Layout, Row, Col, Modal} from 'antd';
 import {Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import '../styles/loginStyle.css';
 import User_icon from "../asset/image/user.svg";
 import Travel_planner_logo from "../asset/image/travel_planner_logo.svg";
-import Modal from 'antd/lib/modal/Modal';
 import { Travel_Plan_BASE_URL } from '../constant';
 
 const { Header} = Layout;
@@ -73,8 +72,6 @@ class LoginForm extends Component{
   login(username,password){
       username = username.value;
       password = password.value;
-      console.log('username is ' + username)
-      console.log('password is ' + password)
 
       //axios call
       axios.get(Travel_Plan_BASE_URL + '/login?' + 'username=' + username + '&password=' + password)
