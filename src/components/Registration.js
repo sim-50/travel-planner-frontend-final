@@ -58,19 +58,19 @@ class Registration extends Component{
                 }
             ).then(function(response){
                 // Show successful
-                //if(){
-                Modal.success({
-                    content: "Congratulations! Successul registrarion! Welcome to join us!"
-                })
-                //}
+                if(response.status == 200){
+                    Modal.success({
+                        content: "Congratulations! Successul registrarion! Welcome to join us!"
+                    })
+                }
 
                 // Show username duplicate
-                // if(){
-                // Modal.error({
-                //     title: 'Unable to create an account',
-                //     content: 'The user name has already existed. Please use another user name',
-                //   });
-                // }
+                if(response.status == 409){
+                    Modal.error({
+                        title: 'Unable to create an account',
+                        content: 'The user name has already existed. Please use another user name',
+                    });
+                }
 
             }).catch(function(e){
                 Modal.error({
