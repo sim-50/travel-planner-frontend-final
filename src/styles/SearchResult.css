@@ -142,6 +142,10 @@ button.search-route{
   margin-top: 0.5em;
 }
 
+.logButton{
+  width: 5em;
+}
+
 .ant-table-wrapper {
   height: 100%;
 }
