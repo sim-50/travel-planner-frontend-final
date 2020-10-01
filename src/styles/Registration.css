@@ -23,12 +23,12 @@
 }
 
 .registerarea{
-width: 100%;
-height: 100vh;
-overflow: auto;
-background-image: url("../asset/image/home_pic.jpeg");
-background-size:cover;
-background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+  background-image: url("../asset/image/home_pic.jpeg");
+  background-size:cover;
+  background-repeat: no-repeat;
 }
 
 .boxHeader{
@@ -43,6 +43,7 @@ background: #fff;
 margin: 20% auto;
 padding: 3.5em 2em;
 box-sizing: border-box;
+position: relative;
 
 }
 

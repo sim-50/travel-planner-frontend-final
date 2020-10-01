@@ -10,6 +10,8 @@
 .container {
   padding: 1em;
   text-align: left;
+  height: 100%;
+  position: relative;
 }
 .container img{
   width: 100%;
@@ -30,8 +32,9 @@
     margin:1em 0;
 }
 
-.tableContainer {
-  max-width: 100%;
+
+.result-table{
+  height: 100%;
 }
 
 .ant-pagination-next,
@@ -40,7 +43,6 @@
 } 
 
 .recommend-div{
-    height: 50px;
     font-size: 1em;
     padding:1em;
     font-weight: bold;
@@ -73,23 +75,33 @@
     color:#FFD700;
 }
 
-.search-route {
-    float: right;
-    margin-right: 15px;
-    color: #fff;
-    min-width: 75px !important;
-    min-height: 75px !important;
-}
 
 button.search-route{
     background: transparent;
     background-color:#4188E8;
-    
 }
 
-button.ant-btn-lg{
-    width: 75px !important;
-    height: 75px !important;
+.search-route{
+  color: #fff;
+  position: absolute;
+  bottom: 2em;
+  width: fit-content;
+  right: 1em;
+}
+
+.search-route button{
+  border-radius: 8px;
+  padding: .3em 1em;
+  width: fit-content;
+  float:right;
+}
+
+
+.tabsContainer .ant-table-tbody{
+  height: 100%;
+}
+.ant-table-tbody > tr > td {
+  border-bottom: transparent !important
 }
 
 .travelScheduleContainer {
@@ -99,7 +111,8 @@ button.ant-btn-lg{
 
 .tabsContainer {
     padding: 10px;
-    margin-left: 10px;
+    margin-left: 10px;    
+    position: relative;
 }
 
 .filterBtn{
@@ -133,10 +146,60 @@ button.ant-btn-lg{
   width: 5em;
 }
 
-.logOutButton{
-  width: 5em;
+.ant-table-wrapper {
+  height: 100%;
 }
 
-.logInButton{
-  width: 5em;
+.backg{
+  display: flex;
+  padding:1em;
 }
+
+.backg img{
+  width: 1.2em;
+  margin-right: .6em;
+  line-height: 1;
+}
+
+.backg p{
+  margin:0;
+  font-weight: 300;
+  color:#285FC2;
+}
+
+.btnG{
+  display: flex;
+  margin-top: 2.5em;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.btnG Button{
+  width: fit-content;
+  margin-left: 1em;
+  border-radius: 5px;
+  float:right;
+}
+
+.btnG span{
+  width: fit-content;
+  background: transparent;
+  border-radius: 5px;
+}
+
+.btnG input{
+  height: 1.5em;
+  background: transparent;
+}
+
+
+#btn1{
+  background: #285FC2;
+}
+
+
+
+
+
+
+
