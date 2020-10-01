@@ -128,3 +128,15 @@ button.ant-btn-lg{
   margin-left: 1em;
   margin-top: 0.5em;
 }
+
+.logButton{
+  width: 5em;
+}
+
+.logOutButton{
+  width: 5em;
+}
+
+.logInButton{
+  width: 5em;
+}
