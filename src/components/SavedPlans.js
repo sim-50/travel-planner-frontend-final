@@ -6,6 +6,9 @@ import { Travel_Plan_BASE_URL } from "../constant";
 import axios from "axios";
 import { sendRequest } from "./RouteUtils";
 import SearchResultHeader from "./SearchResultHeader";
+import SortedTransfer from "./SortedTransfer";
+// import SortedTransfer2 from "./SortedTransfer2";
+import SortableTable from './SortableTable';
 
 const { TabPane } = Tabs;
 
@@ -364,6 +367,38 @@ class SavedPlans extends Component {
         })
     }
 
+    getSavedPlans = () =>{
+      const url = Travel_Plan_BASE_URL + `/allplans?username=testName`;
+      axios
+        .get(url)
+        .then((response)=>{
+          const planList = [];
+          //response data format ?? still need to modified from backend
+          response.map(i =>{
+            planList.push(i);
+          })
+          this.setState({
+            planList: planList,
+          })
+        })
+        .catch((error)=> {
+          console.log("err in fetching user plan -> ", error);
+        })
+    }
+
+    deleteSavedPlans = (planId) =>{
+      const url = Travel_Plan_BASE_URL + `/deleteplan?username=testName&planid=testId`;
+      axios
+        .post(url, planId)
+        .then((response)=>{
+          console.log(response);
+        })
+        .catch((error)=> {
+          console.log("err in deleting user plan ->", error);
+        })
+    }
+
+
     componentDidMount() {
       // todo: put into const file
       // const url =
@@ -421,7 +456,9 @@ class SavedPlans extends Component {
             <Button onClick={()=>{
               this.showOnMap(record.planDetail);
             }}>Show on map</Button>
-            <Button>Delete</Button>
+            <Button onClick={()=>{
+              this.deleteSavedPlans(record.key);
+            }}>Delete</Button>
           </Space>
         )
       },
@@ -473,6 +510,10 @@ class SavedPlans extends Component {
                         ))}
                       </Tabs>
                     </Modal>
+                </div>
+                <div>
+                  <SortedTransfer/>
+                  <SortableTable/>
                 </div>
               </div>
               <div className="right-side">

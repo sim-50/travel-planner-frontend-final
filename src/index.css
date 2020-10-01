@@ -4,6 +4,7 @@
 @import "./styles/SearchResult.css";
 @import "./styles/Registration.css";
 @import "./styles/SavedPlanList.css";
+@import "./styles/SortedTransfer.css";
 
 body {
   margin: 0;
