@@ -89,7 +89,7 @@ class LocationOptionList extends Component {
         }
 
         return (
-            <div>
+            <div className = "result-table">
                 <div className="filterContainer" style={{ display: "flex", width: 420 }}>
                     <Dropdown overlay={menu}>
                         <Button className = "filterBtn">
@@ -114,11 +114,12 @@ class LocationOptionList extends Component {
                     />
                     <Tooltip title="Search Route">
                         <Button
-                            className="search-route" type="primary" shape="circle" size="large"
+                            className="search-route" 
+                            type="primary" 
                             disabled={selectedList.length < 2 ? true : false}
-                            onClick={this.props.switchToTravelSchedulePanel}
-                            icon={<IconFont type="icon-route" style={{ fontSize: "40px" }}
-                            />}></Button>
+                            onClick={this.props.switchToTravelSchedulePanel}>
+                            Start Planning
+                            </Button>
                     </Tooltip>
                 </div>
             </div>

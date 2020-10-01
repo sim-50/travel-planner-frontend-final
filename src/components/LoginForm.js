@@ -39,12 +39,15 @@ class LoginForm extends Component{
                   {
                     this.state.login ? <span>Sign out</span> : <span>Sign in</span>
                   }
-                  <img src={User_icon} className="user-icon" alt="user" />
+                  <img src={User_icon} className="user-icon" alt="user"/>
                 </Col>
               </Row>
           </Header>
           <Layout className = "loginarea">
             <div className ='loginBox'>
+            <Link to = "/">
+                <span id = "close-login">&times;</span>
+            </Link>
                 <h3>Log in.</h3>
                 <form className = 'input' ref={fm => {this.form=fm}}>
                     <input type="text" name="username" placeholder= "Username" required="true"  id = 'input1'/>
