@@ -1,10 +1,12 @@
 import React,{Component}from 'react';
-import { Layout, Row, Col} from 'antd';
+import { Layout, Row, Col, Modal} from 'antd';
+import {Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import '../styles/loginStyle.css';
 import User_icon from "../asset/image/user.svg";
 import Travel_planner_logo from "../asset/image/travel_planner_logo.svg";
+import { Travel_Plan_BASE_URL } from '../constant';
 
 const { Header} = Layout;
 
@@ -47,14 +49,14 @@ class LoginForm extends Component{
                 <span id = "close-login">&times;</span>
             </Link>
                 <h3>Log in.</h3>
-                <form className = 'input'>
-                    <input type="text" placeholder= "Username" required="true"  id = 'input1' ref = {(input) => {this.username = input}}/>
-                    <input type="password" placeholder= "Password"  id = 'input2' ref = {(input) => {this.password = input}}/>
+                <form className = 'input' ref={fm => {this.form=fm}}>
+                    <input type="text" name="username" placeholder= "Username" required="true"  id = 'input1'/>
+                    <input type="password" name="password" placeholder= "Password"  id = 'input2'/>
                 </form>
   
-              <div className = "button">
-                <button onClick = {() => this.login(this.username, this.password)}>Log in</button>
-              </div>
+                <div className = "button">
+                  <button onClick = {() => this.login()}>Log in</button>
+                </div>
 
         
                 <p className= 'signupLink'>Don't have an account? 
@@ -70,24 +72,40 @@ class LoginForm extends Component{
  
   
 
-  login(username,password){
-      username = username.value;
-      password = password.value;
-      // console.log('username is ' + username)
-      // console.log('password is ' + password)
+  login(){
+
+      const formData = new FormData(this.form)
 
       //axios call
-      axios.get('/interface/test.json?username=' + username + '&password=' + password)
+      axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
         .then(res => {
-          // console.log(res.data)
-          const result = res.data.data
-          if(result){
-            this.setState({ 
-              login: true
-          })
+          console.log(res);
+          if(res.data.responseCode == 400){
+            Modal.error({
+              title: 'Wrong username or password',
+              content: 'Please check your username or password and try again',
+            });
           }
-            
-        }).catch((error) => {console.log('error ->' , error)})      
+          else if(res.data.responseCode == 500){
+            Modal.error({
+              title: 'LogIn fail. Please try again later',
+              content: 'Try again',
+            });
+          }
+          else if(res.status == 200){
+            Modal.success({
+              content: "Congratulations! Successul Log In!"
+          })
+          this.setState({
+            login: true,
+          })
+        }
+        }).catch((error) => {
+          Modal.error({
+            title: 'LogIn fail. Please try again later',
+            content: 'Try again',
+          });
+        })      
     }
   }
 
