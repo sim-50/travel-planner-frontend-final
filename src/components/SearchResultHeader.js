@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Menu, Row, Col} from 'antd';
+import { Menu, Row, Col, Divider, Button} from 'antd';
 import { BarsOutlined, UserOutlined } from '@ant-design/icons';
 import Travel_planner_logo from '../asset/image/travel_planner_logo.svg';
 import '../styles/SearchResultHeader.css';
 import history from "../history";
+import User_icon from "../asset/image/user.svg";
 
 const { SubMenu } = Menu;
 class SearchResultHeader extends Component{
@@ -21,11 +22,22 @@ class SearchResultHeader extends Component{
         }
     };
 
+
+    handleLogButtonClick = e => {
+      this.setState({ current: e.currentTarget.id });
+      // handle login and logout differently
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+      if (userInfo) {
+        localStorage.clear();
+      }
+      history.push(`/login`);
+  };
     render(){
         const { current } = this.state;
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
         return(
             <div>
-              <Row>
+              <Row className="row-class">
                 <Col span= {8}>
                   <Menu className="nav-search" onClick={this.handleMenuClick} selectedKeys={[current]} mode="horizontal">
                       <SubMenu className="drop-down" icon={<BarsOutlined style={{fontSize: "26px", color: "#353535"}}/>}>
@@ -38,15 +50,12 @@ class SearchResultHeader extends Component{
                 <Col span= {8}>
                   <a href="/"><img src= {Travel_planner_logo} alt="logo" className = "logo2"/></a>
                 </Col>
-                <Col span= {8}>
-                <Menu className="nav-search" onClick={this.handleMenuClick} selectedKeys={[current]} mode="horizontal">
-                  <SubMenu 
-                    className="user-icon" 
-                    icon={<UserOutlined 
-                    style={{fontSize: "26px",color: "#353535"}}/>}>
-                    <Menu.Item key="logOut">Log out</Menu.Item>
-                  </SubMenu>
-                  </Menu>
+                <Col span= {8}  className="id-class">
+                  <div>{userInfo == null ? '' : userInfo.userName}</div>
+                  <Divider type="vertical"/>
+                  <Button type="link" onClick={this.handleLogButtonClick} className="logButton">
+                    {userInfo == null ? 'Sign In' : 'Sign Out'}</Button>
+                  <img src={User_icon} className="user-icon" alt="user" />
                 </Col>
               </Row>
           </div>
