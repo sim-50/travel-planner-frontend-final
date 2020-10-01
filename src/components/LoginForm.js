@@ -1,5 +1,5 @@
 import React,{Component}from 'react';
-import { Layout, Row, Col} from 'antd';
+import { Layout, Row, Col, Modal} from 'antd';
 import {Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
@@ -46,14 +46,14 @@ class LoginForm extends Component{
           <Layout className = "loginarea">
             <div className ='loginBox'>
                 <h3>Log in.</h3>
-                <form className = 'input' onSubmit={this.login} ref={fm => {this.form=fm}}>
+                <form className = 'input' ref={fm => {this.form=fm}}>
                     <input type="text" name="username" placeholder= "Username" required="true"  id = 'input1'/>
                     <input type="password" name="password" placeholder= "Password"  id = 'input2'/>
                 </form>
   
-              <div className = "button">
-                <button onClick = {() => this.login(this.username, this.password)}>Log in</button>
-              </div>
+                <div className = "button">
+                  <button onClick = {() => this.login()}>Log in</button>
+                </div>
 
         
                 <p className= 'signupLink'>Don't have an account? 
@@ -69,22 +69,40 @@ class LoginForm extends Component{
  
   
 
-  login(event){
+  login(){
 
       const formData = new FormData(this.form)
 
       //axios call
       axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
         .then(res => {
-          console.log(res.data)
-          const result = res.data.data
-          if(result){
-            this.setState({ 
-              login: true
-          })
+          if(res.data.responseCode == 200){
+              Modal.success({
+                content: "Congratulations! Successul Log In!"
+            })
+            this.setState({
+              login: true,
+            })
+          }
+          if(res.data.responseCode == 400){
+            Modal.error({
+              title: 'Wrong username or password',
+              content: 'Please check your username or password and try again',
+            });
+          }
+          if(res.data.responseCode == 500){
+            Modal.error({
+              title: 'LogIn fail. Please try again later',
+              content: 'Try again',
+            });
           }
             
-        }).catch((error) => {console.log('error ->' , error)})      
+        }).catch((error) => {
+          Modal.error({
+            title: 'LogIn fail. Please try again later',
+            content: 'Try again',
+          });
+        })      
     }
   }
 
