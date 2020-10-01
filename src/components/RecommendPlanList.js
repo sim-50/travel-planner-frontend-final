@@ -56,17 +56,10 @@ class RecommendPlanList extends Component {
                 this.props.showOnMap(record.planDetail);
               }}>Show on map</Button>
               <Button onClick = {()=>{
-                //still need to double check!!
-                const planObject = {
-                  name: record.name,
-                  days: record.days,
-                  planDetail: record.planDetail,
-                };
-                //here username and planid are hardcode!!
                 //take care!! check whether record.key is planid in planList when integration
-                const url = Travel_Plan_BASE_URL + `/saverecommendedplan?username=test&planid=${record.key}`
+                const url = Travel_Plan_BASE_URL + `/saverecommendedplan?username=${localStorage.getItem('userInfo').userName}&planid=${record.key}`
                 axios
-                  .post(url, planObject)
+                  .post(url)
                   .then((res) => {
                     console.log(res.data)
                   })
