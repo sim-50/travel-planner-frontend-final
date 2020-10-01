@@ -1,5 +1,5 @@
 import React,{Component}from 'react';
-import { Layout, Row, Col} from 'antd';
+import { Layout, Row, Col, Modal} from 'antd';
 import {Redirect} from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import '../styles/loginStyle.css';
 import User_icon from "../asset/image/user.svg";
 import Travel_planner_logo from "../asset/image/travel_planner_logo.svg";
 import history from "../history";
-
+import { Travel_Plan_BASE_URL } from '../constant';
 const { Header} = Layout;
 
 class LoginForm extends Component{
@@ -78,18 +78,44 @@ class LoginForm extends Component{
       if(history.location.state.target === "/recommendPlans"){
         history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
       }
+
       //axios call
-      axios.get('/interface/test.json?username=' + username + '&password=' + password)
+      axios.get(Travel_Plan_BASE_URL + '/login?' + 'username=' + username + '&password=' + password)
         .then(res => {
           // console.log(res.data)
-          const result = res.data.data
-          if(result){
-            this.setState({ 
-              login: true
-          })
+          // const result = res.data.data
+          //   if(result){
+          //     this.setState({ 
+          //       login: true
+          //   })
+          // }
+          if(res.data.responseCode == 200){
+              Modal.success({
+                content: "Congratulations! Successul Log In!"
+            })
+            this.setState({
+              login: true,
+            })
+          }
+          if(res.data.responseCode == 400){
+            Modal.error({
+              title: 'Wrong username or password',
+              content: 'Please check your username or password and try again',
+            });
+          }
+          if(res.data.responseCode == 500){
+            Modal.error({
+              title: 'LogIn fail. Please try again later',
+              content: 'Try again',
+            });
           }
             
-        }).catch((error) => {console.log('error ->' , error)})      
+        }).catch((error) => {
+          Modal.error({
+            title: 'LogIn fail. Please try again later',
+            content: 'Try again',
+          });
+        })      
     }
   }
 

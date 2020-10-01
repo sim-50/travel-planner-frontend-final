@@ -128,6 +128,7 @@ class LocationOptionList extends Component {
 
 LocationOptionList.propTypes = {
     citySearchResult: PropTypes.array.isRequired,
+    selectedList: PropTypes.array.isRequired,
 }
 
 export default LocationOptionList;

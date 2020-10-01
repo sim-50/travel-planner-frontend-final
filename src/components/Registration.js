@@ -4,6 +4,7 @@ import { Form, Button, Input,  Divider, Modal } from 'antd';
 import Axios from 'axios';
 import RegistrationHeader from './RegistrationHeader';
 import { Travel_Plan_BASE_URL } from '../constant';
+import history from "../history";
 
 
 const layout = {
@@ -51,26 +52,34 @@ class Registration extends Component{
         this.checkValidPassword(values);
          if(this.state.isValidPassword){
             Axios.post(
-                Travel_Plan_BASE_URL + '/user/registration',
+                Travel_Plan_BASE_URL + '/registration',
                  {
                   username: values.email,
                   password: values.password,
                 }
             ).then(function(response){
                 // Show successful
-                //if(){
-                Modal.success({
-                    content: "Congratulations! Successul registrarion! Welcome to join us!"
-                })
-                //}
+                if(response.data.responseCode == 200){
+                    Modal.success({
+                        content: "Congratulations! Successul registrarion! Welcome to join us!"
+                    })
+                    history.push(`/login`);
+                }
 
                 // Show username duplicate
-                // if(){
-                // Modal.error({
-                //     title: 'Unable to create an account',
-                //     content: 'The user name has already existed. Please use another user name',
-                //   });
-                // }
+                if(response.data.responseCode == 409){
+                    Modal.error({
+                        title: 'Unable to create an account',
+                        content: 'The user name has already existed. Please use another user name',
+                    });
+                }
+
+                if(response.data.responseCode == 500){
+                    Modal.error({
+                        title: 'Unable to create an account',
+                        content: 'Please try again later',
+                    });
+                }
 
             }).catch(function(e){
                 Modal.error({
@@ -83,6 +92,7 @@ class Registration extends Component{
          }else{
              this.showInvalidPassword();
          }
+
     }
 
     render(){
