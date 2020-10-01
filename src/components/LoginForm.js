@@ -6,6 +6,7 @@ import axios from 'axios';
 import '../styles/loginStyle.css';
 import User_icon from "../asset/image/user.svg";
 import Travel_planner_logo from "../asset/image/travel_planner_logo.svg";
+import { Travel_Plan_BASE_URL } from '../constant';
 
 const { Header} = Layout;
 
@@ -45,9 +46,9 @@ class LoginForm extends Component{
           <Layout className = "loginarea">
             <div className ='loginBox'>
                 <h3>Log in.</h3>
-                <form className = 'input'>
-                    <input type="text" placeholder= "Username" required="true"  id = 'input1' ref = {(input) => {this.username = input}}/>
-                    <input type="password" placeholder= "Password"  id = 'input2' ref = {(input) => {this.password = input}}/>
+                <form className = 'input' onSubmit={this.login} ref={fm => {this.form=fm}}>
+                    <input type="text" name="username" placeholder= "Username" required="true"  id = 'input1'/>
+                    <input type="password" name="password" placeholder= "Password"  id = 'input2'/>
                 </form>
   
               <div className = "button">
@@ -68,16 +69,14 @@ class LoginForm extends Component{
  
   
 
-  login(username,password){
-      username = username.value;
-      password = password.value;
-      // console.log('username is ' + username)
-      // console.log('password is ' + password)
+  login(event){
+
+      const formData = new FormData(this.form)
 
       //axios call
-      axios.get('/interface/test.json?username=' + username + '&password=' + password)
+      axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
         .then(res => {
-          // console.log(res.data)
+          console.log(res.data)
           const result = res.data.data
           if(result){
             this.setState({ 
