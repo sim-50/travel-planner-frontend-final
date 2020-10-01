@@ -15,7 +15,7 @@ class TravelSchedulePanel extends Component {
 
     constructor(props) {
         super(props);
-        this.newTabIndex = 0;
+        this.newTabIndex = 3;
         const initialPanes = [
             { title: 'Day 1', content: 'Content of Tab Day 1', key: '1', closable: false, },    // At least there is 1-day plan.
             { title: 'Day 2', content: 'Content of Tab Day 2', key: '2' },
@@ -24,6 +24,8 @@ class TravelSchedulePanel extends Component {
             activeKey: initialPanes[0].key,
             panes: initialPanes,
             selectedAttractions: [],
+            planName: "",
+            plan: [[],[]]
         };
     }
 
@@ -37,19 +39,21 @@ class TravelSchedulePanel extends Component {
     };
 
     add = () => {
-        const { panes } = this.state;
-        const activeKey = `newTab${this.newTabIndex++}`;
+        const { panes, plan } = this.state;
+        const activeKey = `${this.newTabIndex++}`;
 
         const newPanes = [...panes];
         newPanes.push({ title: `Day ${panes.length + 1}`, content: `Content of Tab Day ${panes.length + 1}`, key: activeKey });
+        plan.push([]);
         this.setState({
             panes: newPanes,
             activeKey,
+            plan,
         });
     };
 
     remove = targetKey => {
-        const { panes, activeKey } = this.state;
+        const { panes, activeKey, plan } = this.state;
         let newActiveKey = activeKey;
         let lastIndex;
         panes.forEach((pane, i) => {
@@ -58,6 +62,7 @@ class TravelSchedulePanel extends Component {
             }
         });
         const newPanes = panes.filter(pane => pane.key !== targetKey);
+        plan.pop();
         if (newPanes.length && newActiveKey === targetKey) {
             if (lastIndex >= 0) {
                 newActiveKey = newPanes[lastIndex].key;
@@ -65,9 +70,11 @@ class TravelSchedulePanel extends Component {
                 newActiveKey = newPanes[0].key;
             }
         }
+        this.newTabIndex--;
         this.setState({
             panes: newPanes,
             activeKey: newActiveKey,
+            plan,
         });
     };
 
@@ -91,6 +98,13 @@ class TravelSchedulePanel extends Component {
     itemTransferToLocal = (nextTargetKeys, paneKey) => {
         // console.log(nextTargetKeys);
 
+        const index = paneKey - 1;
+        const plan = this.state.plan;
+        plan[index] = nextTargetKeys;
+        // nextTargetKeys.map((key) => {
+        //     plan[index].push(key);
+        // });
+
         this.setState({
             selectedAttractions: this.state.selectedAttractions.map(item => {
                 if (nextTargetKeys.includes(item.key)) {
@@ -98,11 +112,18 @@ class TravelSchedulePanel extends Component {
                 }
                 return item;
             }),
+            plan,
         });
     };
 
-    itemTransferToGlobal = (keyList) => {
+    itemTransferToGlobal = (keyList, paneKey) => {
         // console.log(keyList);
+
+        const index = paneKey - 1;
+        const plan = this.state.plan;
+        plan[index] = plan[index].filter((key) => {
+            return !keyList.includes(key);
+        });
 
         this.setState({
             selectedAttractions: this.state.selectedAttractions.map(item => {
@@ -111,8 +132,11 @@ class TravelSchedulePanel extends Component {
                 }
                 return item;
             }),
+            plan,
         });
     }
+
+    
 
     render() {
         const { panes, activeKey, selectedAttractions } = this.state;
@@ -139,12 +163,23 @@ class TravelSchedulePanel extends Component {
                 <div className = "btnG">
                 <Input 
                 placeholder=" Name your plan" 
-                prefix={<EditOutlined />} />
+                prefix={<EditOutlined />} 
+                onChange = {(e) => {
+                    console.log(e.target.value);
+                    this.setState({
+                    planName: e.target.value.trim()
+                })}
+                }/>
                   <div className = "btnG-child">
+                    <Button id = "btn2"
+                    onClick = {() => this.props.submitPlanFromTravelSchedule(this.state.plan)}>
+                        Show on map
+                    </Button>
                     <Button id = "btn1" 
-                    style = {{color:"#fff"}} >
+                    style = {{color:"#fff"}} 
+                    disabled={this.state.planName === "" ? true : false}
+                    onClick = {() => this.props.savePlanFromTravelSchedule(this.state.planName, this.state.plan)}>
                       Save plan</Button>
-                    <Button id = "btn2">Show on map</Button>
                   </div>
                   
                 </div>

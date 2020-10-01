@@ -27,6 +27,9 @@ npm install --save react-google-maps <br />
 6. random color library (Sep 23, 2020)<br />
 npm install randomcolor <br />
 
+7. react-uuid (Sep 30, 2020)<br />
+npm install react-uuid <br />
+
 ## Available Scripts
 
 In the project directory, you can run:
