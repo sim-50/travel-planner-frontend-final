@@ -92,12 +92,13 @@ class LocationOptionList extends Component {
             <div>
                 <div className="filterContainer" style={{ display: "flex", width: 420 }}>
                     <Dropdown overlay={menu}>
-                        <Button>
+                        <Button className = "filterBtn">
                             Type <DownOutlined />
                         </Button>
                     </Dropdown>
 
                     <Input
+                        className = "filterInput"
                         style={{ marginLeft: 10 }}
                         placeholder="filter by name"
                         onChange={e => this.filterByName(e.target.value)}   //? onChange or onSearch need to be discussed
@@ -127,6 +128,7 @@ class LocationOptionList extends Component {
 
 LocationOptionList.propTypes = {
     citySearchResult: PropTypes.array.isRequired,
+    selectedList: PropTypes.array.isRequired,
 }
 
 export default LocationOptionList;

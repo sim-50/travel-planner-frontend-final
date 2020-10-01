@@ -3,8 +3,6 @@
     height: 100vh;
 }
 
-
-
 .loginarea{
   width: 100%;
   height: 100%;
@@ -13,6 +11,8 @@
   background-size:cover;
   background-repeat: no-repeat;
 }
+
+
 
 .loginWrapper>img{
   width: 7em;
@@ -70,7 +70,7 @@ button{
   padding: .8em;
   border-radius: 8px;
   border: transparent;
-  background: #6cb5f5;
+  background: #4188E8;
   color: #fff;
 }
 
@@ -85,7 +85,6 @@ button{
 }
 .signupLink>span{
   margin-left:.2em;
-  color: #6cb5f5;
+  color: #4188E8;
   font-weight: bold;
-
 }

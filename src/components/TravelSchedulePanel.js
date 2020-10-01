@@ -1,157 +1,138 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import TravelScheduleTable from './TravelScheduleTable';
 import "../styles/SearchResult.css";
-import { Transfer, Switch, Table, Tag } from 'antd';
-import difference from 'lodash/difference';
+import { Tabs } from 'antd';
 
-
-// Customize Table Transfer
-const TableTransfer = ({ leftColumns, rightColumns, ...restProps }) => (
-    <Transfer {...restProps} showSelectAll={true}>
-        {({
-            direction,
-            filteredItems,
-            onItemSelectAll,
-            onItemSelect,
-            selectedKeys: listSelectedKeys,
-            disabled: listDisabled,
-        }) => {
-            const columns = direction === 'left' ? leftColumns : rightColumns;
-
-            const rowSelection = {
-                getCheckboxProps: item => ({ disabled: listDisabled || item.disabled }),
-                onSelectAll(selected, selectedRows) {
-                    const treeSelectedKeys = selectedRows
-                        .filter(item => !item.disabled)
-                        .map(({ key }) => key);
-                    const diffKeys = selected
-                        ? difference(treeSelectedKeys, listSelectedKeys)
-                        : difference(listSelectedKeys, treeSelectedKeys);
-                    onItemSelectAll(diffKeys, selected);
-                },
-                onSelect({ key }, selected) {
-                    onItemSelect(key, selected);
-                },
-                selectedRowKeys: listSelectedKeys,
-            };
-
-            return (
-                <Table
-                    rowSelection={rowSelection}
-                    columns={columns}
-                    dataSource={filteredItems}
-                    size="small"
-                    style={{ pointerEvents: listDisabled ? 'none' : null }}
-                    onRow={({ key, disabled: itemDisabled }) => ({
-                        onClick: () => {
-                            if (itemDisabled || listDisabled) return;
-                            onItemSelect(key, !listSelectedKeys.includes(key));
-                        },
-                    })}
-                />
-            );
-        }}
-    </Transfer>
-);
-
-const mockTags = ['cat', 'dog', 'bird'];
-
-const mockData = [];
-for (let i = 0; i < 20; i++) {
-    mockData.push({
-        key: i.toString(),
-        title: `content${i + 1}`,
-        description: `description of content${i + 1}`,
-        disabled: false,
-        type: mockTags[i % 3],
-    });
-}
-
-const originTargetKeys = mockData.filter(item => +item.key % 3 > 1).map(item => item.key);
-
-const leftTableColumns = [
-    {
-        dataIndex: 'title',
-        title: 'Name',
-    },
-    {
-        dataIndex: 'type',
-        title: 'Type',
-        render: type => <Tag>{type}</Tag>,
-    },
-    {
-        dataIndex: 'rating',
-        title: 'Rating',
-    },
-];
-const rightTableColumns = [
-    {
-        dataIndex: 'title',
-        title: 'Name',
-    },
-    {
-        dataIndex: 'type',
-        title: 'Type',
-        render: type => <Tag>{type}</Tag>,
-    },
-];
-
+const { TabPane } = Tabs;
 
 class TravelSchedulePanel extends Component {
 
-    state = {
-        targetKeys: originTargetKeys,
-        showSearch: false,
-        dataResource: [],
+    newTabIndex = 0;
+
+    constructor(props) {
+        super(props);
+        this.newTabIndex = 0;
+        const initialPanes = [
+            { title: 'Day 1', content: 'Content of Tab Day 1', key: '1', closable: false, },    // At least there is 1-day plan.
+            { title: 'Day 2', content: 'Content of Tab Day 2', key: '2' },
+        ];
+        this.state = {
+            activeKey: initialPanes[0].key,
+            panes: initialPanes,
+            selectedAttractions: [],
+        };
+    }
+
+    //* Methods for the Tab widget
+    onChange = activeKey => {
+        this.setState({ activeKey });
     };
 
-    onChange = nextTargetKeys => {
-        this.setState({ targetKeys: nextTargetKeys });
+    onEdit = (targetKey, action) => {
+        this[action](targetKey);
     };
 
-    triggerShowSearch = showSearch => {
-        this.setState({ showSearch });
+    add = () => {
+        const { panes } = this.state;
+        const activeKey = `newTab${this.newTabIndex++}`;
+
+        const newPanes = [...panes];
+        newPanes.push({ title: `Day ${panes.length + 1}`, content: `Content of Tab Day ${panes.length + 1}`, key: activeKey });
+        this.setState({
+            panes: newPanes,
+            activeKey,
+        });
+    };
+
+    remove = targetKey => {
+        const { panes, activeKey } = this.state;
+        let newActiveKey = activeKey;
+        let lastIndex;
+        panes.forEach((pane, i) => {
+            if (pane.key === targetKey) {
+                lastIndex = i - 1;
+            }
+        });
+        const newPanes = panes.filter(pane => pane.key !== targetKey);
+        if (newPanes.length && newActiveKey === targetKey) {
+            if (lastIndex >= 0) {
+                newActiveKey = newPanes[lastIndex].key;
+            } else {
+                newActiveKey = newPanes[0].key;
+            }
+        }
+        this.setState({
+            panes: newPanes,
+            activeKey: newActiveKey,
+        });
     };
 
     updateDataResource = selectedList => {
         const data = [];
-        for (let i = 0; i < selectedList.length; i++) {
+        selectedList.forEach(item => {
             data.push({
-                key: selectedList[i].key,
-                title: selectedList[i].name,
-                rating: selectedList[i].rating,
-                disabled: false,
-                type: selectedList[i].types[0],
+                key: item.key,   //? what's the real value of the key per item?
+                title: item.name,
+                rating: item.rating,
+                type: item.types[0],
+                paneKey: 0,        //* initially set all items to paneKey 0
             });
-        }
+        });
 
-        this.setState({ dataResource: data });
+        this.setState({
+            selectedAttractions: data,
+        });
     };
 
+    itemTransferToLocal = (nextTargetKeys, paneKey) => {
+        // console.log(nextTargetKeys);
+
+        this.setState({
+            selectedAttractions: this.state.selectedAttractions.map(item => {
+                if (nextTargetKeys.includes(item.key)) {
+                    item.paneKey = paneKey;
+                }
+                return item;
+            }),
+        });
+    };
+
+    itemTransferToGlobal = (keyList) => {
+        // console.log(keyList);
+
+        this.setState({
+            selectedAttractions: this.state.selectedAttractions.map(item => {
+                if (keyList.includes(item.key)) {
+                    item.paneKey = 0;
+                }
+                return item;
+            }),
+        });
+    }
+
     render() {
-        const { targetKeys, disabled, showSearch } = this.state;
+        const { panes, activeKey, selectedAttractions } = this.state;
 
         return (
-            <div className="travelScheduleContainer">
-                <TableTransfer
-                    dataSource={this.state.dataResource}
-                    targetKeys={targetKeys}
-                    disabled={disabled}
-                    showSearch={showSearch}
+            <div className="tabsContainer">
+                <Tabs
+                    type="editable-card"
                     onChange={this.onChange}
-                    filterOption={(inputValue, item) =>
-                        item.title.indexOf(inputValue) !== -1 || item.tag.indexOf(inputValue) !== -1
-                    }
-                    leftColumns={leftTableColumns}
-                    rightColumns={rightTableColumns}
-                />
-                {/* <Switch
-                    unCheckedChildren="showSearch"
-                    checkedChildren="showSearch"
-                    checked={showSearch}
-                    onChange={this.triggerShowSearch}
-                    style={{ marginTop: 16 }}
-                /> */}
+                    activeKey={activeKey}
+                    onEdit={this.onEdit}
+                >
+                    {panes.map(pane => (
+                        <TabPane tab={pane.title} key={pane.key} closable={pane.closable} >
+                            <TravelScheduleTable
+                                itemTransferToLocal={this.itemTransferToLocal}
+                                itemTransferToGlobal={this.itemTransferToGlobal}
+                                paneKey={pane.key}
+                                selectedAttractions={selectedAttractions.filter(item => item.paneKey == 0 || item.paneKey == pane.key)} 
+                            />
+                        </TabPane>
+                    ))}
+                </Tabs>
             </div>
         );
     }
