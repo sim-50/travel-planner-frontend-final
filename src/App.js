@@ -47,7 +47,7 @@ class App extends Component {
                     </Col>
                     <Col span={12} className="id-class">
                       {/* if user logged in, click the link either go to user profile or user's savedRoute page. need to be discussed */}
-                      <Link to={userName === null ? `/login` : `/savedRoute`}>{this.checkLoggedIn()}</Link>
+                      <Link to={userName === null ? `/login` : `/savedRoute`} id = "signin">{this.checkLoggedIn()}</Link>
                       <img src={User_icon} className="user-icon" alt="user" />
                     </Col>
                   </Row>
