@@ -34,7 +34,7 @@
   margin: 20% auto;
   padding: 3.5em 2em;
   box-sizing: border-box;
-  
+  position: relative;
 }
 
 .input{
@@ -87,4 +87,12 @@ button{
   margin-left:.2em;
   color: #4188E8;
   font-weight: bold;
+}
+
+#close-login{
+  position: absolute;
+  right: 1.3em;
+  font-size: 1.5em;
+  top: 1em;
+  color: #b5b5b5;
 }

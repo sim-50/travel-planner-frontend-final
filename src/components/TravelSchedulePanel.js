@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Button,Input} from 'antd';
 import TravelScheduleTable from './TravelScheduleTable';
 import "../styles/SearchResult.css";
 import { Tabs } from 'antd';
+import {EditOutlined} from '@ant-design/icons';
+
 
 const { TabPane } = Tabs;
 
@@ -113,7 +116,6 @@ class TravelSchedulePanel extends Component {
 
     render() {
         const { panes, activeKey, selectedAttractions } = this.state;
-
         return (
             <div className="tabsContainer">
                 <Tabs
@@ -122,6 +124,7 @@ class TravelSchedulePanel extends Component {
                     activeKey={activeKey}
                     onEdit={this.onEdit}
                 >
+
                     {panes.map(pane => (
                         <TabPane tab={pane.title} key={pane.key} closable={pane.closable} >
                             <TravelScheduleTable
@@ -133,6 +136,19 @@ class TravelSchedulePanel extends Component {
                         </TabPane>
                     ))}
                 </Tabs>
+                <div className = "btnG">
+                <Input 
+                placeholder=" Name your plan" 
+                prefix={<EditOutlined />} />
+                  <div className = "btnG-child">
+                    <Button id = "btn1" 
+                    style = {{color:"#fff"}} >
+                      Save plan</Button>
+                    <Button id = "btn2">Show on map</Button>
+                  </div>
+                  
+                </div>
+                
             </div>
         );
     }

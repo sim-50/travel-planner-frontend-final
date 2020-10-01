@@ -39,21 +39,24 @@ class LoginForm extends Component{
                   {
                     this.state.login ? <span>Sign out</span> : <span>Sign in</span>
                   }
-                  <img src={User_icon} className="user-icon" alt="user" />
+                  <img src={User_icon} className="user-icon" alt="user"/>
                 </Col>
               </Row>
           </Header>
           <Layout className = "loginarea">
             <div className ='loginBox'>
+            <Link to = "/">
+                <span id = "close-login">&times;</span>
+            </Link>
                 <h3>Log in.</h3>
-                <form className = 'input'>
-                    <input type="text" placeholder= "Username" required="true"  id = 'input1' ref = {(input) => {this.username = input}}/>
-                    <input type="password" placeholder= "Password"  id = 'input2' ref = {(input) => {this.password = input}}/>
+                <form className = 'input' ref={fm => {this.form=fm}}>
+                    <input type="text" name="username" placeholder= "Username" required="true"  id = 'input1'/>
+                    <input type="password" name="password" placeholder= "Password"  id = 'input2'/>
                 </form>
   
-              <div className = "button">
-                <button onClick = {() => this.login(this.username, this.password)}>Log in</button>
-              </div>
+                <div className = "button">
+                  <button onClick = {() => this.login()}>Log in</button>
+                </div>
 
         
                 <p className= 'signupLink'>Don't have an account? 
@@ -69,9 +72,8 @@ class LoginForm extends Component{
  
   
 
-  login(username,password){
-      username = username.value;
-      password = password.value;
+  login(){
+      const formData = new FormData(this.form)
       // console.log('username is ' + username)
       // console.log('password is ' + password)
       console.log(history.location.state.target);
@@ -80,36 +82,29 @@ class LoginForm extends Component{
       }
 
       //axios call
-      axios.get(Travel_Plan_BASE_URL + '/login?' + 'username=' + username + '&password=' + password)
+      axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
         .then(res => {
-          // console.log(res.data)
-          // const result = res.data.data
-          //   if(result){
-          //     this.setState({ 
-          //       login: true
-          //   })
-          // }
-          if(res.data.responseCode == 200){
-              Modal.success({
-                content: "Congratulations! Successul Log In!"
-            })
-            this.setState({
-              login: true,
-            })
-          }
+          console.log(res);
           if(res.data.responseCode == 400){
             Modal.error({
               title: 'Wrong username or password',
               content: 'Please check your username or password and try again',
             });
           }
-          if(res.data.responseCode == 500){
+          else if(res.data.responseCode == 500){
             Modal.error({
               title: 'LogIn fail. Please try again later',
               content: 'Try again',
             });
           }
-            
+          else if(res.status == 200){
+            Modal.success({
+              content: "Congratulations! Successul Log In!"
+          })
+          this.setState({
+            login: true,
+          })
+        }
         }).catch((error) => {
           Modal.error({
             title: 'LogIn fail. Please try again later',

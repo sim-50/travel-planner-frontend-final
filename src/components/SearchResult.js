@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import SearchResultHeader from "./SearchResultHeader";
 import ResultDisplayPanel from "./ResultDisplayPanel";
-import SavedPlanList from "./SavedPlans";
 import MapContainer from "./MapContainer";
 import "../styles/SearchResult.css";
 import axios from "axios";
@@ -798,6 +797,7 @@ class SearchResult extends Component {
     render() {
         const { cityImg, citySearchResult, allTypes } = this.state;
         const { match: { params } } = this.props;
+
 
         return (
             <BrowserRouter>
