@@ -63,7 +63,8 @@ class RecommendPlanList extends Component {
                   planDetail: record.planDetail,
                 };
                 //here username and planid are hardcode!!
-                const url = Travel_Plan_BASE_URL + `/saverecommendedplan?username=test&planid=10`
+                //take care!! check whether record.key is planid in planList when integration
+                const url = Travel_Plan_BASE_URL + `/saverecommendedplan?username=test&planid=${record.key}`
                 axios
                   .post(url, planObject)
                   .then((res) => {

@@ -24,6 +24,7 @@ class SearchResult extends Component {
         waypoints: [],
         result: [],
         isDraw: false,
+        recommendPlanList: [],
         planList : [
             {
               key: 0,
@@ -618,8 +619,11 @@ class SearchResult extends Component {
     };
 
     //TODO: axios call for getRecommendationPlansByUserId()
-    getRecommendPlans = () =>{
-      const url = Travel_Plan_BASE_URL + `/recommendedplans?username=test`;
+    getRecommendPlans = (username, cityname) =>{
+      username = localStorage.getItem('user');
+      cityname = this.props.match.params.city;
+      //how to define cityid? Make a change in back end URL from cityid to cityname
+      const url = Travel_Plan_BASE_URL + `/recommendedplans?username=${username}&cityname=${cityname}`;
       axios
         .get(url)
         .then((response)=>{
@@ -713,6 +717,27 @@ class SearchResult extends Component {
         history.push(`/searchResult/${params.city}/travelSchedule`);
     }
 
+    switchToRecommendedPlans = () =>{
+      const { match: { params } } = this.props;
+      const cityName = params.city;
+      if(localStorage.getItem("userInfo") != null){
+        history.push(`/searchResult/${params.city}/recommendPlans`);
+      } else{
+        history.push({
+          pathname: "/login",
+          state: {
+            target: "/recommendPlans",
+            cityName: cityName,
+          }
+        });
+      }  
+    }
+
+    backToSearchResult = () =>{
+      const { match: { params } } = this.props;
+      history.push(`/searchResult/${params.city}`);
+    }
+
     filterByName = (value) => {
         this.setState({
             citySearchResult: this.state.citySearchResult.map((res) => {
@@ -800,6 +825,8 @@ class SearchResult extends Component {
                                                 (item) => item.checked === true
                                             )}
                                             switchToTravelSchedulePanel={this.switchToTravelSchedulePanel}
+                                            switchToRecommendedPlans={this.switchToRecommendedPlans}
+                                            backToSearchResult={this.backToSearchResult}
                                             updateWaypoints={this.updateWaypoints}
                                             showOnMap = {this.showOnMap}
                                             planList = {this.state.planList}

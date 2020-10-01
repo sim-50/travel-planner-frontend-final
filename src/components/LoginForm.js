@@ -6,6 +6,7 @@ import axios from 'axios';
 import '../styles/loginStyle.css';
 import User_icon from "../asset/image/user.svg";
 import Travel_planner_logo from "../asset/image/travel_planner_logo.svg";
+import history from "../history";
 
 const { Header} = Layout;
 
@@ -73,7 +74,10 @@ class LoginForm extends Component{
       password = password.value;
       // console.log('username is ' + username)
       // console.log('password is ' + password)
-
+      console.log(history.location.state.target);
+      if(history.location.state.target === "/recommendPlans"){
+        history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
+      }
       //axios call
       axios.get('/interface/test.json?username=' + username + '&password=' + password)
         .then(res => {
