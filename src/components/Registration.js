@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "../styles/Registration.css";
-import { Form, Button, Input,  Divider, Modal } from 'antd';
+import {Link} from 'react-router-dom';
+import { Form, Input,Modal } from 'antd';
 import Axios from 'axios';
 import RegistrationHeader from './RegistrationHeader';
 import { Travel_Plan_BASE_URL } from '../constant';
@@ -90,8 +91,11 @@ class Registration extends Component{
             <div className="">
                 <RegistrationHeader />
                 <div className="registerarea">
-
+          
                     <Form {...layout} ref={this.formRef} name="control-ref" className="registerBox" onFinish={this.onFinishing}>
+                        <Link to = "/">
+                          <span id = "close-login">&times;</span>
+                        </Link>
                         <h3 className="boxHeader"> Register.</h3>
 
                         <Form.Item name="email" rules={[{required: true, message: 'Username should not be empty!'}]} className="regiForm">
