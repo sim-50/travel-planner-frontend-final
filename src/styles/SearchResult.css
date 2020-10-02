@@ -176,15 +176,13 @@ button.search-route{
 
 .btnG Button{
   width: fit-content;
-  margin-left: 1em;
-  border-radius: 5px;
-  float:right;
+  border: none;
 }
 
 .btnG span{
   width: fit-content;
   background: transparent;
-  border-radius: 5px;
+  border: none;
 }
 
 .btnG input{
@@ -194,8 +192,31 @@ button.search-route{
 
 
 #btn1{
-  background: #285FC2;
+  margin-left:1em;
+  border-radius: 5px;
 }
+
+.planName{
+  width: fit-content;
+  border: .3px solid #f1f1f1;
+  border-radius: 5px;
+}
+
+#btn1 disabled{
+  color: gray;
+}
+
+.site-button-ghost-wrapper{
+  background: rgb(190, 200, 200);
+} 
+
+button.ant-tabs-tab-remove {
+  width: fit-content;
+  margin: 0;
+  padding-right: 0;
+}
+
+
 
 
 
