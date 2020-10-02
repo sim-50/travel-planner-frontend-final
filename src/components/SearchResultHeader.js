@@ -9,6 +9,7 @@ const { SubMenu } = Menu;
 class SearchResultHeader extends Component{
     state = {
         current: 'searchResult',
+        loggedIn: false,
     };
     
     handleMenuClick = e => {
@@ -16,6 +17,19 @@ class SearchResultHeader extends Component{
         this.setState({ current: e.key });
         if (e.key === "logOut") {
           history.push(`/login`);
+          // added check logged in and redirect funcitonality
+        } else if (e.key === "savedRoute") {
+          if (this.state.loggedIn === true) {
+            history.push(`/savedRoute`);
+          } else {
+            history.push({
+              pathname: `/login`,
+              state: {
+                target: "Saved Route",
+              }
+            });
+            // console.log(history);
+          }
         } else {
           history.push(`/${e.key}`);
         }

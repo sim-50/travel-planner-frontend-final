@@ -6,6 +6,7 @@ import axios from 'axios';
 import '../styles/loginStyle.css';
 import User_icon from "../asset/image/user.svg";
 import Travel_planner_logo from "../asset/image/travel_planner_logo.svg";
+import history from "../history";
 
 const { Header} = Layout;
 
@@ -13,7 +14,7 @@ class LoginForm extends Component{
   constructor(props){
     super(props);
     this.state = {
-      login: false
+      login: false,
     }
   }
   
@@ -69,23 +70,30 @@ class LoginForm extends Component{
   
 
   login(username,password){
-      username = username.value;
-      password = password.value;
-      // console.log('username is ' + username)
-      // console.log('password is ' + password)
+    username = username.value;
+    password = password.value;
+    console.log('username is ' + username)
+    console.log('password is ' + password)
 
-      //axios call
-      axios.get('/interface/test.json?username=' + username + '&password=' + password)
-        .then(res => {
-          // console.log(res.data)
-          const result = res.data.data
-          if(result){
-            this.setState({ 
-              login: true
-          })
-          }
-            
-        }).catch((error) => {console.log('error ->' , error)})      
+    // need to integrate into axios.post
+    console.log(history.location.state.target);
+    if (history.location.state.target === "Saved Route") {
+      history.push(`/savedRoute`);
+    } else {
+      history.push(`/searchResult/new%20york`);
+    }
+
+    axios.get('/interface/test.json?username=' + username + '&password=' + password)
+      .then(res => {
+        // console.log(res.data)
+        const result = res.data.data
+        if(result){
+          this.setState({ 
+            login: true
+        })
+        }
+          
+      }).catch((error) => {console.log('error ->' , error)})      
     }
   }
 
