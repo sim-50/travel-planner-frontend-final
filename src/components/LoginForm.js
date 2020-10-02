@@ -103,26 +103,47 @@ class LoginForm extends Component{
               content: "Congratulations! Successul Log In!",
               onOk(){
                 // console.log(history.location.state);
-                if(history.location.state.target === "/recommendPlans"){
-                  history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
-                }
+
                 localStorage.setItem("userInfo", JSON.stringify({"userName": formData.get("username")}));
                 
                 const target = history.location.state.target;
 
+                //From Travel Schedule
                 if(target === "/travelSchedule") {
 
-                  history.push("/savedRoute");
+                  const uuid = history.location.state.planId;
+                  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+                  const plan = JSON.parse(localStorage.getItem(uuid));
+                  plan.username = userInfo.userName;
 
-                } else if(target=== "/recommendPlans") {
+                  // history.push("/savedRoute");
+
+                  axios
+                    .post(url, plan)
+                    .then((response) => {
+                      if(response.status === 200) {
+                        history.push(`/savedRoute`);
+                      }
+                    })
+                    .catch((error) => {
+                      console.log("err in saving plan -> ", error);
+                    });
+
+                } 
+                //Click on recommendPlans
+                else if(target=== "/recommendPlans") {
                   
                   history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`);
                   
-                }else if(target === "/searchResult") {
+                }
+                //From Search Result
+                else if(target === "/searchResult") {
 
                   history.push(`/searchResult/${history.location.state.cityName}`);
 
-                } else {
+                } 
+                //From Home Page
+                else {
 
                   history.push("/");
 

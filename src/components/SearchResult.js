@@ -825,7 +825,7 @@ class SearchResult extends Component {
           }
         })
         .catch((error) => {
-          console.log("err in fetch cityInfo -> ", error);
+          console.log("err in saving plan -> ", error);
         });
         
       } else {
