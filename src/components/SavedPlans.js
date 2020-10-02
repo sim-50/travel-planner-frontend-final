@@ -8,9 +8,6 @@ import { Travel_Plan_BASE_URL } from "../constant";
 import axios from "axios";
 import { sendRequest } from "./RouteUtils";
 import SearchResultHeader from "./SearchResultHeader";
-import SortedTransfer from "./SortedTransfer";
-// import SortedTransfer2 from "./SortedTransfer2";
-import SortableTable from './SortableTable';
 import backAarrow from "../asset/image/back-arrow.svg";
 import history from "../history";
 
