@@ -895,6 +895,7 @@ class SearchResult extends Component {
                         lat: response.data.responseObj.coordinate[0],
                         lng: response.data.responseObj.coordinate[1],
                     },
+                    cityName: response.data.responseObj.cityName,
                     citySearchResult: response.data.responseObj.results,
                     allTypes: response.data.responseObj.allTypes,
                 });
