@@ -103,18 +103,17 @@ class LoginForm extends Component{
               content: "Congratulations! Successul Log In!",
               onOk(){
                 console.log(history.location.state);
-                if(history.location.state.target === "/recommendPlans"){
-                  history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
-                }
+                // if(history.location.state.target === "/recommendPlans"){
+                //   history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
+                // }
               }
             })
+            localStorage.setItem("userName", JSON.stringify({"userName": formData.get("username")}));
             this.setState({
               login: true,
             })
             
-            localStorage.setItem('userInfo', JSON.stringify({
-              userName: formData.get('username')
-            }))
+            
         }
         }).catch((error) => {
           Modal.error({

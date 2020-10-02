@@ -12,6 +12,7 @@ const { SubMenu } = Menu;
 class SearchResultHeader extends Component{
     state = {
         current: 'searchResult',
+        userName: null,
     };
     
     handleMenuClick = e => {
@@ -34,6 +35,13 @@ class SearchResultHeader extends Component{
       }
       history.push(`/login`);
   };
+
+  componentDidMount() {
+    this.setState({
+      userName: JSON.parse(localStorage.getItem("userName")).userName
+    })
+  }
+
     render(){
         const { current } = this.state;
         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -59,10 +67,10 @@ class SearchResultHeader extends Component{
                   <a href="/"><img src= {Travel_planner_logo} alt="logo" className = "logo2"/></a>
                 </Col>
                 <Col span= {8}  className="id-class">
-                  <div>{userInfo == null ? '' : userInfo.userName}</div>
+                  <div>{this.state.userName === null ? '' : this.state.userName}</div>
                   <Divider type="vertical"/>
                   <Button type="link" onClick={this.handleLogButtonClick} className="logButton">
-                    {userInfo == null ? 'Sign In' : 'Sign Out'}</Button>
+                    {this.state.userName === null ? 'Sign In' : 'Sign Out'}</Button>
                   <img src={User_icon} className="user-icon" alt="user" />
                 </Col>
               </Row>
