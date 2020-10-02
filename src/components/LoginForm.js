@@ -105,15 +105,8 @@ class LoginForm extends Component{
                 // console.log(history.location.state);
 
                 localStorage.setItem("userInfo", JSON.stringify({"userName": formData.get("username")}));
-                
-                // target is undefined when user straight up click "sign in" in main page without doing anything
-                // 此时 history 中没有值
-                // so need to set target to something like "/" to avoid it being undefined
-                console.log("history: ", history);
-                console.log("history.location: ", history.location);
-                console.log("history.location.state: ", history.location.state);
-                console.log("history.location.state.target: ", history.location.state.target);
-                const target = history.location.state.target === null ? "/" : history.location.state.target;
+
+                const target = history.location.state.target;
 
                 //From Travel Schedule
                 if(target === "/travelSchedule") {
