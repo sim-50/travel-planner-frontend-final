@@ -11,6 +11,8 @@ class RecommendPlanList extends Component {
       modalVisible: false,
       selectedPlanName: "",
       selectedPlanDetail: [],
+      isSaved: false,
+      saveStatus: "Save",
     };
 
     setModalVisible(modalVisible) {
@@ -49,24 +51,37 @@ class RecommendPlanList extends Component {
                 this.setModalVisible(true);
                 this.setPlanDetail(record.planDetail);
                 this.setPlanName(record.name);
-              }}>
+                }}>
                 Details
               </Button>
               <Button onClick={()=>{
                 this.props.showOnMap(record.planDetail);
               }}>Show on map</Button>
-              <Button onClick = {()=>{
-                //take care!! check whether record.key is planid in planList when integration
-                const url = Travel_Plan_BASE_URL + `/saverecommendedplan?username=${localStorage.getItem('userInfo').userName}&planid=${record.key}`
-                axios
-                  .post(url)
-                  .then((res) => {
-                    console.log(res.data)
-                  })
-                  .catch((error) =>{
-                    console.log(error)
-                  })
-              }}>Save</Button>
+              <Button 
+                disabled = {this.state.isSaved}
+                onClick = {()=>{
+                  //take care!! check whether record.key is planid in planList when integration
+                  const username = JSON.parse(localStorage.getItem('userInfo')).userName;
+                  const url = Travel_Plan_BASE_URL + `/saverecommendedplan?username=${username}&planid=${record.key}`
+                  axios
+                    .post(url)
+                    .then((res) => {
+                      console.log(res.data)
+                      if(res.data.responseCode === 500){
+                        Modal.error({
+                          Title: 'An error occurred! Try it again.'
+                        })
+                      } else if(res.status === 200){
+                          this.setState({
+                            isSaved: true,
+                            saveStatus: "Saved"
+                          })
+                        }
+                      })
+                    .catch((error) =>{
+                      console.log(error)
+                    })
+                }}>{this.state.saveStatus}</Button>
             </Space>
           )
         },
