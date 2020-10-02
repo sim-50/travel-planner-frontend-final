@@ -742,7 +742,7 @@ class SearchResult extends Component {
     }
     
     submitPlanFromTravelSchedule = (plan) => {
-      console.log(plan);
+      // console.log(plan);
       const routes = [];
 
       plan.map((day) => {
@@ -809,7 +809,7 @@ class SearchResult extends Component {
         }]
       }
 
-      console.log(plan);
+      // console.log(plan);
 
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -837,7 +837,7 @@ class SearchResult extends Component {
           pathname: `/login`,
           state: {
             planId: planId,
-            target: "/savedRoute"
+            target: "/travelSchedule"
           }
         });
 
@@ -881,7 +881,7 @@ class SearchResult extends Component {
 
     componentDidMount() {
         // todo: put into const file
-        console.log("page refreshed");
+        //console.log("page refreshed");
         const url =
             Travel_Plan_BASE_URL + `/search?city=${this.props.match.params.city}`;
         axios
@@ -913,7 +913,8 @@ class SearchResult extends Component {
             <BrowserRouter>
                 <Router history={history}>
                     <div className="searchResult-container">
-                        <SearchResultHeader />
+                        <SearchResultHeader 
+                        cityName = {this.props.match.params.city}/>
                         <div className="main">
                             <div className="left-side">                               
                                     <Route path={`/searchResult/${params.city}`}>
