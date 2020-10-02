@@ -33,12 +33,19 @@ class SearchResultHeader extends Component{
       if (userInfo) {
         localStorage.clear();
       }
-      history.push(`/login`);
+      history.push({
+        pathname: `/login`,
+        state: {
+          target: `/searchResult`,
+          cityName: this.props.cityName
+        }
+      });
   };
 
   componentDidMount() {
+    const userName = JSON.parse(localStorage.getItem("userName"));
     this.setState({
-      userName: JSON.parse(localStorage.getItem("userName")).userName
+      userName: userName === null ? null : userName.userName
     })
   }
 

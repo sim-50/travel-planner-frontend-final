@@ -172,15 +172,15 @@ class TravelSchedulePanel extends Component {
                       })}
                       }/>
                       <Button id = "btn2"
-                          disabled
-                          onClick = {() => this.props.submitPlanFromTravelSchedule(this.state.plan)}>
+                          disabled = {this.state.planName === "" ? true : false}
+                          onClick = {() => this.props.savePlanFromTravelSchedule(this.state.planName, this.state.plan)}>
                               Save Plan
                       </Button>
                     </div>
                 
                     <Button id = "btn1" 
-                    disabled = {this.state.planName === "" ? true : false}
-                    onClick = {() => this.props.savePlanFromTravelSchedule(this.state.planName, this.state.plan)}>
+                    
+                    onClick = {() => this.props.submitPlanFromTravelSchedule(this.state.plan)}>
                       Show on map</Button>        
                 </div>
                 

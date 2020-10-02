@@ -913,7 +913,8 @@ class SearchResult extends Component {
             <BrowserRouter>
                 <Router history={history}>
                     <div className="searchResult-container">
-                        <SearchResultHeader />
+                        <SearchResultHeader 
+                        cityName = {this.props.match.params.city}/>
                         <div className="main">
                             <div className="left-side">                               
                                     <Route path={`/searchResult/${params.city}`}>

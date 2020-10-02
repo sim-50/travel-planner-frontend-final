@@ -37,15 +37,18 @@ class App extends Component {
     history.push(`/login`);
 };
 
-componentDidMount() {
-  this.setState({
-    userName: JSON.parse(localStorage.getItem("userName")).userName
-  })
-}
+
+  // componentDidMount() {
+  //   const userName = JSON.parse(localStorage.getItem("userName"));
+  //   this.setState({
+  //     userName: userName === null ? null : userName.userName
+  //   })
+  // }
 
 
   render() {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo')) 
+    //const userInfo = JSON.parse(localStorage.getItem('userInfo')) 
+    const userName = JSON.parse(localStorage.getItem("userName"));
     
     return (
       <BrowserRouter>
@@ -63,10 +66,13 @@ componentDidMount() {
                       />
                     </Col>
                     <Col span={8} className="id-class">
-                      <div>{this.state.userName === null ? '' : this.state.userName}</div>
+                      <div>{userName === null ? '' : userName.userName}</div>
+                      {/* <div>{this.state.userName === null ? '' : this.state.userName}</div> */}
                       <Divider type="vertical"/>
                       <Button type="link" onClick={this.handleLogButtonClick} className="logButton" >
-                            {this.state.userName === null ? 'Sign In' : 'Sign Out'}</Button>
+                            {/* {this.state.userName === null ? 'Sign In' : 'Sign Out'} */}
+                            {userName === null  ? 'Sign In' : 'Sign Out'}
+                      </Button>
                       <img src={User_icon} className="user-icon" alt="user" />
                     </Col>
                   </Row>
