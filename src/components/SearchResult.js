@@ -24,6 +24,7 @@ class SearchResult extends Component {
         waypoints: [],
         result: [],
         isDraw: false,
+        recommendPlanList: [],
         planList : [
             {
               key: 0,
@@ -619,8 +620,11 @@ class SearchResult extends Component {
 
 
     //TODO: axios call for getRecommendationPlansByUserId()
-    getRecommendPlans = () =>{
-      const url = Travel_Plan_BASE_URL + `/recommendedplans?username=test`;
+    getRecommendPlans = (username, cityname) =>{
+      username = localStorage.getItem('user');
+      cityname = this.props.match.params.city;
+      //how to define cityid? Make a change in back end URL from cityid to cityname
+      const url = Travel_Plan_BASE_URL + `/recommendedplans?username=${username}&cityname=${cityname}`;
       axios
         .get(url)
         .then((response)=>{
@@ -716,8 +720,29 @@ class SearchResult extends Component {
         history.push(`/searchResult/${params.city}/travelSchedule`);
     }
 
+    switchToRecommendedPlans = () =>{
+      const { match: { params } } = this.props;
+      const cityName = params.city;
+      if(localStorage.getItem("userInfo") != null){
+        history.push(`/searchResult/${params.city}/recommendPlans`);
+      } else{
+        history.push({
+          pathname: "/login",
+          state: {
+            target: "/recommendPlans",
+            cityName: cityName,
+          }
+        });
+      }  
+    }
+
+    backToSearchResult = () =>{
+      const { match: { params } } = this.props;
+      history.push(`/searchResult/${params.city}`);
+    }
+    
     submitPlanFromTravelSchedule = (plan) => {
-      console.log(plan);
+      // console.log(plan);
       const routes = [];
 
       plan.map((day) => {
@@ -784,7 +809,7 @@ class SearchResult extends Component {
         }]
       }
 
-      console.log(plan);
+      // console.log(plan);
 
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -800,7 +825,7 @@ class SearchResult extends Component {
           }
         })
         .catch((error) => {
-          console.log("err in fetch cityInfo -> ", error);
+          console.log("err in saving plan -> ", error);
         });
         
       } else {
@@ -812,7 +837,7 @@ class SearchResult extends Component {
           pathname: `/login`,
           state: {
             planId: planId,
-            target: "/savedRoute"
+            target: "/travelSchedule"
           }
         });
 
@@ -856,7 +881,7 @@ class SearchResult extends Component {
 
     componentDidMount() {
         // todo: put into const file
-        console.log("page refreshed");
+        //console.log("page refreshed");
         const url =
             Travel_Plan_BASE_URL + `/search?city=${this.props.match.params.city}`;
         axios
@@ -888,7 +913,8 @@ class SearchResult extends Component {
             <BrowserRouter>
                 <Router history={history}>
                     <div className="searchResult-container">
-                        <SearchResultHeader />
+                        <SearchResultHeader 
+                        cityName = {this.props.match.params.city}/>
                         <div className="main">
                             <div className="left-side">                               
                                     <Route path={`/searchResult/${params.city}`}>
@@ -910,6 +936,8 @@ class SearchResult extends Component {
                                                 (item) => item.checked === true
                                             )}
                                             switchToTravelSchedulePanel={this.switchToTravelSchedulePanel}
+                                            switchToRecommendedPlans={this.switchToRecommendedPlans}
+                                            backToSearchResult={this.backToSearchResult}
                                             updateWaypoints={this.updateWaypoints}
                                             showOnMap = {this.showOnMap}
                                             planList = {this.state.planList}

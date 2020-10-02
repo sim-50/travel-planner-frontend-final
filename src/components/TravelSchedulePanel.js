@@ -161,27 +161,26 @@ class TravelSchedulePanel extends Component {
                     ))}
                 </Tabs>
                 <div className = "btnG">
-                <Input 
-                placeholder=" Name your plan" 
-                prefix={<EditOutlined />} 
-                onChange = {(e) => {
-                    console.log(e.target.value);
-                    this.setState({
-                    planName: e.target.value.trim()
-                })}
-                }/>
-                  <div className = "btnG-child">
-                    <Button id = "btn2"
-                    onClick = {() => this.props.submitPlanFromTravelSchedule(this.state.plan)}>
-                        Show on map
-                    </Button>
+                    <div className = "planName">
+                      <Input 
+                      placeholder=" Name your plan" 
+                      prefix={<EditOutlined />} 
+                      onChange = {(e) => {
+                          this.setState({
+                          planName: e.target.value.trim()
+                      })}
+                      }/>
+                      <Button id = "btn2"
+                          disabled = {this.state.planName === "" ? true : false}
+                          onClick = {() => this.props.savePlanFromTravelSchedule(this.state.planName, this.state.plan)}>
+                              Save Plan
+                      </Button>
+                    </div>
+                
                     <Button id = "btn1" 
-                    style = {{color:"#fff"}} 
-                    disabled={this.state.planName === "" ? true : false}
-                    onClick = {() => this.props.savePlanFromTravelSchedule(this.state.planName, this.state.plan)}>
-                      Save plan</Button>
-                  </div>
-                  
+                    
+                    onClick = {() => this.props.submitPlanFromTravelSchedule(this.state.plan)}>
+                      Show on map</Button>        
                 </div>
                 
             </div>

@@ -96,7 +96,7 @@ class TravelScheduleTable extends Component {
     onChange = nextTargetKeys => {
         const { targetKeys, paneKey } = this.state;
 
-        console.log(nextTargetKeys);
+        // console.log(nextTargetKeys);
 
         if (nextTargetKeys.length > targetKeys.length) {
             // left -> right 

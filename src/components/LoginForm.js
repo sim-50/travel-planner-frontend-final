@@ -8,7 +8,6 @@ import User_icon from "../asset/image/user.svg";
 import Travel_planner_logo from "../asset/image/travel_planner_logo.svg";
 import history from "../history";
 import { Travel_Plan_BASE_URL } from '../constant';
-
 const { Header} = Layout;
 
 class LoginForm extends Component{
@@ -74,8 +73,14 @@ class LoginForm extends Component{
   
 
   login(){
-
-      const formData = new FormData(this.form)
+      const formData = new FormData(this.form);
+      console.log('username is '+ formData.get('username'));
+      // console.log('username is ' + username)
+      // console.log('password is ' + password)
+      // console.log(history.location.state);
+      // if(history.location.state.target === "/recommendPlans"){
+      //   history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
+      // }
 
       //axios call
       axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
@@ -95,14 +100,66 @@ class LoginForm extends Component{
           }
           else if(res.status == 200){
             Modal.success({
-              content: "Congratulations! Successul Log In!"
-          })
-          this.setState({
-            login: true,
-          })
-          if (history.location.state.target === "Saved Route") {
-            history.push(`/savedRoute`);
-          }
+              content: "Congratulations! Successul Log In!",
+              onOk(){
+                // console.log(history.location.state);
+
+                localStorage.setItem("userInfo", JSON.stringify({"userName": formData.get("username")}));
+                
+                const target = history.location.state.target;
+
+                //From Travel Schedule
+                if(target === "/travelSchedule") {
+
+                  const uuid = history.location.state.planId;
+                  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+                  const plan = JSON.parse(localStorage.getItem(uuid));
+                  plan.username = userInfo.userName;
+
+                  history.push("/savedRoute");
+
+                  // axios
+                  //   .post(url, plan)
+                  //   .then((response) => {
+                  //     if(response.status === 200) {
+                  //       history.push(`/savedRoute`);
+                  //     }
+                  //   })
+                  //   .catch((error) => {
+                  //     console.log("err in saving plan -> ", error);
+                  //   });
+
+                } 
+                //Click on recommendPlans
+                else if(target=== "/recommendPlans") {
+                  
+                  history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`);
+                  
+                }
+                //From Search Result
+                else if(target === "/searchResult") {
+
+                  history.push(`/searchResult/${history.location.state.cityName}`);
+
+                } else if (history.location.state.target === "Saved Route") {
+                  history.push(`/savedRoute`);
+                }
+                //From Home Page
+                else {
+
+                  history.push("/");
+
+                }
+
+                window.location.reload();
+              }
+            })
+            
+            this.setState({
+              login: true,
+            })
+            
+            
         }
         }).catch((error) => {
           Modal.error({

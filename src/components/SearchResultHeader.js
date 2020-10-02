@@ -13,15 +13,20 @@ class SearchResultHeader extends Component{
     state = {
         current: 'searchResult',
         loggedIn: false,
+        userName: null,
     };
     
     handleMenuClick = e => {
         console.log(`/${e.key}`);
         this.setState({ current: e.key });
         if (e.key === "logOut") {
+          localStorage.clear();
           history.push(`/login`);
           // added check logged in and redirect funcitonality
         } else if (e.key === "savedRoute") {
+          
+          // should check if userName === null to see if loggedIn
+
           if (this.state.loggedIn === true) {
             history.push(`/savedRoute`);
           } else {
@@ -45,9 +50,25 @@ class SearchResultHeader extends Component{
       const userInfo = JSON.parse(localStorage.getItem('userInfo'));
       if (userInfo) {
         localStorage.clear();
+        
       }
-      history.push(`/login`);
+      history.push({
+        pathname: `/login`,
+        state: {
+          target: `/searchResult`,
+          cityName: this.props.cityName
+        }
+      });
+      window.location.reload();
   };
+
+  // componentDidMount() {
+  //   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  //   this.setState({
+  //     userName: userInfo === null ? null : userInfo.userName
+  //   })
+  // }
+
     render(){
         const { current } = this.state;
         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -73,10 +94,10 @@ class SearchResultHeader extends Component{
                   <a href="/"><img src= {Travel_planner_logo} alt="logo" className = "logo2"/></a>
                 </Col>
                 <Col span= {8}  className="id-class">
-                  <div>{userInfo == null ? '' : userInfo.userName}</div>
+                  <div>{userInfo === null ? '' : userInfo.userName}</div>
                   <Divider type="vertical"/>
                   <Button type="link" onClick={this.handleLogButtonClick} className="logButton">
-                    {userInfo == null ? 'Sign In' : 'Sign Out'}</Button>
+                    {userInfo === null ? 'Sign In' : 'Sign Out'}</Button>
                   <img src={User_icon} className="user-icon" alt="user" />
                 </Col>
               </Row>
