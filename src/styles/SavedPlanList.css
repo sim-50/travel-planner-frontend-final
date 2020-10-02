@@ -11,17 +11,14 @@
     display: flex;
 }
 
-.left-side {
-    padding-top: 10px;
-    width: 50%;
-}
-
 .tableContainer {
     max-width: 100%;
 }
 
 .right-side {
     margin-left: 10px;
+    width: 100%;
+
 }
 
 .ant-modal-body{
