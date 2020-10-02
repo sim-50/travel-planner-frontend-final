@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Table, Space,Tabs,Button, Timeline } from 'antd';
+import {Link} from 'react-router-dom';
 import Modal from 'antd/lib/modal/Modal';
 import MapContainer from "./MapContainer";
+import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
 import { Travel_Plan_BASE_URL } from "../constant";
 import axios from "axios";
 import { sendRequest } from "./RouteUtils";
@@ -9,9 +11,10 @@ import SearchResultHeader from "./SearchResultHeader";
 import SortedTransfer from "./SortedTransfer";
 // import SortedTransfer2 from "./SortedTransfer2";
 import SortableTable from './SortableTable';
+import backAarrow from "../asset/image/back-arrow.svg";
+import history from "../history";
 
 const { TabPane } = Tabs;
-
 class SavedPlans extends Component {
     state = {
         cityName: "Los Angeles",
@@ -479,53 +482,59 @@ class SavedPlans extends Component {
 
     render() {
         return (
-          <div className="searchResult-container">
-            <SearchResultHeader />
-            <div className="main">
-              <div className="left-side">    
-                <div className='tableContainer'>
-                    <Table
-                        columns={this.columns}
-                        dataSource={this.state.savedPlanList}
-                        pagination={{ pageSize: 5 }}
-                    />
-                    <Modal
-                    className = "jsj"
-                    title={this.state.selectedPlanName}
-                    style={{float: "left", marginLeft:"3%", top:"30%"}}
-                    visible={this.state.modalVisible}
-                    onOk={() => this.setModalVisible(false)}
-                    onCancel={() => this.setModalVisible(false)}
-                    >
-                      <Tabs defaultActiveKey="1" tabPosition="top" onChange={(key) =>{console.log(key)}} style={{ height: "70%" }}>
-                        {this.state.selectedPlanDetail.map(i => (
-                          <TabPane tab={`Day ${i.day}`} key={i.day}>
-                            <Timeline>
-                              {
-                                i.route.map(j =>(
-                                  <Timeline.Item>{j.name}</Timeline.Item>
-                                ))
-                              }
-                            </Timeline>
-                          </TabPane>
-                        ))}
-                      </Tabs>
-                    </Modal>
+          <BrowserRouter>
+            <Router history={history}>
+                <div className="searchResult-container">
+                  <SearchResultHeader />
+                  <div className="main">
+                    <div className="left-side">    
+                      <div className='tableContainer'>
+                          <Table
+                              columns={this.columns}
+                              dataSource={this.state.savedPlanList}
+                              pagination={{ pageSize: 5 }}
+                          />
+                          <Modal
+                          className = "jsj"
+                          title={this.state.selectedPlanName}
+                          style={{float: "left", marginLeft:"3%", top:"30%"}}
+                          visible={this.state.modalVisible}
+                          onOk={() => this.setModalVisible(false)}
+                          onCancel={() => this.setModalVisible(false)}
+                          >
+                  
+                            <Tabs defaultActiveKey="1" tabPosition="top" onChange={(key) =>{console.log(key)}} style={{ height: "70%" }}>
+                              {this.state.selectedPlanDetail.map(i => (
+                                <TabPane tab={`Day ${i.day}`} key={i.day}>
+                                  <Timeline>
+                                    {
+                                      i.route.map(j =>(
+                                        <Timeline.Item>{j.name}</Timeline.Item>
+                                      ))
+                                    }
+                                  </Timeline>
+                                </TabPane>
+                              ))}
+                            </Tabs>
+                          </Modal>
+                      </div>   
+                        <span className = "backg" onClick={() => history.goBack()}>
+                          <img src={backAarrow} alt=""/>
+                          <p>Back to result page</p>
+                        </span>
+                    </div>
+          
+                    <div className="right-side">
+                      <MapContainer
+                        cityCoordinate={this.state.cityCoordinate}
+                        selected={[]}
+                        responseData={this.state.result}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <SortedTransfer/>
-                  <SortableTable/>
-                </div>
-              </div>
-              <div className="right-side">
-                <MapContainer
-                  cityCoordinate={this.state.cityCoordinate}
-                  selected={[]}
-                  responseData={this.state.result}
-                />
-              </div>
-            </div>
-          </div>
+             </Router>
+          </BrowserRouter>
         );
     }
 }

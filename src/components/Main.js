@@ -13,7 +13,7 @@ class Main extends Component {
               <Row className = "home-detail">
                 <Col span={8}></Col>
                 <Col span={8} className = "home-detail-child">
-                    <p className = "bg-title">Hi, Let plan your next road trip efficiently! </p>
+                    <p className = "bg-title">Hi! Let's plan your next road trip efficiently! </p>
                     <Search
                       className = "home-search_bar"
                       placeholder="Where do you want to go?"
