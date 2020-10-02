@@ -4,17 +4,18 @@ import ResultDisplayPanel from "./ResultDisplayPanel";
 import MapContainer from "./MapContainer";
 import "../styles/SearchResult.css";
 import axios from "axios";
-import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Router } from "react-router-dom";
 import { Travel_Plan_BASE_URL } from "../constant";
 import { sendRequest } from "./RouteUtils";
-import { randomColor } from "randomcolor";
 import history from "../history";
+import uuid from "react-uuid";
+
 
 
 
 class SearchResult extends Component {
     state = {
-        cityName: "Los Angeles",
+        cityName: "New York",
         cityCoordinate: null,
         cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
         citySearchResult: [],
@@ -617,6 +618,7 @@ class SearchResult extends Component {
         ]}],
     };
 
+
     //TODO: axios call for getRecommendationPlansByUserId()
     getRecommendPlans = (username, cityname) =>{
       username = localStorage.getItem('user');
@@ -684,7 +686,9 @@ class SearchResult extends Component {
           result: [],
         }, ()=> {
           for(let i = 0; i < routes.length; i++) {
-
+            if(routes[i].length < 2) {
+              continue;
+            }
             sendRequest(routes[i], (response) => {
                 let newResult = this.state.result;
                 // response.color=randomColor({
@@ -709,13 +713,14 @@ class SearchResult extends Component {
     }
 
     switchToTravelSchedulePanel = () => {
-        this.sendRequest();
+        //this.sendRequest();
 
         //* switch to the travelSchedulePanel component
         const { match: { params } } = this.props;
         history.push(`/searchResult/${params.city}/travelSchedule`);
     }
 
+<<<<<<< HEAD
     switchToRecommendedPlans = () =>{
       const { match: { params } } = this.props;
       const cityName = params.city;
@@ -735,6 +740,112 @@ class SearchResult extends Component {
     backToSearchResult = () =>{
       const { match: { params } } = this.props;
       history.push(`/searchResult/${params.city}`);
+=======
+    submitPlanFromTravelSchedule = (plan) => {
+      console.log(plan);
+      const routes = [];
+
+      plan.map((day) => {
+          const route = [];
+          day.map((attraction) => {
+            route.push(this.state.citySearchResult[parseInt(attraction)]);
+          });
+          routes.push(route)
+      });
+
+      this.setState({
+          routes: routes,
+      }, this.sendRequest);
+    }
+
+    savePlanFromTravelSchedule = (planName, plan) => {
+
+      const routes = [];
+
+      plan.map((day) => {
+          const route = [];
+          day.map((attraction) => {
+            route.push(this.state.citySearchResult[parseInt(attraction)]);
+          });
+          routes.push(route)
+      });
+
+      this.setState({
+          routes: routes,
+      }, () => {
+
+      //format routeDataList
+      let routeDataList = [];
+      for(let i = 0; i < this.state.routes.length; i++) {
+        let attractionDataList = [];
+        for(let j = 0; j < this.state.routes[i].length; j++) {
+          let attraction = this.state.routes[i][j];
+          let newAttraction = {
+            attactionId: 0,
+            attractionName: attraction.name,
+            geometry: attraction.geometry,
+            type: attraction.types.join(","),
+            rating: attraction.rating
+          }
+          attractionDataList.push(newAttraction);
+        };
+        let routeObject = {
+          routeId: 0,
+          day: i+1,
+          attractionDataList: attractionDataList
+        };
+        routeDataList.push(routeObject);
+      }
+
+      //construct payload
+      const plan = {
+        //username: String,
+        planDataList: [{
+          planId: 0,
+          cityId: 0,
+          planName: planName,
+          city: this.state.cityName,
+          routeDataList: routeDataList,
+        }]
+      }
+
+      console.log(plan);
+
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+      if(userInfo) {
+        const url = Travel_Plan_BASE_URL + `/addplan`;
+        plan.username = userInfo.userName;
+        
+        axios
+        .post(url, plan)
+        .then((response) => {
+          if(response.status === 200) {
+            history.push(`/savedRoute`);
+          }
+        })
+        .catch((error) => {
+          console.log("err in fetch cityInfo -> ", error);
+        });
+        
+      } else {
+  
+        const planId = uuid();
+        localStorage.setItem(planId, JSON.stringify(plan));
+
+        history.push({
+          pathname: `/login`,
+          state: {
+            planId: planId,
+            target: "/savedRoute"
+          }
+        });
+
+      }
+
+      });
+    
+>>>>>>> upstream/dev
     }
 
     filterByName = (value) => {
@@ -777,7 +888,7 @@ class SearchResult extends Component {
         axios
             .get(url)
             .then((response) => {
-                //console.log('response: ',response);
+                console.log('response: ',response);
                 //console.log('response: ',response.data.responseObj.results);
                 //console.log(response.data.responseObj.allTypes);
                 this.setState({
@@ -830,8 +941,9 @@ class SearchResult extends Component {
                                             updateWaypoints={this.updateWaypoints}
                                             showOnMap = {this.showOnMap}
                                             planList = {this.state.planList}
+                                            savePlanFromTravelSchedule = {this.savePlanFromTravelSchedule}
                                             //recommendPlanList = {this.getRecommendPlans}
-                                        />
+                                            submitPlanFromTravelSchedule = {this.submitPlanFromTravelSchedule}                                        />
                                     </Route>
                             </div>
                             <div className="right-side">

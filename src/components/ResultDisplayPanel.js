@@ -49,6 +49,8 @@ class ResultDisplayPanel extends Component {
                             <Route path={`/searchResult/${cityName}/travelSchedule`} >
                                 <TravelSchedulePanel 
                                     selectedList={selectedList}
+                                    submitPlanFromTravelSchedule = {this.props.submitPlanFromTravelSchedule}
+                                    savePlanFromTravelSchedule = {this.props.savePlanFromTravelSchedule}
                                 />
                             </Route>
                         </Switch>

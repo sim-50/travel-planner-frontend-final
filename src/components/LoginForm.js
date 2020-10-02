@@ -50,7 +50,7 @@ class LoginForm extends Component{
             </Link>
                 <h3>Log in.</h3>
                 <form className = 'input' ref={fm => {this.form=fm}}>
-                    <input type="text" name="username" placeholder= "Username" required="true"  id = 'input1'/>
+                    <input type="text" name="username" placeholder= "Username" required={true}  id = 'input1'/>
                     <input type="password" name="password" placeholder= "Password"  id = 'input2'/>
                 </form>
   

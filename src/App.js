@@ -6,7 +6,7 @@ import SavedPlans from "./components/SavedPlans";
 import Registration from "./components/Registration";
 import Travel_planner_logo from "./asset/image/travel_planner_logo.svg";
 import User_icon from "./asset/image/user.svg";
-import { Layout, Row, Col } from "antd";
+import { Layout, Row, Col, Divider, Button} from "antd";
 import "./App.css";
 import { BrowserRouter, Route, Router, Switch, Link } from "react-router-dom";
 import history from './history';
@@ -23,13 +23,24 @@ class App extends Component {
 
   //* check if user loged in
   checkLoggedIn = () => {
-    const { userName } = this.state.user;
-    return userName ? userName : "Sign In";
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    return userInfo ? "" : "Sign In";
   }
 
-  render() {
-    const { userName } = this.state.user;
+  handleLogButtonClick = e => {
+    this.setState({ current: e.currentTarget.id });
+    // handle login and logout differently
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (userInfo) {
+      localStorage.clear();
+    }
+    history.push(`/login`);
+};
 
+
+  render() {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo')) 
+    
     return (
       <BrowserRouter>
         <Router history={history}>
@@ -38,16 +49,18 @@ class App extends Component {
               <Layout>
                 <Header className="home-header">
                   <Row className="row-class">
-                    <Col span={12}>
+                    <Col span={16}>
                       <img
                         src={Travel_planner_logo}
                         className="app-logo"
                         alt="logo"
                       />
                     </Col>
-                    <Col span={12} className="id-class">
-                      {/* if user logged in, click the link either go to user profile or user's savedRoute page. need to be discussed */}
-                      <Link to={userName === null ? `/login` : `/savedRoute`} id = "signin">{this.checkLoggedIn()}</Link>
+                    <Col span={8} className="id-class">
+                      <div>{userInfo == null ? '' : userInfo.userName}</div>
+                      <Divider type="vertical"/>
+                      <Button type="link" onClick={this.handleLogButtonClick} className="logButton" >
+                            {userInfo == null ? 'Sign In' : 'Sign Out'}</Button>
                       <img src={User_icon} className="user-icon" alt="user" />
                     </Col>
                   </Row>

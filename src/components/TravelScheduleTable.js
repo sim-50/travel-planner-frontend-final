@@ -109,7 +109,7 @@ class TravelScheduleTable extends Component {
                     removeList.push(targetKeys[i]);
                 }
             }
-            this.props.itemTransferToGlobal(removeList);
+            this.props.itemTransferToGlobal(removeList, paneKey);
         }
 
         this.setState({
