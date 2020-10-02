@@ -100,6 +100,9 @@ class LoginForm extends Component{
           this.setState({
             login: true,
           })
+          if (history.location.state.target === "Saved Route") {
+            history.push(`/savedRoute`);
+          }
         }
         }).catch((error) => {
           Modal.error({

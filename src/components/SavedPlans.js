@@ -395,6 +395,16 @@ class SavedPlans extends Component {
         .post(url, planId)
         .then((response)=>{
           console.log(response);
+          if(response.data.responseCode == 200) {
+            Modal.success({
+              content: "Plan deleted."
+            })
+          } else if (response.data.responseCode == 500) {
+            Modal.error({
+              title: 'Failed to delete plan',
+              content: 'Try again',
+            });
+          }
         })
         .catch((error)=> {
           console.log("err in deleting user plan ->", error);
@@ -461,6 +471,15 @@ class SavedPlans extends Component {
             }}>Show on map</Button>
             <Button onClick={()=>{
               this.deleteSavedPlans(record.key);
+              console.log(this.state.savedPlanList);
+              let newPlanList = this.state.savedPlanList;
+              newPlanList = newPlanList.filter(entry=>{
+                return entry.key !== record.key;
+              });
+              console.log(newPlanList);
+              this.setState({
+                savedPlanList: newPlanList,
+              });
             }}>Delete</Button>
           </Space>
         )
