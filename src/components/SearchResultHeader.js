@@ -24,16 +24,15 @@ class SearchResultHeader extends Component{
           history.push(`/login`);
           // added check logged in and redirect funcitonality
         } else if (e.key === "savedRoute") {
-          
           // should check if userName === null to see if loggedIn
-
-          if (this.state.loggedIn === true) {
+          const username = JSON.parse(localStorage.getItem('userInfo')).userName;
+          if (username !== null) {
             history.push(`/savedRoute`);
           } else {
             history.push({
               pathname: `/login`,
               state: {
-                target: "Saved Route",
+                target: "/savedRoute",
               }
             });
             // console.log(history);
