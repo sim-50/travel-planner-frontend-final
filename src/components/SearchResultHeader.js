@@ -19,6 +19,7 @@ class SearchResultHeader extends Component{
         console.log(`/${e.key}`);
         this.setState({ current: e.key });
         if (e.key === "logOut") {
+          localStorage.clear();
           history.push(`/login`);
         } else {
           history.push(`/${e.key}`);

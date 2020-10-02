@@ -116,18 +116,18 @@ class LoginForm extends Component{
                   const plan = JSON.parse(localStorage.getItem(uuid));
                   plan.username = userInfo.userName;
 
-                  // history.push("/savedRoute");
+                  history.push("/savedRoute");
 
-                  axios
-                    .post(url, plan)
-                    .then((response) => {
-                      if(response.status === 200) {
-                        history.push(`/savedRoute`);
-                      }
-                    })
-                    .catch((error) => {
-                      console.log("err in saving plan -> ", error);
-                    });
+                  // axios
+                  //   .post(url, plan)
+                  //   .then((response) => {
+                  //     if(response.status === 200) {
+                  //       history.push(`/savedRoute`);
+                  //     }
+                  //   })
+                  //   .catch((error) => {
+                  //     console.log("err in saving plan -> ", error);
+                  //   });
 
                 } 
                 //Click on recommendPlans
