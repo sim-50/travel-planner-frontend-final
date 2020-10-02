@@ -6,8 +6,8 @@ import axios from 'axios';
 import '../styles/loginStyle.css';
 import User_icon from "../asset/image/user.svg";
 import Travel_planner_logo from "../asset/image/travel_planner_logo.svg";
+import history from "../history";
 import { Travel_Plan_BASE_URL } from '../constant';
-
 const { Header} = Layout;
 
 class LoginForm extends Component{
@@ -73,8 +73,14 @@ class LoginForm extends Component{
   
 
   login(){
-
-      const formData = new FormData(this.form)
+      const formData = new FormData(this.form);
+      console.log('username is '+ formData.get('username'));
+      // console.log('username is ' + username)
+      // console.log('password is ' + password)
+      // console.log(history.location.state);
+      // if(history.location.state.target === "/recommendPlans"){
+      //   history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
+      // }
 
       //axios call
       axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
@@ -94,11 +100,21 @@ class LoginForm extends Component{
           }
           else if(res.status == 200){
             Modal.success({
-              content: "Congratulations! Successul Log In!"
-          })
-          this.setState({
-            login: true,
-          })
+              content: "Congratulations! Successul Log In!",
+              onOk(){
+                console.log(history.location.state);
+                if(history.location.state.target === "/recommendPlans"){
+                  history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
+                }
+              }
+            })
+            this.setState({
+              login: true,
+            })
+            
+            localStorage.setItem('userInfo', JSON.stringify({
+              userName: formData.get('username')
+            }))
         }
         }).catch((error) => {
           Modal.error({
