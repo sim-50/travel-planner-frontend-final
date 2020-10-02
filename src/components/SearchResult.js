@@ -720,7 +720,6 @@ class SearchResult extends Component {
         history.push(`/searchResult/${params.city}/travelSchedule`);
     }
 
-<<<<<<< HEAD
     switchToRecommendedPlans = () =>{
       const { match: { params } } = this.props;
       const cityName = params.city;
@@ -740,7 +739,8 @@ class SearchResult extends Component {
     backToSearchResult = () =>{
       const { match: { params } } = this.props;
       history.push(`/searchResult/${params.city}`);
-=======
+    }
+    
     submitPlanFromTravelSchedule = (plan) => {
       console.log(plan);
       const routes = [];
@@ -845,7 +845,6 @@ class SearchResult extends Component {
 
       });
     
->>>>>>> upstream/dev
     }
 
     filterByName = (value) => {
