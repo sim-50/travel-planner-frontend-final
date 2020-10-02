@@ -166,7 +166,6 @@ class TravelSchedulePanel extends Component {
                       placeholder=" Name your plan" 
                       prefix={<EditOutlined />} 
                       onChange = {(e) => {
-                          console.log(e.target.value);
                           this.setState({
                           planName: e.target.value.trim()
                       })}
