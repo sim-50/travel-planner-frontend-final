@@ -118,6 +118,7 @@ class LoginForm extends Component{
                 //From Travel Schedule
                 if(target === "/travelSchedule") {
 
+                  const url = Travel_Plan_BASE_URL + `/addplan`;
                   const uuid = history.location.state.planId;
                   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
                   const plan = JSON.parse(localStorage.getItem(uuid));
@@ -125,16 +126,16 @@ class LoginForm extends Component{
 
                   history.push("/savedRoute");
 
-                  // axios
-                  //   .post(url, plan)
-                  //   .then((response) => {
-                  //     if(response.status === 200) {
-                  //       history.push(`/savedRoute`);
-                  //     }
-                  //   })
-                  //   .catch((error) => {
-                  //     console.log("err in saving plan -> ", error);
-                  //   });
+                  axios
+                    .post(url, plan)
+                    .then((response) => {
+                      if(response.status === 200) {
+                        history.push(`/savedRoute`);
+                      }
+                    })
+                    .catch((error) => {
+                      console.log("err in saving plan -> ", error);
+                    });
 
                 } 
                 //Click on recommendPlans
