@@ -103,20 +103,31 @@ class LoginForm extends Component{
               content: "Congratulations! Successul Log In!",
               onOk(){
                 // console.log(history.location.state);
-                // if(history.location.state.target === "/recommendPlans"){
-                //   history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
-                // }
-                localStorage.setItem("userName", JSON.stringify({"userName": formData.get("username")}));
+                if(history.location.state.target === "/recommendPlans"){
+                  history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
+                }
+                localStorage.setItem("userInfo", JSON.stringify({"userName": formData.get("username")}));
                 
                 const target = history.location.state.target;
 
-                if(target === "/travelSchedule" || target === "/") {
+                if(target === "/travelSchedule") {
+
                   history.push("/savedRoute");
-                } else if(target === "/searchResult") {
+
+                } else if(target=== "/recommendPlans") {
+                  
+                  history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`);
+                  
+                }else if(target === "/searchResult") {
+
                   history.push(`/searchResult/${history.location.state.cityName}`);
+
                 } else {
+
                   history.push("/");
+
                 }
+
                 window.location.reload();
               }
             })

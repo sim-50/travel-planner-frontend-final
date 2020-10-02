@@ -32,6 +32,7 @@ class SearchResultHeader extends Component{
       const userInfo = JSON.parse(localStorage.getItem('userInfo'));
       if (userInfo) {
         localStorage.clear();
+        
       }
       history.push({
         pathname: `/login`,
@@ -40,14 +41,15 @@ class SearchResultHeader extends Component{
           cityName: this.props.cityName
         }
       });
+      window.location.reload();
   };
 
-  componentDidMount() {
-    const userName = JSON.parse(localStorage.getItem("userName"));
-    this.setState({
-      userName: userName === null ? null : userName.userName
-    })
-  }
+  // componentDidMount() {
+  //   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  //   this.setState({
+  //     userName: userInfo === null ? null : userInfo.userName
+  //   })
+  // }
 
     render(){
         const { current } = this.state;
@@ -74,10 +76,10 @@ class SearchResultHeader extends Component{
                   <a href="/"><img src= {Travel_planner_logo} alt="logo" className = "logo2"/></a>
                 </Col>
                 <Col span= {8}  className="id-class">
-                  <div>{this.state.userName === null ? '' : this.state.userName}</div>
+                  <div>{userInfo === null ? '' : userInfo.userName}</div>
                   <Divider type="vertical"/>
                   <Button type="link" onClick={this.handleLogButtonClick} className="logButton">
-                    {this.state.userName === null ? 'Sign In' : 'Sign Out'}</Button>
+                    {userInfo === null ? 'Sign In' : 'Sign Out'}</Button>
                   <img src={User_icon} className="user-icon" alt="user" />
                 </Col>
               </Row>

@@ -34,7 +34,14 @@ class App extends Component {
     if (userInfo) {
       localStorage.clear();
     }
-    history.push(`/login`);
+    //history.push(`/login`);
+
+    history.push({
+      pathname: `/login`,
+      state: {
+        target: "/"
+      }
+    });
 };
 
 
@@ -47,8 +54,7 @@ class App extends Component {
 
 
   render() {
-    //const userInfo = JSON.parse(localStorage.getItem('userInfo')) 
-    const userName = JSON.parse(localStorage.getItem("userName"));
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     
     return (
       <BrowserRouter>
@@ -66,12 +72,12 @@ class App extends Component {
                       />
                     </Col>
                     <Col span={8} className="id-class">
-                      <div>{userName === null ? '' : userName.userName}</div>
+                      <div>{userInfo === null ? '' : userInfo.userName}</div>
                       {/* <div>{this.state.userName === null ? '' : this.state.userName}</div> */}
                       <Divider type="vertical"/>
                       <Button type="link" onClick={this.handleLogButtonClick} className="logButton" >
                             {/* {this.state.userName === null ? 'Sign In' : 'Sign Out'} */}
-                            {userName === null  ? 'Sign In' : 'Sign Out'}
+                            {userInfo === null  ? 'Sign In' : 'Sign Out'}
                       </Button>
                       <img src={User_icon} className="user-icon" alt="user" />
                     </Col>
