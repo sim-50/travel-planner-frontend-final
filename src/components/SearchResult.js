@@ -253,6 +253,9 @@ class SearchResult extends Component {
       //format routeDataList
       let routeDataList = [];
       for(let i = 0; i < this.state.routes.length; i++) {
+        if(this.state.routes[i].length == 0) {
+          continue;
+        } 
         let attractionDataList = [];
         for(let j = 0; j < this.state.routes[i].length; j++) {
           let attraction = this.state.routes[i][j];
@@ -285,39 +288,39 @@ class SearchResult extends Component {
         }]
       }
 
-      // console.log(plan);
+      console.log(plan);
 
-      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-      if(userInfo) {
-        const url = Travel_Plan_BASE_URL + `/addplan`;
-        plan.username = userInfo.userName;
+      // if(userInfo) {
+      //   const url = Travel_Plan_BASE_URL + `/addplan`;
+      //   plan.username = userInfo.userName;
         
-        axios
-        .post(url, plan)
-        .then((response) => {
-          if(response.status === 200) {
-            history.push(`/savedRoute`);
-          }
-        })
-        .catch((error) => {
-          console.log("err in saving plan -> ", error);
-        });
+      //   axios
+      //   .post(url, plan)
+      //   .then((response) => {
+      //     if(response.status === 200) {
+      //       history.push(`/savedRoute`);
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log("err in saving plan -> ", error);
+      //   });
         
-      } else {
+      // } else {
   
-        const planId = uuid();
-        localStorage.setItem(planId, JSON.stringify(plan));
+      //   const planId = uuid();
+      //   localStorage.setItem(planId, JSON.stringify(plan));
 
-        history.push({
-          pathname: `/login`,
-          state: {
-            planId: planId,
-            target: "/travelSchedule"
-          }
-        });
+      //   history.push({
+      //     pathname: `/login`,
+      //     state: {
+      //       planId: planId,
+      //       target: "/travelSchedule"
+      //     }
+      //   });
 
-      }
+      // }
 
       });
     
