@@ -12,7 +12,6 @@ const { SubMenu } = Menu;
 class SearchResultHeader extends Component{
     state = {
         current: 'searchResult',
-        loggedIn: false,
         userName: null,
     };
     
@@ -22,9 +21,7 @@ class SearchResultHeader extends Component{
         if (e.key === "logOut") {
           localStorage.clear();
           history.push(`/login`);
-          // added check logged in and redirect funcitonality
         } else if (e.key === "savedRoute") {
-          // should check if userName === null to see if loggedIn
           const username = JSON.parse(localStorage.getItem('userInfo')).userName;
           if (username !== null) {
             history.push(`/savedRoute`);
@@ -35,7 +32,6 @@ class SearchResultHeader extends Component{
                 target: "/savedRoute",
               }
             });
-            // console.log(history);
           }
         } else {
           history.push(`/${e.key}`);

@@ -76,10 +76,10 @@ class SavedPlans extends Component {
     getSavedPlans = () =>{
       const username = JSON.parse(localStorage.getItem('userInfo')).userName;
       const url = Travel_Plan_BASE_URL + `/allplans?username=${username}`;
+      console.log(url);
       axios
         .get(url)
         .then((response)=>{
-          console.log(response.data.responseObj);
           let planList = response.data.responseObj.planDataList;
           let newPlanList = [];
           // i = index of a plan
@@ -94,16 +94,10 @@ class SavedPlans extends Component {
               let attractions = [];
               // k = index of an attraction in routeDataList.attractionDataList
               for (let k = 0; k < planList[i].routeDataList[j].attractionDataList.length; k++) {
-                // let name = planList[i].attractionDataList[j].attractionName;
-                // let geometry = planList[i].attractionDataList[j].getmetry;
-
-                //console.log(planList[i].routeDataList[j].attractionDataList[k].attractionName);
-
                 let attractionItem = {
                   name: planList[i].routeDataList[j].attractionDataList[k].attractionName,
                   geometry: planList[i].routeDataList[j].attractionDataList[k].geometry,
                 }
-                console.log(planList[i].routeDataList[j].attractionDataList[k].geometry.location.lat);
                 attractions.push(attractionItem);
               }
               let routeItem = {
@@ -120,11 +114,6 @@ class SavedPlans extends Component {
             }
             newPlanList.push(plan);
           }
-          console.log(newPlanList);
-          //response data format ?? still need to modified from backend
-          // response.map(i =>{
-          //   planList.push(i);
-          // })
           this.setState({
             savedPlanList: newPlanList,
           })
@@ -137,20 +126,21 @@ class SavedPlans extends Component {
     deleteSavedPlans = (planId) =>{
       const username = JSON.parse(localStorage.getItem('userInfo')).userName;
       const url = Travel_Plan_BASE_URL + `/deleteplan?username=${username}&planid=${planId}`;
-      console.log(url);
       axios
         .delete(url)
         .then((response)=>{
           console.log(response);
           if(response.data.responseCode == 200) {
-            Modal.success({
-              content: "Plan deleted."
-            })
-          } else if (response.data.responseCode == 500) {
-            Modal.error({
-              title: 'Failed to delete plan',
-              content: 'Try again',
+            // delete plan from display
+            let newPlanList = this.state.savedPlanList;
+            newPlanList = newPlanList.filter(entry=>{
+              return entry.key !== planId;
             });
+            this.setState({
+              savedPlanList: newPlanList,
+            });
+          } else if (response.data.responseCode == 500) {
+            console.log("err in deleting user plan -> responseCode: 500");
           }
         })
         .catch((error)=> {
@@ -171,8 +161,6 @@ class SavedPlans extends Component {
               //console.log('response: ',response);
               //console.log('response: ',response.data.responseObj.results);
               //console.log(response.data.responseObj.allTypes);
-              console.log(response.data.responseObj.coordinate[0]);
-              console.log(response.data.responseObj.coordinate[1]);
               this.setState({
                   cityCoordinate: {
                       lat: response.data.responseObj.coordinate[0],
@@ -181,7 +169,6 @@ class SavedPlans extends Component {
                   // citySearchResult: response.data.responseObj.results,
                   // allTypes: response.data.responseObj.allTypes,
               });
-              console.log(this.state.cityCoordinate);
               this.getSavedPlans();
           })
           .catch((error) => {
@@ -219,15 +206,6 @@ class SavedPlans extends Component {
             }}>Show on map</Button>
             <Button onClick={()=>{
               this.deleteSavedPlans(record.key);
-              console.log(this.state.savedPlanList);
-              let newPlanList = this.state.savedPlanList;
-              newPlanList = newPlanList.filter(entry=>{
-                return entry.key !== record.key;
-              });
-              console.log(newPlanList);
-              this.setState({
-                savedPlanList: newPlanList,
-              });
             }}>Delete</Button>
           </Space>
         )
