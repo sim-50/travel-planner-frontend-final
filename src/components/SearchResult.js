@@ -233,37 +233,37 @@ class SearchResult extends Component {
 
       console.log(plan);
 
-      // const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-      // if(userInfo) {
-      //   const url = Travel_Plan_BASE_URL + `/addplan`;
-      //   plan.username = userInfo.userName;
+      if(userInfo) {
+        const url = Travel_Plan_BASE_URL + `/addplan`;
+        plan.username = userInfo.userName;
         
-      //   axios
-      //   .post(url, plan)
-      //   .then((response) => {
-      //     if(response.status === 200) {
-      //       history.push(`/savedRoute`);
-      //     }
-      //   })
-      //   .catch((error) => {
-      //     console.log("err in saving plan -> ", error);
-      //   });
+        axios
+        .post(url, plan)
+        .then((response) => {
+          if(response.status === 200) {
+            history.push(`/savedRoute`);
+          }
+        })
+        .catch((error) => {
+          console.log("err in saving plan -> ", error);
+        });
         
-      // } else {
+      } else {
   
-      //   const planId = uuid();
-      //   localStorage.setItem(planId, JSON.stringify(plan));
+        const planId = uuid();
+        localStorage.setItem(planId, JSON.stringify(plan));
 
-      //   history.push({
-      //     pathname: `/login`,
-      //     state: {
-      //       planId: planId,
-      //       target: "/travelSchedule"
-      //     }
-      //   });
+        history.push({
+          pathname: `/login`,
+          state: {
+            planId: planId,
+            target: "/travelSchedule"
+          }
+        });
 
-      // }
+      }
 
       });
     
