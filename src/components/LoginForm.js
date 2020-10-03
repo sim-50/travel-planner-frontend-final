@@ -26,7 +26,7 @@ class LoginForm extends Component{
         target = history.location.state.target;
       }
     }
-    // console.log(this.state.login)
+    
       return(
         <Layout className = 'loginWrapper'>
            <Header className="home-header">
@@ -82,18 +82,15 @@ class LoginForm extends Component{
 
   login(){
       const formData = new FormData(this.form);
-      console.log('username is '+ formData.get('username'));
+      // console.log('username is '+ formData.get('username'));
       // console.log('username is ' + username)
       // console.log('password is ' + password)
       // console.log(history.location.state);
-      // if(history.location.state.target === "/recommendPlans"){
-      //   history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
-      // }
 
       //axios call
       axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
         .then(res => {
-          console.log(res);
+          
           if(res.data.responseCode == 400){
             Modal.error({
               title: 'Wrong username or password',
@@ -110,7 +107,6 @@ class LoginForm extends Component{
             Modal.success({
               content: "Congratulations! Successul Log In!",
               onOk(){
-                // console.log(history.location.state);
 
                 localStorage.setItem("userInfo", JSON.stringify({"userName": formData.get("username")}));
                 
@@ -150,7 +146,6 @@ class LoginForm extends Component{
                   //From Search Result
                   else if(target.includes("/searchResult")) {
 
-                    // history.push(`/searchResult/${history.location.state.cityName}`);
                     history.push(target);
 
                   } 
