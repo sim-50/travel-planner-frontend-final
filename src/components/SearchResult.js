@@ -9,7 +9,7 @@ import { Travel_Plan_BASE_URL } from "../constant";
 import { sendRequest, zoomBefore, zoomAfter } from "./RouteUtils";
 import history from "../history";
 import uuid from "react-uuid";
-import {Modal} from 'antd';
+
 
 class SearchResult extends Component {
     state = {
@@ -29,67 +29,10 @@ class SearchResult extends Component {
         savedPlanList : [],
     };
 
-
-    //TODO: axios call for getRecommendationPlansByUserId()
-    getRecommendPlans = () =>{
-      const username = JSON.parse(localStorage.getItem('userInfo')).userName;
-      const cityname = this.props.match.params.city;
-      //how to define cityid? Make a change in back end URL from cityid to cityname
-      const url = Travel_Plan_BASE_URL + `/getrecommendationplans?username=${username}&cityname=${cityname}`;
-      axios
-        .get(url)
-        .then((response)=>{
-          console.log(response);
-          const responseObj = response.data.responseObj;
-          if(responseObj == null){
-            Modal.info({
-              title: 'Sorry, there are no recommended plan currently. Try it Later!',
-            });
-          } else if(response.data.responseCode === 500){
-            Modal.error({
-              Title: 'An error occurred! Try it again.'
-            })
-          }else{
-            const planList = response.data.responseObj.planDataList;
-            const plans = [];
-            // const plansWithUsername = [];
-            for(let i = 0; i < planList.length; i++){
-              let key = planList[i].planId;
-              let name = planList[i].planName;
-              let days = planList[i].routeDataList.length;
-              let planDetail = [];
-              for(let j = 0; j < days; j++){
-                let attractions = [];
-                for(let k = 0; k < planList[i].routeDataList[j].attractionDataList.length; k++){
-                  let attraction = {
-                    name: planList[i].routeDataList[j].attractionDataList[k].attractionName,
-                    geometry: planList[i].routeDataList[j].attractionDataList[k].geometry,
-                  }
-                  attractions.push(attraction);
-                }
-                let route = {
-                  day: planList[i].routeDataList[j].day,
-                  route: attractions,
-                }
-                planDetail.push(route);
-              }
-              let plan = {
-                key: key,
-                name: name,
-                days: days,
-                planDetail: planDetail,
-              }
-              plans.push(plan);
-            }
-            this.setState({
-              recommendPlanList: plans,
-            }, () =>{
-              history.push(`/searchResult/${this.state.cityName}/recommendPlans`);
-            })
-          }})
-          .catch((error)=> {
-            console.log("err in fetch cityInfo -> ", error);
-          })        
+    getRecommendPlans = (recommendPlanList) =>{
+      this.setState({
+        recommendPlanList: recommendPlanList
+      })       
     }
 
     pinOnMap = (markers) => {
@@ -201,7 +144,7 @@ class SearchResult extends Component {
       // const { match: { params } } = this.props;
       // const cityName = params.city;
       if(localStorage.getItem("userInfo") != null){
-        this.getRecommendPlans();
+        history.push(`/searchResult/${this.state.cityName}/recommendPlans`);
       } else{
         history.push({
           pathname: "/login",
