@@ -9,6 +9,7 @@ import { Travel_Plan_BASE_URL } from "../constant";
 import { sendRequest } from "./RouteUtils";
 import history from "../history";
 import uuid from "react-uuid";
+import {Modal} from 'antd';
 
 
 
@@ -28,33 +29,70 @@ class SearchResult extends Component {
         recommendPlanList: [],
         planList : [],
         routes: [],      
-        savedPlanList : []
-          
+        savedPlanList : [],
     };
 
 
     //TODO: axios call for getRecommendationPlansByUserId()
-    getRecommendPlans = (username, cityname) =>{
-      username = localStorage.getItem('user');
-      cityname = this.props.match.params.city;
+    getRecommendPlans = () =>{
+      const username = JSON.parse(localStorage.getItem('userInfo')).userName;
+      const cityname = this.props.match.params.city;
       //how to define cityid? Make a change in back end URL from cityid to cityname
-      const url = Travel_Plan_BASE_URL + `/recommendedplans?username=${username}&cityname=${cityname}`;
+      const url = Travel_Plan_BASE_URL + `/getrecommendationplans?username=${username}&cityname=${cityname}`;
       axios
         .get(url)
         .then((response)=>{
-          const planList = [];
-          //response data format ?? still need to modified from backend
-          response.map(i =>{
-            planList.push(i);
-          })
-          this.setState({
-            planList: planList,
-          })
-        })
-        .catch((error)=> {
-          console.log("err in fetch cityInfo -> ", error);
-
-        })
+          console.log(response);
+          const responseObj = response.data.responseObj;
+          if(responseObj == null){
+            Modal.info({
+              title: 'Sorry, there are no recommended plan currently. Try it Later!',
+            });
+          } else if(response.data.responseCode === 500){
+            Modal.error({
+              Title: 'An error occurred! Try it again.'
+            })
+          }else{
+            const planList = response.data.responseObj.planDataList;
+            const plans = [];
+            // const plansWithUsername = [];
+            for(let i = 0; i < planList.length; i++){
+              let key = planList[i].planId;
+              let name = planList[i].planName;
+              let days = planList[i].routeDataList.length;
+              let planDetail = [];
+              for(let j = 0; j < days; j++){
+                let attractions = [];
+                for(let k = 0; k < planList[i].routeDataList[j].attractionDataList.length; k++){
+                  let attraction = {
+                    name: planList[i].routeDataList[j].attractionDataList[k].attractionName,
+                    geometry: planList[i].routeDataList[j].attractionDataList[k].geometry,
+                  }
+                  attractions.push(attraction);
+                }
+                let route = {
+                  day: planList[i].routeDataList[j].day,
+                  route: attractions,
+                }
+                planDetail.push(route);
+              }
+              let plan = {
+                key: key,
+                name: name,
+                days: days,
+                planDetail: planDetail,
+              }
+              plans.push(plan);
+            }
+            this.setState({
+              recommendPlanList: plans,
+            }, () =>{
+              history.push(`/searchResult/${this.state.cityName}/recommendPlans`);
+            })
+          }})
+          .catch((error)=> {
+            console.log("err in fetch cityInfo -> ", error);
+          })        
     }
 
     updateWaypoints = (waypoint) => {
@@ -98,6 +136,7 @@ class SearchResult extends Component {
 
       this.setState({
         result: [],
+        zoom: 11,
         }, ()=> {
           let lat = [];
           let lng = [];
@@ -124,6 +163,7 @@ class SearchResult extends Component {
                     { 
                         result: newResult,
                         isDraw: true,
+                        zoom: 12
                     });
             });
         }
@@ -153,7 +193,6 @@ class SearchResult extends Component {
           }
           this.setState({
             cityCoordinate: cityCoordinate,
-            zoom: 12
           })
         }
         
@@ -171,10 +210,10 @@ class SearchResult extends Component {
     }
 
     switchToRecommendedPlans = () =>{
-      const { match: { params } } = this.props;
-      const cityName = params.city;
+      // const { match: { params } } = this.props;
+      // const cityName = params.city;
       if(localStorage.getItem("userInfo") != null){
-        history.push(`/searchResult/${params.city}/recommendPlans`);
+        this.getRecommendPlans();
       } else{
         history.push({
           pathname: "/login",
@@ -390,10 +429,10 @@ class SearchResult extends Component {
                                             backToSearchResult={this.backToSearchResult}
                                             updateWaypoints={this.updateWaypoints}
                                             showOnMap = {this.showOnMap}
-                                            planList = {this.state.planList}
+                                            //planList = {this.state.planList}
                                             savePlanFromTravelSchedule = {this.savePlanFromTravelSchedule}
-                                            //recommendPlanList = {this.getRecommendPlans}
-                                            submitPlanFromTravelSchedule = {this.submitPlanFromTravelSchedule}/>
+                                            recommendPlanList = {this.state.recommendPlanList}
+                                            submitPlanFromTravelSchedule = {this.submitPlanFromTravelSchedule}                                        />
                                     </Route>
                             </div>
                             <div className="right-side">

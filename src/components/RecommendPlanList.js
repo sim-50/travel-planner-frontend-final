@@ -3,6 +3,7 @@ import { Table, Space,Tabs,Button, Timeline } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import axios from "axios";
 import { Travel_Plan_BASE_URL } from "../constant";
+import history from "../history";
 
 const { TabPane } = Tabs;
 
@@ -49,6 +50,7 @@ class RecommendPlanList extends Component {
             <Space size="middle">
               <Button onClick={() => {
                 this.setModalVisible(true);
+                console.log(record.planDetail);
                 this.setPlanDetail(record.planDetail);
                 this.setPlanName(record.name);
                 }}>
@@ -75,7 +77,8 @@ class RecommendPlanList extends Component {
                           this.setState({
                             isSaved: true,
                             saveStatus: "Saved"
-                          })
+                          });
+                          history.push('/savedRoute');
                         }
                       })
                     .catch((error) =>{
@@ -94,8 +97,8 @@ class RecommendPlanList extends Component {
                     bodyStyle={{fontSize:"6em"}}
                     className = 'tableChild'
                     columns={this.columns}
-                    dataSource={this.props.planList}
-                    //dataSource = {this.props.recommendedPlanList}
+                    //dataSource={this.props.planList}
+                    dataSource = {this.props.recommendPlanList}
                     pagination={{ pageSize: 5 }}
                 />
                 <Modal
