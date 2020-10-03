@@ -119,7 +119,7 @@ class LocationOptionList extends Component {
                             disabled={selectedList.length < 2 ? true : false}
                             onClick={this.props.switchToTravelSchedulePanel}>
                             Start Planning
-                        </Button>
+                            </Button>
                     </Tooltip>
                 </div>
             </div>
