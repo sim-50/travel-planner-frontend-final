@@ -19,6 +19,13 @@ class LoginForm extends Component{
   }
   
   render(){
+    let target = null; 
+    if(typeof history.location.state !== "undefined") {
+      let state = history.location.state;
+      if(typeof state.target !== "undefined") {
+        target = history.location.state.target;
+      }
+    }
     // console.log(this.state.login)
       return(
         <Layout className = 'loginWrapper'>
@@ -60,7 +67,8 @@ class LoginForm extends Component{
 
         
                 <p className= 'signupLink'>Don't have an account? 
-                <Link to = "/Registration">
+                <Link to = {{ pathname: "/Registration", state: {target: target === null ? "/" : target }}}>
+                {/* <Link to = "/Registration"> */}
                   <span>Sign up</span>
                 </Link>
                 </p>
@@ -117,40 +125,47 @@ class LoginForm extends Component{
                   const plan = JSON.parse(localStorage.getItem(uuid));
                   plan.username = userInfo.userName;
 
-                  history.push("/savedRoute");
+                  // history.push("/savedRoute");
 
                   axios
                     .post(url, plan)
                     .then((response) => {
                       if(response.status === 200) {
                         history.push(`/savedRoute`);
+                        window.location.reload();
                       }
                     })
                     .catch((error) => {
                       console.log("err in saving plan -> ", error);
                     });
 
-                } 
-                //Click on recommendPlans
-                else if(target=== "/recommendPlans") {
-                  
-                  history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`);
-                  
-                }
-                //From Search Result
-                else if(target === "/searchResult") {
+                } else {
 
-                  history.push(`/searchResult/${history.location.state.cityName}`);
+                  //Click on recommendPlans
+                  if(target.includes("/recommendPlans")) {
+                    
+                    history.push(`/searchResult/${target}`);
+                    
+                  }
+                  //From Search Result
+                  else if(target.includes("/searchResult")) {
 
-                } 
-                //From Home Page
-                else {
+                    // history.push(`/searchResult/${history.location.state.cityName}`);
+                    history.push(target);
 
-                  history.push("/");
+                  } 
+                  //From Home Page
+                  else {
 
-                }
+                    history.push("/");
 
-                window.location.reload();
+                  }
+
+                  window.location.reload();
+
+              }
+
+                
               }
             })
             

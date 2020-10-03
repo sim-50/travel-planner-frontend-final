@@ -64,7 +64,8 @@ class Registration extends Component{
                     Modal.success({
                         content: "Congratulations! Successul registrarion! Welcome to join us!"
                     })
-                    history.push(`/login`);
+                    //console.log(history.location.state.target);
+                    history.push({pathname: `/login`, state: {target: history.location.state.target}});
                 }
 
                 // Show username duplicate
