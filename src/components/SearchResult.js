@@ -9,6 +9,7 @@ import { Travel_Plan_BASE_URL } from "../constant";
 import { sendRequest } from "./RouteUtils";
 import history from "../history";
 import uuid from "react-uuid";
+import {Modal} from 'antd';
 
 
 
@@ -25,622 +26,72 @@ class SearchResult extends Component {
         result: [],
         isDraw: false,
         recommendPlanList: [],
-        planList : [
-            {
-              key: 0,
-              name: "Life's journey after graduation",
-              days: 3,
-              planDetail:  [
-                {
-                  day: 1,
-                  route: [
-                    {
-                      name: "Time Square",
-                      geometry: {
-                        location: {
-                          lat:40.7527,
-                          lng:-73.9855,
-                        }
-                       }
-                    },
-                    {
-                      name: "Grand Central Terminal",
-                      geometry: {
-                        location: {
-                          lat:40.7527,
-                          lng:-73.9772,
-                        }
-                       }
-                    },
-                    {
-                      name: "Central Park",
-                      geometry: {
-                        location: {
-                            lat:40.7812,
-                            lng: -73.9665,
-                        }
-                    }
-                    },
-                  ]
-                },
-                {
-                  day: 2,
-                  route: [
-                    {
-                      name: "Empire State Building",
-                      geometry:{
-                          location:{
-                            lat:40.7484,
-                            lng: -73.9857,
-                          }
-                      }
-                    },
-                    {
-                      name: "Chinatown",
-                      geometry:{
-                        location:{
-                            lat:40.7158,
-                            lng: -73.9970,
-                        }
-                    }
-                    },
-                  ]
-                },
-                {
-                  day: 3,
-                  route:[
-                    {
-                      name: "Little Italy",
-                      geometry:{
-                          location:{
-                            lat:40.7191,
-                            lng: -73.9973,
-                          }
-                      }   
-                    },
-                    {
-                      name: "Metropolitan Museum of Art",
-                      geometry:{
-                          location:{
-                            lat:40.7794,
-                            lng: -73.9632,
-                          }
-                      } 
-                    },
-                    {
-                      name: "The Met Cloisters",
-                      geometry:{
-                          location:{
-                            lat:40.8649,
-                            lng: -73.9317,
-                          }
-                      }
-                    },
-                  ]
-                }],
-            },
-            {
-              key: 1,
-              name: "New York City Vacation Travel Guide",
-              days: 5,
-              planDetail:  [
-                {
-                  day: 1,
-                  route: [
-                    {
-                        name: "Time Square",
-                        geometry: {
-                          location: {
-                            lat:40.7527,
-                           lng:-73.9855,
-                          }
-                         }
-                      },
-                      {
-                        name: "Grand Central Terminal",
-                        geometry: {
-                          location: {
-                            lat:40.7527,
-                            lng:-73.9772,
-                          }
-                         }
-                      },
-                      {
-                        name: "Central Park",
-                        geometry: {
-                          location: {
-                              lat:40.7812,
-                              lng: -73.9665,
-                          }
-                      }
-                      },
-                  ]
-                },
-                {
-                  day: 2,
-                  route: [
-                   {
-                      name: "place1"
-                    },
-                   {
-                      name: "place2"
-                    },
-                  ]
-                },
-                {
-                  day: 3,
-                  route:[
-                    {
-                      name: "Little Italy",
-                      lat:40.7191,
-                      lng: -73.9973,
-                    },
-                   {
-                      name: "Metropolitan Museum of Art",
-                      lat:40.7794,
-                      lng: -73.9632,
-                    },
-                    {
-                      name: "The Met Cloisters",
-                      lat:40.8649,
-                      lng: -73.9317,
-                    },
-                  ]
-                },
-                {
-                  day: 4,
-                  route: [
-                   {
-                      name:"place1" 
-                    },
-                    {
-                      name:"place2" 
-                    },
-                   {
-                      name:"place3" 
-                    },
-                    {
-                      name:"place4" 
-                    },
-                  ]
-                },
-                {
-                  day: 5,
-                  route: [
-                     {
-                      name:"place1" 
-                    },
-                   {
-                      name:"place2" 
-                    },
-                   {
-                      name:"place3" 
-                    },
-                  ]
-                }],
-            },
-            {
-              key: 2,
-              name: "Short Weekend in New York City",
-              days: 3,
-              planDetail:  [
-                {
-                  day: 1,
-                  route: [
-                   {
-                      name:"place1" 
-                    },
-                    {
-                      name:"place2" 
-                    },
-                    {
-                      name:"place3" 
-                    },
-                  ]
-                },
-                {
-                  day: 2,
-                  route: [
-                     {
-                      name:"place1" 
-                    },
-                    {
-                      name:"place2" 
-                    },
-                   {
-                      name:"place3" 
-                    },
-                  ]
-                },
-                {
-                  day: 3,
-                  route:[
-                     {
-                      name:"place1" 
-                    },
-                    {
-                      name:"place2" 
-                    },
-                    {
-                      name:"place3" 
-                    },
-                  ]
-                }
-              ],
-            },
-            {
-              key: 3,
-              name: "Culture trip in new york",
-              days: 4,
-              planDetail:[
-              {
-                day: 1,
-                route:[
-                  {
-                   name:"place1" 
-                 },
-                 {
-                   name:"place2" 
-                 },
-                 {
-                   name:"place3" 
-                 },
-               ]
-              },
-              {
-                day: 2,
-                route:[
-                  {
-                   name:"place1" 
-                 },
-                 {
-                   name:"place2" 
-                 },
-               ]
-              },
-              {
-                day: 3,
-                route:[
-                  {
-                   name:"place1" 
-                 },
-                 {
-                   name:"place2" 
-                 },
-                ]
-              },
-              {
-                day: 4,
-                route:[
-                  {
-                   name:"place1" 
-                 },
-                 {
-                   name:"place2" 
-                 }]
-              }
-          ]}],
-        routes: [],      //list of list
-        savedPlanList : [
-          {
-            key: 0,
-            name: "Life's journey after graduation",
-            days: 3,
-            planDetail:  [
-              {
-                day: 1,
-                route: [
-                  {
-                    name: "Time Square",
-                    geometry: {
-                      location: {
-                        lat:40.7527,
-                        lng:-73.9855,
-                      }
-                     }
-                  },
-                  {
-                    name: "Grand Central Terminal",
-                    geometry: {
-                      location: {
-                        lat:40.7527,
-                        lng:-73.9772,
-                      }
-                     }
-                  },
-                  {
-                    name: "Central Park",
-                    geometry: {
-                      location: {
-                          lat:40.7812,
-                          lng: -73.9665,
-                      }
-                  }
-                  },
-                ]
-              },
-              {
-                day: 2,
-                route: [
-                  {
-                    name: "Empire State Building",
-                    geometry:{
-                        location:{
-                          lat:40.7484,
-                          lng: -73.9857,
-                        }
-                    }
-                  },
-                  {
-                    name: "Chinatown",
-                    geometry:{
-                      location:{
-                          lat:40.7158,
-                          lng: -73.9970,
-                      }
-                  }
-                  },
-                ]
-              },
-              {
-                day: 3,
-                route:[
-                  {
-                    name: "Little Italy",
-                    geometry:{
-                        location:{
-                          lat:40.7191,
-                          lng: -73.9973,
-                        }
-                    }   
-                  },
-                  {
-                    name: "Metropolitan Museum of Art",
-                    geometry:{
-                        location:{
-                          lat:40.7794,
-                          lng: -73.9632,
-                        }
-                    } 
-                  },
-                  {
-                    name: "The Met Cloisters",
-                    geometry:{
-                        location:{
-                          lat:40.8649,
-                          lng: -73.9317,
-                        }
-                    }
-                  },
-                ]
-              }],
-          },
-          {
-            key: 1,
-            name: "New York City Vacation Travel Guide",
-            days: 5,
-            planDetail:  [
-              {
-                day: 1,
-                route: [
-                  {
-                      name: "Time Square",
-                      geometry: {
-                        location: {
-                          lat:40.7527,
-                         lng:-73.9855,
-                        }
-                       }
-                    },
-                    {
-                      name: "Grand Central Terminal",
-                      geometry: {
-                        location: {
-                          lat:40.7527,
-                          lng:-73.9772,
-                        }
-                       }
-                    },
-                    {
-                      name: "Central Park",
-                      geometry: {
-                        location: {
-                            lat:40.7812,
-                            lng: -73.9665,
-                        }
-                    }
-                    },
-                ]
-              },
-              {
-                day: 2,
-                route: [
-                 {
-                    name: "place1"
-                  },
-                 {
-                    name: "place2"
-                  },
-                ]
-              },
-              {
-                day: 3,
-                route:[
-                  {
-                    name: "Little Italy",
-                    lat:40.7191,
-                    lng: -73.9973,
-                  },
-                 {
-                    name: "Metropolitan Museum of Art",
-                    lat:40.7794,
-                    lng: -73.9632,
-                  },
-                  {
-                    name: "The Met Cloisters",
-                    lat:40.8649,
-                    lng: -73.9317,
-                  },
-                ]
-              },
-              {
-                day: 4,
-                route: [
-                 {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                 {
-                    name:"place3" 
-                  },
-                  {
-                    name:"place4" 
-                  },
-                ]
-              },
-              {
-                day: 5,
-                route: [
-                   {
-                    name:"place1" 
-                  },
-                 {
-                    name:"place2" 
-                  },
-                 {
-                    name:"place3" 
-                  },
-                ]
-              }],
-          },
-          {
-            key: 2,
-            name: "Short Weekend in New York City",
-            days: 3,
-            planDetail:  [
-              {
-                day: 1,
-                route: [
-                 {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                  {
-                    name:"place3" 
-                  },
-                ]
-              },
-              {
-                day: 2,
-                route: [
-                   {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                 {
-                    name:"place3" 
-                  },
-                ]
-              },
-              {
-                day: 3,
-                route:[
-                   {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                  {
-                    name:"place3" 
-                  },
-                ]
-              }
-            ],
-          },
-          {
-            key: 3,
-            name: "Culture trip in new york",
-            days: 4,
-            planDetail:[
-            {
-              day: 1,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               },
-               {
-                 name:"place3" 
-               },
-             ]
-            },
-            {
-              day: 2,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               },
-             ]
-            },
-            {
-              day: 3,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               },
-              ]
-            },
-            {
-              day: 4,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               }]
-            }
-        ]}],
+        planList : [],
+        routes: [],      
+        savedPlanList : [],
     };
 
 
     //TODO: axios call for getRecommendationPlansByUserId()
-    getRecommendPlans = (username, cityname) =>{
-      username = localStorage.getItem('user');
-      cityname = this.props.match.params.city;
+    getRecommendPlans = () =>{
+      const username = JSON.parse(localStorage.getItem('userInfo')).userName;
+      const cityname = this.props.match.params.city;
       //how to define cityid? Make a change in back end URL from cityid to cityname
-      const url = Travel_Plan_BASE_URL + `/recommendedplans?username=${username}&cityname=${cityname}`;
+      const url = Travel_Plan_BASE_URL + `/getrecommendationplans?username=${username}&cityname=${cityname}`;
       axios
         .get(url)
         .then((response)=>{
-          const planList = [];
-          //response data format ?? still need to modified from backend
-          response.map(i =>{
-            planList.push(i);
-          })
-          this.setState({
-            planList: planList,
-          })
-        })
-        .catch((error)=> {
-          console.log("err in fetch cityInfo -> ", error);
-
-        })
+          console.log(response);
+          const responseObj = response.data.responseObj;
+          if(responseObj == null){
+            Modal.info({
+              title: 'Sorry, there are no recommended plan currently. Try it Later!',
+            });
+          } else if(response.data.responseCode === 500){
+            Modal.error({
+              Title: 'An error occurred! Try it again.'
+            })
+          }else{
+            const planList = response.data.responseObj.planDataList;
+            const plans = [];
+            // const plansWithUsername = [];
+            for(let i = 0; i < planList.length; i++){
+              let key = planList[i].planId;
+              let name = planList[i].planName;
+              let days = planList[i].routeDataList.length;
+              let planDetail = [];
+              for(let j = 0; j < days; j++){
+                let attractions = [];
+                for(let k = 0; k < planList[i].routeDataList[j].attractionDataList.length; k++){
+                  let attraction = {
+                    name: planList[i].routeDataList[j].attractionDataList[k].attractionName,
+                    geometry: planList[i].routeDataList[j].attractionDataList[k].geometry,
+                  }
+                  attractions.push(attraction);
+                }
+                let route = {
+                  day: planList[i].routeDataList[j].day,
+                  route: attractions,
+                }
+                planDetail.push(route);
+              }
+              let plan = {
+                key: key,
+                name: name,
+                days: days,
+                planDetail: planDetail,
+              }
+              plans.push(plan);
+            }
+            this.setState({
+              recommendPlanList: plans,
+            }, () =>{
+              history.push(`/searchResult/${this.state.cityName}/recommendPlans`);
+            })
+          }})
+          .catch((error)=> {
+            console.log("err in fetch cityInfo -> ", error);
+          })        
     }
 
     updateWaypoints = (waypoint) => {
@@ -721,10 +172,10 @@ class SearchResult extends Component {
     }
 
     switchToRecommendedPlans = () =>{
-      const { match: { params } } = this.props;
-      const cityName = params.city;
+      // const { match: { params } } = this.props;
+      // const cityName = params.city;
       if(localStorage.getItem("userInfo") != null){
-        history.push(`/searchResult/${params.city}/recommendPlans`);
+        this.getRecommendPlans();
       } else{
         history.push({
           pathname: "/login",
@@ -940,9 +391,9 @@ class SearchResult extends Component {
                                             backToSearchResult={this.backToSearchResult}
                                             updateWaypoints={this.updateWaypoints}
                                             showOnMap = {this.showOnMap}
-                                            planList = {this.state.planList}
+                                            //planList = {this.state.planList}
                                             savePlanFromTravelSchedule = {this.savePlanFromTravelSchedule}
-                                            //recommendPlanList = {this.getRecommendPlans}
+                                            recommendPlanList = {this.state.recommendPlanList}
                                             submitPlanFromTravelSchedule = {this.submitPlanFromTravelSchedule}                                        />
                                     </Route>
                             </div>

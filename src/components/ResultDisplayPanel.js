@@ -41,8 +41,8 @@ class ResultDisplayPanel extends Component {
                             <Route path={`/searchResult/${cityName}/recommendPlans`}>
                                 <RecommendPlanList
                                     showOnMap={this.props.showOnMap}
-                                    planList={this.props.planList}
-                                // recommendPlanList = {this.props.recommendationPlanList}
+                                    //planList={this.props.planList}
+                                    recommendPlanList = {this.props.recommendPlanList}
                                 />
                                 <Button type="primary" className="backwardButton" onClick = {this.props.backToSearchResult}>Back to places list</Button>
                             </Route>
