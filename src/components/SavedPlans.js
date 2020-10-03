@@ -32,12 +32,18 @@ class SavedPlans extends Component {
 
     showOnMap = (plan) => {
       const routes = [];
+      let markers = [];
       plan.map((day) =>{
           routes.push(day.route)
+          markers = markers.concat(day.route);
       });
+      for(let i = 0; i < markers.length; i++) {
+        markers[i].key = i;
+      }
 
       this.setState({
           savedRoutes: routes,
+          markers: markers,
       },this.sendRequest);
     };
     
@@ -47,21 +53,19 @@ class SavedPlans extends Component {
     sendRequest = () => {
 
         const routes = this.state.savedRoutes;
+        const markers = this.state.markers;
 
         this.setState({
           result: [],
+          markers: [],
           zoom: zoomBefore,
         }, ()=> {
           let lat = [];
           let lng = [];
-          let markers = [];
           for(let i = 0; i < routes.length; i++) {
             for(let j = 0; j < routes[i].length; j++) {
               lat.push(routes[i][j].geometry.location.lat);
               lng.push(routes[i][j].geometry.location.lng);
-              const attraction = routes[i][j];
-              attraction.key = i * 100 + j;
-              markers.push(attraction);
             }
             if(routes[i].length < 2) {
               continue;
@@ -82,15 +86,15 @@ class SavedPlans extends Component {
                         result: newResult,
                         markers: markers,
                         isDraw: true,
-                        
+                        zoom: zoomAfter
                     });
             });
         }
 
         function avg(array)  {
-          if(array.length == 0) {
+          if(array.length === 0) {
             return null;
-          } else if(array.length == 1) {
+          } else if(array.length === 1) {
             return array[0];
           } else {
             let max = array[0];
@@ -112,7 +116,7 @@ class SavedPlans extends Component {
           }
           this.setState({
             cityCoordinate: cityCoordinate,
-            zoom: zoomAfter
+            
           })
         }
 
@@ -177,7 +181,7 @@ class SavedPlans extends Component {
         .delete(url)
         .then((response)=>{
           console.log(response);
-          if(response.data.responseCode == 200) {
+          if(response.data.responseCode === 200) {
             // delete plan from display
             let newPlanList = this.state.savedPlanList;
             newPlanList = newPlanList.filter(entry=>{
@@ -186,7 +190,7 @@ class SavedPlans extends Component {
             this.setState({
               savedPlanList: newPlanList,
             });
-          } else if (response.data.responseCode == 500) {
+          } else if (response.data.responseCode === 500) {
             console.log("err in deleting user plan -> responseCode: 500");
           }
         })

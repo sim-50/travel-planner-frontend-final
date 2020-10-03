@@ -117,9 +117,11 @@ class SearchResult extends Component {
     sendRequest = () => {
 
       const routes = this.state.routes;
+      const markers = this.state.markers;
 
       this.setState({
         result: [],
+        markers: [],
         zoom: zoomBefore,
         }, ()=> {
           let lat = [];
@@ -147,15 +149,17 @@ class SearchResult extends Component {
                     { 
                         result: newResult,
                         isDraw: true,
+                        zoom: zoomAfter,
+                        markers: markers
                         
                     });
             });
         }
 
         function avg(array)  {
-          if(array.length == 0) {
+          if(array.length === 0) {
             return null;
-          } else if(array.length == 1) {
+          } else if(array.length === 1) {
             return array[0];
           } else {
             let max = array[0];
@@ -177,7 +181,6 @@ class SearchResult extends Component {
           }
           this.setState({
             cityCoordinate: cityCoordinate,
-            zoom: zoomAfter
           })
         }
         
@@ -425,9 +428,9 @@ class SearchResult extends Component {
                                   <Route path={`/searchResult/${params.city}`}>
                                     <MapContainer
                                         cityCoordinate={this.state.cityCoordinate}
-                                        // selected={[citySearchResult.filter(
+                                        // selected={citySearchResult.filter(
                                         //     (item) => item.checked === true
-                                        // )]}
+                                        // )}
                                         selected={markers}
                                         responseData={this.state.result}
                                         zoom={this.state.zoom}
