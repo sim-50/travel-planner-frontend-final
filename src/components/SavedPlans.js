@@ -81,21 +81,33 @@ class SavedPlans extends Component {
         }
 
         function avg(array)  {
-          let total = 0;
-          for(let k = 0; k < array.length; k++) {
-            total += array[k];
+          if(array.length == 0) {
+            return null;
+          } else if(array.length == 1) {
+            return array[0];
+          } else {
+            let max = array[0];
+            let min = array[0];
+            for(let k = 0; k < array.length; k++) {
+              max = array[k] > max ? array[k] : max;
+              min = array[k] < min ? array[k] : min;
+            }
+            return (max + min) / 2;
           }
-          return total / array.length;
+          
         }
         let latAvg = avg(lat);
         let lngAvg = avg(lng);
-        const cityCoordinate = {
-          lat: latAvg,
-          lng: lngAvg
+        if(latAvg !== null) {
+          const cityCoordinate = {
+            lat: latAvg,
+            lng: lngAvg
+          }
+          this.setState({
+            cityCoordinate: cityCoordinate,
+            zoom: 12
+          })
         }
-        this.setState({
-          cityCoordinate: cityCoordinate
-        })
 
 
         })
