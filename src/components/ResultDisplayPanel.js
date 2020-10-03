@@ -44,7 +44,7 @@ class ResultDisplayPanel extends Component {
                                     filterByName={this.props.filterByName} 
                                     filterByType={this.props.filterByType} 
                                     sendRequest={this.props.sendRequest}
-                                    updateWaypoints={this.props.updateWaypoints}
+                                    pinOnMap={this.props.pinOnMap}
                                 />
                             </Route>
                             <Route path={`/searchResult/${cityName}/recommendPlans`}>
