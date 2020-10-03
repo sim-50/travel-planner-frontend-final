@@ -15,7 +15,8 @@ const { TabPane } = Tabs;
 class SavedPlans extends Component {
     state = {
         cityName: "Los Angeles",
-        cityCoordinate: {},
+        cityCoordinate: null,
+        zoom: 12,
         cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
         waypoints: [],
         result: [],
@@ -50,8 +51,16 @@ class SavedPlans extends Component {
         this.setState({
           result: [],
         }, ()=> {
+          let lat = [];
+          let lng = [];
           for(let i = 0; i < routes.length; i++) {
-
+            for(let j = 0; j < routes[i].length; j++) {
+              lat.push(routes[i][j].geometry.location.lat);
+              lng.push(routes[i][j].geometry.location.lng);
+            }
+            if(routes[i].length < 2) {
+              continue;
+            }
             sendRequest(routes[i], (response) => {
                 let newResult = this.state.result;
                 // response.color=randomColor({
@@ -60,7 +69,7 @@ class SavedPlans extends Component {
                 //  });
                 response.color=this.color[newResult.length];
                 response.actualColor=response.color;
-    
+                response.key=i+1;
                 newResult.push(response);
                 // newResult = [response];
                 this.setState(
@@ -70,6 +79,25 @@ class SavedPlans extends Component {
                     });
             });
         }
+
+        function avg(array)  {
+          let total = 0;
+          for(let k = 0; k < array.length; k++) {
+            total += array[k];
+          }
+          return total / array.length;
+        }
+        let latAvg = avg(lat);
+        let lngAvg = avg(lng);
+        const cityCoordinate = {
+          lat: latAvg,
+          lng: lngAvg
+        }
+        this.setState({
+          cityCoordinate: cityCoordinate
+        })
+
+
         })
     }
 
@@ -274,6 +302,7 @@ class SavedPlans extends Component {
                         cityCoordinate={this.state.cityCoordinate}
                         selected={[]}
                         responseData={this.state.result}
+                        zoom={this.state.zoom}
                       />
                     </div>
                   </div>

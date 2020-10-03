@@ -8,8 +8,9 @@ const MapWithMarker = withGoogleMap((props) => (
     <GoogleMap
         
         defaultCenter={ { lat: 34.0522342, lng: -118.2436849 } }
-        defaultZoom={ 11 }
+        defaultZoom={ 12 }
         center={props.cityCoordinate}
+        zoom={props.zoom}
 
     >
         {props.markers.map( location => (
@@ -82,6 +83,7 @@ export class MapContainer extends Component {
             selectedPlaces: this.props.selected,
             responseData:[],
             cityCoordinate: this.props.cityCoordinate,
+            zoom: this.props.zoom
         }
     }
 
@@ -185,8 +187,10 @@ export class MapContainer extends Component {
             this.setState( {
                 selectedPlaces: this.props.selected,
                 cityCoordinate:this.props.cityCoordinate,
+                zoom: this.props.zoom,
                 responseData: this.props.responseData,
                 activeMarker: newActiveMarker,
+                
                 //activeMarkers: newActiveMarkers,
             })
         }
@@ -212,6 +216,7 @@ export class MapContainer extends Component {
                 activeMarker={this.state.activeMarker}
                 showingInfoWindow={this.state.showingInfoWindow}
                 selectedPlaces={this.selectedPlaces}
+                zoom={this.state.zoom}
                 
             />
         </div>

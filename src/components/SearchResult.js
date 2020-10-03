@@ -17,6 +17,7 @@ class SearchResult extends Component {
     state = {
         cityName: "New York",
         cityCoordinate: null,
+        zoom: 12,
         cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
         citySearchResult: [],
         allTypes: [],
@@ -25,597 +26,10 @@ class SearchResult extends Component {
         result: [],
         isDraw: false,
         recommendPlanList: [],
-        planList : [
-            {
-              key: 0,
-              name: "Life's journey after graduation",
-              days: 3,
-              planDetail:  [
-                {
-                  day: 1,
-                  route: [
-                    {
-                      name: "Time Square",
-                      geometry: {
-                        location: {
-                          lat:40.7527,
-                          lng:-73.9855,
-                        }
-                       }
-                    },
-                    {
-                      name: "Grand Central Terminal",
-                      geometry: {
-                        location: {
-                          lat:40.7527,
-                          lng:-73.9772,
-                        }
-                       }
-                    },
-                    {
-                      name: "Central Park",
-                      geometry: {
-                        location: {
-                            lat:40.7812,
-                            lng: -73.9665,
-                        }
-                    }
-                    },
-                  ]
-                },
-                {
-                  day: 2,
-                  route: [
-                    {
-                      name: "Empire State Building",
-                      geometry:{
-                          location:{
-                            lat:40.7484,
-                            lng: -73.9857,
-                          }
-                      }
-                    },
-                    {
-                      name: "Chinatown",
-                      geometry:{
-                        location:{
-                            lat:40.7158,
-                            lng: -73.9970,
-                        }
-                    }
-                    },
-                  ]
-                },
-                {
-                  day: 3,
-                  route:[
-                    {
-                      name: "Little Italy",
-                      geometry:{
-                          location:{
-                            lat:40.7191,
-                            lng: -73.9973,
-                          }
-                      }   
-                    },
-                    {
-                      name: "Metropolitan Museum of Art",
-                      geometry:{
-                          location:{
-                            lat:40.7794,
-                            lng: -73.9632,
-                          }
-                      } 
-                    },
-                    {
-                      name: "The Met Cloisters",
-                      geometry:{
-                          location:{
-                            lat:40.8649,
-                            lng: -73.9317,
-                          }
-                      }
-                    },
-                  ]
-                }],
-            },
-            {
-              key: 1,
-              name: "New York City Vacation Travel Guide",
-              days: 5,
-              planDetail:  [
-                {
-                  day: 1,
-                  route: [
-                    {
-                        name: "Time Square",
-                        geometry: {
-                          location: {
-                            lat:40.7527,
-                           lng:-73.9855,
-                          }
-                         }
-                      },
-                      {
-                        name: "Grand Central Terminal",
-                        geometry: {
-                          location: {
-                            lat:40.7527,
-                            lng:-73.9772,
-                          }
-                         }
-                      },
-                      {
-                        name: "Central Park",
-                        geometry: {
-                          location: {
-                              lat:40.7812,
-                              lng: -73.9665,
-                          }
-                      }
-                      },
-                  ]
-                },
-                {
-                  day: 2,
-                  route: [
-                   {
-                      name: "place1"
-                    },
-                   {
-                      name: "place2"
-                    },
-                  ]
-                },
-                {
-                  day: 3,
-                  route:[
-                    {
-                      name: "Little Italy",
-                      lat:40.7191,
-                      lng: -73.9973,
-                    },
-                   {
-                      name: "Metropolitan Museum of Art",
-                      lat:40.7794,
-                      lng: -73.9632,
-                    },
-                    {
-                      name: "The Met Cloisters",
-                      lat:40.8649,
-                      lng: -73.9317,
-                    },
-                  ]
-                },
-                {
-                  day: 4,
-                  route: [
-                   {
-                      name:"place1" 
-                    },
-                    {
-                      name:"place2" 
-                    },
-                   {
-                      name:"place3" 
-                    },
-                    {
-                      name:"place4" 
-                    },
-                  ]
-                },
-                {
-                  day: 5,
-                  route: [
-                     {
-                      name:"place1" 
-                    },
-                   {
-                      name:"place2" 
-                    },
-                   {
-                      name:"place3" 
-                    },
-                  ]
-                }],
-            },
-            {
-              key: 2,
-              name: "Short Weekend in New York City",
-              days: 3,
-              planDetail:  [
-                {
-                  day: 1,
-                  route: [
-                   {
-                      name:"place1" 
-                    },
-                    {
-                      name:"place2" 
-                    },
-                    {
-                      name:"place3" 
-                    },
-                  ]
-                },
-                {
-                  day: 2,
-                  route: [
-                     {
-                      name:"place1" 
-                    },
-                    {
-                      name:"place2" 
-                    },
-                   {
-                      name:"place3" 
-                    },
-                  ]
-                },
-                {
-                  day: 3,
-                  route:[
-                     {
-                      name:"place1" 
-                    },
-                    {
-                      name:"place2" 
-                    },
-                    {
-                      name:"place3" 
-                    },
-                  ]
-                }
-              ],
-            },
-            {
-              key: 3,
-              name: "Culture trip in new york",
-              days: 4,
-              planDetail:[
-              {
-                day: 1,
-                route:[
-                  {
-                   name:"place1" 
-                 },
-                 {
-                   name:"place2" 
-                 },
-                 {
-                   name:"place3" 
-                 },
-               ]
-              },
-              {
-                day: 2,
-                route:[
-                  {
-                   name:"place1" 
-                 },
-                 {
-                   name:"place2" 
-                 },
-               ]
-              },
-              {
-                day: 3,
-                route:[
-                  {
-                   name:"place1" 
-                 },
-                 {
-                   name:"place2" 
-                 },
-                ]
-              },
-              {
-                day: 4,
-                route:[
-                  {
-                   name:"place1" 
-                 },
-                 {
-                   name:"place2" 
-                 }]
-              }
-          ]}],
-        routes: [],      //list of list
-        savedPlanList : [
-          {
-            key: 0,
-            name: "Life's journey after graduation",
-            days: 3,
-            planDetail:  [
-              {
-                day: 1,
-                route: [
-                  {
-                    name: "Time Square",
-                    geometry: {
-                      location: {
-                        lat:40.7527,
-                        lng:-73.9855,
-                      }
-                     }
-                  },
-                  {
-                    name: "Grand Central Terminal",
-                    geometry: {
-                      location: {
-                        lat:40.7527,
-                        lng:-73.9772,
-                      }
-                     }
-                  },
-                  {
-                    name: "Central Park",
-                    geometry: {
-                      location: {
-                          lat:40.7812,
-                          lng: -73.9665,
-                      }
-                  }
-                  },
-                ]
-              },
-              {
-                day: 2,
-                route: [
-                  {
-                    name: "Empire State Building",
-                    geometry:{
-                        location:{
-                          lat:40.7484,
-                          lng: -73.9857,
-                        }
-                    }
-                  },
-                  {
-                    name: "Chinatown",
-                    geometry:{
-                      location:{
-                          lat:40.7158,
-                          lng: -73.9970,
-                      }
-                  }
-                  },
-                ]
-              },
-              {
-                day: 3,
-                route:[
-                  {
-                    name: "Little Italy",
-                    geometry:{
-                        location:{
-                          lat:40.7191,
-                          lng: -73.9973,
-                        }
-                    }   
-                  },
-                  {
-                    name: "Metropolitan Museum of Art",
-                    geometry:{
-                        location:{
-                          lat:40.7794,
-                          lng: -73.9632,
-                        }
-                    } 
-                  },
-                  {
-                    name: "The Met Cloisters",
-                    geometry:{
-                        location:{
-                          lat:40.8649,
-                          lng: -73.9317,
-                        }
-                    }
-                  },
-                ]
-              }],
-          },
-          {
-            key: 1,
-            name: "New York City Vacation Travel Guide",
-            days: 5,
-            planDetail:  [
-              {
-                day: 1,
-                route: [
-                  {
-                      name: "Time Square",
-                      geometry: {
-                        location: {
-                          lat:40.7527,
-                         lng:-73.9855,
-                        }
-                       }
-                    },
-                    {
-                      name: "Grand Central Terminal",
-                      geometry: {
-                        location: {
-                          lat:40.7527,
-                          lng:-73.9772,
-                        }
-                       }
-                    },
-                    {
-                      name: "Central Park",
-                      geometry: {
-                        location: {
-                            lat:40.7812,
-                            lng: -73.9665,
-                        }
-                    }
-                    },
-                ]
-              },
-              {
-                day: 2,
-                route: [
-                 {
-                    name: "place1"
-                  },
-                 {
-                    name: "place2"
-                  },
-                ]
-              },
-              {
-                day: 3,
-                route:[
-                  {
-                    name: "Little Italy",
-                    lat:40.7191,
-                    lng: -73.9973,
-                  },
-                 {
-                    name: "Metropolitan Museum of Art",
-                    lat:40.7794,
-                    lng: -73.9632,
-                  },
-                  {
-                    name: "The Met Cloisters",
-                    lat:40.8649,
-                    lng: -73.9317,
-                  },
-                ]
-              },
-              {
-                day: 4,
-                route: [
-                 {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                 {
-                    name:"place3" 
-                  },
-                  {
-                    name:"place4" 
-                  },
-                ]
-              },
-              {
-                day: 5,
-                route: [
-                   {
-                    name:"place1" 
-                  },
-                 {
-                    name:"place2" 
-                  },
-                 {
-                    name:"place3" 
-                  },
-                ]
-              }],
-          },
-          {
-            key: 2,
-            name: "Short Weekend in New York City",
-            days: 3,
-            planDetail:  [
-              {
-                day: 1,
-                route: [
-                 {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                  {
-                    name:"place3" 
-                  },
-                ]
-              },
-              {
-                day: 2,
-                route: [
-                   {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                 {
-                    name:"place3" 
-                  },
-                ]
-              },
-              {
-                day: 3,
-                route:[
-                   {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                  {
-                    name:"place3" 
-                  },
-                ]
-              }
-            ],
-          },
-          {
-            key: 3,
-            name: "Culture trip in new york",
-            days: 4,
-            planDetail:[
-            {
-              day: 1,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               },
-               {
-                 name:"place3" 
-               },
-             ]
-            },
-            {
-              day: 2,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               },
-             ]
-            },
-            {
-              day: 3,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               },
-              ]
-            },
-            {
-              day: 4,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               }]
-            }
-        ]}],
+        planList : [],
+        routes: [],      
+        savedPlanList : []
+          
     };
 
 
@@ -680,12 +94,18 @@ class SearchResult extends Component {
     //send route request
     sendRequest = () => {
 
-        const routes = this.state.routes;
+      const routes = this.state.routes;
 
-        this.setState({
-          result: [],
+      this.setState({
+        result: [],
         }, ()=> {
+          let lat = [];
+          let lng = [];
           for(let i = 0; i < routes.length; i++) {
+            for(let j = 0; j < routes[i].length; j++) {
+              lat.push(routes[i][j].geometry.location.lat);
+              lng.push(routes[i][j].geometry.location.lng);
+            }
             if(routes[i].length < 2) {
               continue;
             }
@@ -707,7 +127,37 @@ class SearchResult extends Component {
                     });
             });
         }
-        })
+
+        function avg(array)  {
+          if(array.length == 0) {
+            return null;
+          } else if(array.length == 1) {
+            return array[0];
+          } else {
+            let max = array[0];
+            let min = array[0];
+            for(let k = 0; k < array.length; k++) {
+              max = array[k] > max ? array[k] : max;
+              min = array[k] < min ? array[k] : min;
+            }
+            return (max + min) / 2;
+          }
+          
+        }
+        let latAvg = avg(lat);
+        let lngAvg = avg(lng);
+        if(latAvg !== null) {
+          const cityCoordinate = {
+            lat: latAvg,
+            lng: lngAvg
+          }
+          this.setState({
+            cityCoordinate: cityCoordinate,
+            zoom: 12
+          })
+        }
+        
+    })
         
 
     }
@@ -943,7 +393,7 @@ class SearchResult extends Component {
                                             planList = {this.state.planList}
                                             savePlanFromTravelSchedule = {this.savePlanFromTravelSchedule}
                                             //recommendPlanList = {this.getRecommendPlans}
-                                            submitPlanFromTravelSchedule = {this.submitPlanFromTravelSchedule}                                        />
+                                            submitPlanFromTravelSchedule = {this.submitPlanFromTravelSchedule}/>
                                     </Route>
                             </div>
                             <div className="right-side">
@@ -954,6 +404,7 @@ class SearchResult extends Component {
                                             (item) => item.checked === true
                                         )}
                                         responseData={this.state.result}
+                                        zoom={this.state.zoom}
                                     />
                                   </Route>
                             </div>
@@ -966,55 +417,3 @@ class SearchResult extends Component {
 }
 
 export default SearchResult;
-
-// {
-//     key: "1",
-//     name: "LA Staple Center",
-//     type: "museum",
-//     description: "New York No. 1 Lake Park",
-//     display: true,
-//     checked: false,
-//     position: { lat: 34.0430219, lng: -118.2694428 },
-// },
-// {
-//     key: "2",
-//     name: "Jim Green",
-//     type: "bar",
-//     description: "London No. 1 Lake Park",
-//     display: true,
-//     checked: false,
-// },
-// {
-//     key: "3",
-//     name: "Joe Black",
-//     type: "restaurant",
-//     description: "Sidney No. 1 Lake Park",
-//     display: true,
-//     checked: false,
-// },
-// {
-//     key: "4",
-//     name: "Universal Park",
-//     type: "park",
-//     description: "Sidney No. 1 Lake Park",
-//     display: true,
-//     checked: false,
-// },
-// {
-//     key: "5",
-//     name: "University of Southern California",
-//     type: "university",
-//     description: "University",
-//     display: true,
-//     checked: false,
-//     position: { lat: 34.0236816, lng: -118.3013553 },
-// },
-// {
-//     key: "6",
-//     name: "Chinatown LA",
-//     type: "park",
-//     description: "Chinatown",
-//     display: true,
-//     checked: false,
-//     position: { lat: 34.0623, lng: -118.2383 },
-// },
