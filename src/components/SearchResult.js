@@ -180,8 +180,7 @@ class SearchResult extends Component {
         history.push({
           pathname: "/login",
           state: {
-            target: "/recommendPlans",
-            cityName: this.state.cityName,
+            target: `${this.state.cityName}/recommendPlans`,
           }
         });
       }  
