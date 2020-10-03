@@ -25,301 +25,7 @@ class SavedPlans extends Component {
         // needed by functions in RecommendedPlanList
         selectedPlanName: "",
         selectedPlanDetail: [],
-        savedPlanList : [
-          {
-            key: 0,
-            name: "Life's journey after graduation",
-            days: 3,
-            planDetail:  [
-              {
-                day: 1,
-                route: [
-                  {
-                    name: "Time Square",
-                    geometry: {
-                      location: {
-                        lat:40.7527,
-                        lng:-73.9855,
-                      }
-                     }
-                  },
-                  {
-                    name: "Grand Central Terminal",
-                    geometry: {
-                      location: {
-                        lat:40.7527,
-                        lng:-73.9772,
-                      }
-                     }
-                  },
-                  {
-                    name: "Central Park",
-                    geometry: {
-                      location: {
-                          lat:40.7812,
-                          lng: -73.9665,
-                      }
-                  }
-                  },
-                ]
-              },
-              {
-                day: 2,
-                route: [
-                  {
-                    name: "Empire State Building",
-                    geometry:{
-                        location:{
-                          lat:40.7484,
-                          lng: -73.9857,
-                        }
-                    }
-                  },
-                  {
-                    name: "Chinatown",
-                    geometry:{
-                      location:{
-                          lat:40.7158,
-                          lng: -73.9970,
-                      }
-                  }
-                  },
-                ]
-              },
-              {
-                day: 3,
-                route:[
-                  {
-                    name: "Little Italy",
-                    geometry:{
-                        location:{
-                          lat:40.7191,
-                          lng: -73.9973,
-                        }
-                    }   
-                  },
-                  {
-                    name: "Metropolitan Museum of Art",
-                    geometry:{
-                        location:{
-                          lat:40.7794,
-                          lng: -73.9632,
-                        }
-                    } 
-                  },
-                  {
-                    name: "The Met Cloisters",
-                    geometry:{
-                        location:{
-                          lat:40.8649,
-                          lng: -73.9317,
-                        }
-                    }
-                  },
-                ]
-              }],
-          },
-          {
-            key: 1,
-            name: "New York City Vacation Travel Guide",
-            days: 5,
-            planDetail:  [
-              {
-                day: 1,
-                route: [
-                  {
-                      name: "Time Square",
-                      geometry: {
-                        location: {
-                          lat:40.7527,
-                         lng:-73.9855,
-                        }
-                       }
-                    },
-                    {
-                      name: "Grand Central Terminal",
-                      geometry: {
-                        location: {
-                          lat:40.7527,
-                          lng:-73.9772,
-                        }
-                       }
-                    },
-                    {
-                      name: "Central Park",
-                      geometry: {
-                        location: {
-                            lat:40.7812,
-                            lng: -73.9665,
-                        }
-                    }
-                    },
-                ]
-              },
-              {
-                day: 2,
-                route: [
-                 {
-                    name: "place1"
-                  },
-                 {
-                    name: "place2"
-                  },
-                ]
-              },
-              {
-                day: 3,
-                route:[
-                  {
-                    name: "Little Italy",
-                    lat:40.7191,
-                    lng: -73.9973,
-                  },
-                 {
-                    name: "Metropolitan Museum of Art",
-                    lat:40.7794,
-                    lng: -73.9632,
-                  },
-                  {
-                    name: "The Met Cloisters",
-                    lat:40.8649,
-                    lng: -73.9317,
-                  },
-                ]
-              },
-              {
-                day: 4,
-                route: [
-                 {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                 {
-                    name:"place3" 
-                  },
-                  {
-                    name:"place4" 
-                  },
-                ]
-              },
-              {
-                day: 5,
-                route: [
-                   {
-                    name:"place1" 
-                  },
-                 {
-                    name:"place2" 
-                  },
-                 {
-                    name:"place3" 
-                  },
-                ]
-              }],
-          },
-          {
-            key: 2,
-            name: "Short Weekend in New York City",
-            days: 3,
-            planDetail:  [
-              {
-                day: 1,
-                route: [
-                 {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                  {
-                    name:"place3" 
-                  },
-                ]
-              },
-              {
-                day: 2,
-                route: [
-                   {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                 {
-                    name:"place3" 
-                  },
-                ]
-              },
-              {
-                day: 3,
-                route:[
-                   {
-                    name:"place1" 
-                  },
-                  {
-                    name:"place2" 
-                  },
-                  {
-                    name:"place3" 
-                  },
-                ]
-              }
-            ],
-          },
-          {
-            key: 3,
-            name: "Culture trip in new york",
-            days: 4,
-            planDetail:[
-            {
-              day: 1,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               },
-               {
-                 name:"place3" 
-               },
-             ]
-            },
-            {
-              day: 2,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               },
-             ]
-            },
-            {
-              day: 3,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               },
-              ]
-            },
-            {
-              day: 4,
-              route:[
-                {
-                 name:"place1" 
-               },
-               {
-                 name:"place2" 
-               }]
-            }
-        ]}],
+        savedPlanList: [],
         savedRoutes: [],      //list of list
       };
 
@@ -367,20 +73,94 @@ class SavedPlans extends Component {
         })
     }
 
+    getSavedPlans = () =>{
+      const username = JSON.parse(localStorage.getItem('userInfo')).userName;
+      const url = Travel_Plan_BASE_URL + `/allplans?username=${username}`;
+      console.log(url);
+      axios
+        .get(url)
+        .then((response)=>{
+          let planList = response.data.responseObj.planDataList;
+          let newPlanList = [];
+          // i = index of a plan
+          for (let i = 0; i < planList.length; i++) {
+            let key = planList[i].planId;
+            let name = planList[i].planName;
+            let days = planList[i].routeDataList.length;
+            let planDetail = [];
+            // j = index of route of a routeDataList
+            for (let j = 0; j < days; j++) {
+              // let day = j + 1;
+              let attractions = [];
+              // k = index of an attraction in routeDataList.attractionDataList
+              for (let k = 0; k < planList[i].routeDataList[j].attractionDataList.length; k++) {
+                let attractionItem = {
+                  name: planList[i].routeDataList[j].attractionDataList[k].attractionName,
+                  geometry: planList[i].routeDataList[j].attractionDataList[k].geometry,
+                }
+                attractions.push(attractionItem);
+              }
+              let routeItem = {
+                day: planList[i].routeDataList[j].day,
+                route: attractions,
+              }
+              planDetail.push(routeItem);
+            }
+            let plan = {
+              key: key,
+              name: name,
+              days: days,
+              planDetail: planDetail,
+            }
+            newPlanList.push(plan);
+          }
+          this.setState({
+            savedPlanList: newPlanList,
+          })
+        })
+        .catch((error)=> {
+          console.log("err in fetching user plan -> ", error);
+        })
+    }
+
+    deleteSavedPlans = (planId) =>{
+      const username = JSON.parse(localStorage.getItem('userInfo')).userName;
+      const url = Travel_Plan_BASE_URL + `/deleteplan?username=${username}&planid=${planId}`;
+      axios
+        .delete(url)
+        .then((response)=>{
+          console.log(response);
+          if(response.data.responseCode == 200) {
+            // delete plan from display
+            let newPlanList = this.state.savedPlanList;
+            newPlanList = newPlanList.filter(entry=>{
+              return entry.key !== planId;
+            });
+            this.setState({
+              savedPlanList: newPlanList,
+            });
+          } else if (response.data.responseCode == 500) {
+            console.log("err in deleting user plan -> responseCode: 500");
+          }
+        })
+        .catch((error)=> {
+          console.log("err in deleting user plan ->", error);
+        })
+    }
+
+
     componentDidMount() {
       // todo: put into const file
       // const url =
       //     Travel_Plan_BASE_URL + `/search?city=${this.props.match.params.city}`;
       const url =
-          Travel_Plan_BASE_URL + `/search?city=new%20york`;
+          Travel_Plan_BASE_URL + `/search?city=Boston`;
       axios
           .get(url)
           .then((response) => {
               //console.log('response: ',response);
               //console.log('response: ',response.data.responseObj.results);
               //console.log(response.data.responseObj.allTypes);
-              console.log(response.data.responseObj.coordinate[0]);
-              console.log(response.data.responseObj.coordinate[1]);
               this.setState({
                   cityCoordinate: {
                       lat: response.data.responseObj.coordinate[0],
@@ -389,7 +169,7 @@ class SavedPlans extends Component {
                   // citySearchResult: response.data.responseObj.results,
                   // allTypes: response.data.responseObj.allTypes,
               });
-              console.log(this.state.cityCoordinate);
+              this.getSavedPlans();
           })
           .catch((error) => {
               console.log("err in fetch cityInfo -> ", error);
@@ -424,7 +204,9 @@ class SavedPlans extends Component {
             <Button onClick={()=>{
               this.showOnMap(record.planDetail);
             }}>Show on map</Button>
-            <Button>Delete</Button>
+            <Button onClick={()=>{
+              this.deleteSavedPlans(record.key);
+            }}>Delete</Button>
           </Space>
         )
       },
