@@ -14,12 +14,19 @@ class LoginForm extends Component{
   constructor(props){
     super(props);
     this.state = {
-      login: false
+      login: false,
     }
   }
   
   render(){
-    // console.log(this.state.login)
+    let target = null; 
+    if(typeof history.location.state !== "undefined") {
+      let state = history.location.state;
+      if(typeof state.target !== "undefined") {
+        target = history.location.state.target;
+      }
+    }
+    
       return(
         <Layout className = 'loginWrapper'>
            <Header className="home-header">
@@ -60,7 +67,8 @@ class LoginForm extends Component{
 
         
                 <p className= 'signupLink'>Don't have an account? 
-                <Link to = "/Registration">
+                <Link to = {{ pathname: "/Registration", state: {target: target === null ? "/" : target }}}>
+                {/* <Link to = "/Registration"> */}
                   <span>Sign up</span>
                 </Link>
                 </p>
@@ -74,18 +82,15 @@ class LoginForm extends Component{
 
   login(){
       const formData = new FormData(this.form);
-      console.log('username is '+ formData.get('username'));
+      // console.log('username is '+ formData.get('username'));
       // console.log('username is ' + username)
       // console.log('password is ' + password)
       // console.log(history.location.state);
-      // if(history.location.state.target === "/recommendPlans"){
-      //   history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
-      // }
 
       //axios call
       axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
         .then(res => {
-          console.log(res);
+          
           if(res.data.responseCode == 400){
             Modal.error({
               title: 'Wrong username or password',
@@ -102,10 +107,9 @@ class LoginForm extends Component{
             Modal.success({
               content: "Congratulations! Successul Log In!",
               onOk(){
-                // console.log(history.location.state);
 
                 localStorage.setItem("userInfo", JSON.stringify({"userName": formData.get("username")}));
-                
+
                 const target = history.location.state.target;
 
                 //From Travel Schedule
@@ -117,40 +121,53 @@ class LoginForm extends Component{
                   const plan = JSON.parse(localStorage.getItem(uuid));
                   plan.username = userInfo.userName;
 
-                  history.push("/savedRoute");
+                  // history.push("/savedRoute");
 
                   axios
                     .post(url, plan)
                     .then((response) => {
                       if(response.status === 200) {
                         history.push(`/savedRoute`);
+                        window.location.reload();
                       }
                     })
                     .catch((error) => {
                       console.log("err in saving plan -> ", error);
                     });
 
-                } 
-                //Click on recommendPlans
-                else if(target=== "/recommendPlans") {
-                  
-                  history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`);
-                  
-                }
-                //From Search Result
-                else if(target === "/searchResult") {
+                } else {
 
-                  history.push(`/searchResult/${history.location.state.cityName}`);
+                  //Click on recommendPlans
+                  if(target.includes("/recommendPlans")) {
+                    
+                    history.push(`/searchResult/${target}`);
+                    
+                  }
+                  //From Search Result
+                  else if(target.includes("/searchResult")) {
 
-                } 
-                //From Home Page
-                else {
+                    history.push(target);
 
-                  history.push("/");
+                  } 
 
-                }
+                  else if(history.location.state.target === "/savedRoute") {
 
-                window.location.reload();
+                    history.push(`/savedRoute`);
+                    
+                  }
+
+                  //From Home Page
+                  else {
+
+                    history.push("/");
+
+                  }
+
+                  window.location.reload();
+
+              }
+
+                
               }
             })
             

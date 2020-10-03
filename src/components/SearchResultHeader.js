@@ -21,6 +21,18 @@ class SearchResultHeader extends Component{
         if (e.key === "logOut") {
           localStorage.clear();
           history.push(`/login`);
+        } else if (e.key === "savedRoute") {
+          const username = JSON.parse(localStorage.getItem('userInfo')).userName;
+          if (username !== null) {
+            history.push(`/savedRoute`);
+          } else {
+            history.push({
+              pathname: `/login`,
+              state: {
+                target: "/savedRoute",
+              }
+            });
+          }
         } else {
           history.push(`/${e.key}`);
         }
@@ -38,8 +50,8 @@ class SearchResultHeader extends Component{
       history.push({
         pathname: `/login`,
         state: {
-          target: `/searchResult`,
-          cityName: this.props.cityName
+          target: `/searchResult/${this.props.cityName}`,
+
         }
       });
       window.location.reload();
