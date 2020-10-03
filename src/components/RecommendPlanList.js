@@ -49,7 +49,8 @@ class RecommendPlanList extends Component {
             <Space size="middle">
               <Button onClick={() => {
                 this.setModalVisible(true);
-                this.setPlanDetail(record.planDetail);
+                this.setPlanDetail(record.planDetail.route);
+                console.log(record.planDetail.route);
                 this.setPlanName(record.name);
                 }}>
                 Details
@@ -94,8 +95,8 @@ class RecommendPlanList extends Component {
                     bodyStyle={{fontSize:"6em"}}
                     className = 'tableChild'
                     columns={this.columns}
-                    dataSource={this.props.planList}
-                    //dataSource = {this.props.recommendedPlanList}
+                    //dataSource={this.props.planList}
+                    dataSource = {this.props.recommendPlanList}
                     pagination={{ pageSize: 5 }}
                 />
                 <Modal
@@ -112,7 +113,7 @@ class RecommendPlanList extends Component {
                       <TabPane tab={`Day ${i.day}`} key={i.day}>
                         <Timeline>
                           {
-                            i.route.map(j =>(
+                            i.attractions.map(j =>(
                               <Timeline.Item>{j.name}</Timeline.Item>
                             ))
                           }
