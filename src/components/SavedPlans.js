@@ -6,7 +6,7 @@ import MapContainer from "./MapContainer";
 import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
 import { Travel_Plan_BASE_URL } from "../constant";
 import axios from "axios";
-import { sendRequest } from "./RouteUtils";
+import { sendRequest, zoomBefore, zoomAfter } from "./RouteUtils";
 import SearchResultHeader from "./SearchResultHeader";
 import backAarrow from "../asset/image/back-arrow.svg";
 import history from "../history";
@@ -18,7 +18,7 @@ class SavedPlans extends Component {
         cityCoordinate: null,
         zoom: 12,
         cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
-        waypoints: [],
+        markers: [],
         result: [],
         isDraw: false,
         // needed by modal
@@ -50,13 +50,18 @@ class SavedPlans extends Component {
 
         this.setState({
           result: [],
+          zoom: zoomBefore,
         }, ()=> {
           let lat = [];
           let lng = [];
+          let markers = [];
           for(let i = 0; i < routes.length; i++) {
             for(let j = 0; j < routes[i].length; j++) {
               lat.push(routes[i][j].geometry.location.lat);
               lng.push(routes[i][j].geometry.location.lng);
+              const attraction = routes[i][j];
+              attraction.key = i * 100 + j;
+              markers.push(attraction);
             }
             if(routes[i].length < 2) {
               continue;
@@ -75,7 +80,9 @@ class SavedPlans extends Component {
                 this.setState(
                     { 
                         result: newResult,
+                        markers: markers,
                         isDraw: true,
+                        
                     });
             });
         }
@@ -105,7 +112,7 @@ class SavedPlans extends Component {
           }
           this.setState({
             cityCoordinate: cityCoordinate,
-            zoom: 12
+            zoom: zoomAfter
           })
         }
 
@@ -206,6 +213,7 @@ class SavedPlans extends Component {
                       lat: response.data.responseObj.coordinate[0],
                       lng: response.data.responseObj.coordinate[1],
                   },
+                  markers: []
                   // citySearchResult: response.data.responseObj.results,
                   // allTypes: response.data.responseObj.allTypes,
               });
@@ -312,7 +320,7 @@ class SavedPlans extends Component {
                     <div className="right-side">
                       <MapContainer
                         cityCoordinate={this.state.cityCoordinate}
-                        selected={[]}
+                        selected={this.state.markers}
                         responseData={this.state.result}
                         zoom={this.state.zoom}
                       />

@@ -6,13 +6,10 @@ import "../styles/SearchResult.css";
 import axios from "axios";
 import { BrowserRouter, Route, Router } from "react-router-dom";
 import { Travel_Plan_BASE_URL } from "../constant";
-import { sendRequest } from "./RouteUtils";
+import { sendRequest, zoomBefore, zoomAfter } from "./RouteUtils";
 import history from "../history";
 import uuid from "react-uuid";
 import {Modal} from 'antd';
-
-
-
 
 class SearchResult extends Component {
     state = {
@@ -23,7 +20,7 @@ class SearchResult extends Component {
         citySearchResult: [],
         allTypes: [],
         filterTypeName: "",
-        waypoints: [],
+        markers: [],
         result: [],
         isDraw: false,
         recommendPlanList: [],
@@ -95,27 +92,14 @@ class SearchResult extends Component {
           })        
     }
 
-    updateWaypoints = (waypoint) => {
+    pinOnMap = (markers) => {
         this.setState(
             {
-                waypoints: waypoint,
-            },
-            this.updateRoute
+              markers: markers,
+            }
         );
     };
 
-    updateRoute = () => {
-        // if(this.state.isDraw && this.state.waypoints.length >= 2) {
-        //     this.sendRequest();
-        // } else {
-        //     const newResult = this.state.result;
-        //     newResult.pop();
-        //     this.setState({
-        //         result: newResult,
-        //         //isDraw: false,
-        //     })
-        // }
-    };
     showOnMap = (plan) => {
         const routes = [];
         plan.map((day) =>{
@@ -136,7 +120,7 @@ class SearchResult extends Component {
 
       this.setState({
         result: [],
-        zoom: 11,
+        zoom: zoomBefore,
         }, ()=> {
           let lat = [];
           let lng = [];
@@ -163,7 +147,7 @@ class SearchResult extends Component {
                     { 
                         result: newResult,
                         isDraw: true,
-                        zoom: 12
+                        
                     });
             });
         }
@@ -193,6 +177,7 @@ class SearchResult extends Component {
           }
           this.setState({
             cityCoordinate: cityCoordinate,
+            zoom: zoomAfter
           })
         }
         
@@ -386,6 +371,7 @@ class SearchResult extends Component {
                     cityName: response.data.responseObj.cityName,
                     citySearchResult: response.data.responseObj.results,
                     allTypes: response.data.responseObj.allTypes,
+                    markers: [],
                 });
             })
             .catch((error) => {
@@ -394,7 +380,7 @@ class SearchResult extends Component {
     }
 
     render() {
-        const { cityImg, citySearchResult, allTypes } = this.state;
+        const { cityImg, citySearchResult, allTypes, markers } = this.state;
         const { match: { params } } = this.props;
 
 
@@ -427,21 +413,22 @@ class SearchResult extends Component {
                                             switchToTravelSchedulePanel={this.switchToTravelSchedulePanel}
                                             switchToRecommendedPlans={this.switchToRecommendedPlans}
                                             backToSearchResult={this.backToSearchResult}
-                                            updateWaypoints={this.updateWaypoints}
+                                            pinOnMap={this.pinOnMap}
                                             showOnMap = {this.showOnMap}
                                             //planList = {this.state.planList}
                                             savePlanFromTravelSchedule = {this.savePlanFromTravelSchedule}
                                             recommendPlanList = {this.state.recommendPlanList}
-                                            submitPlanFromTravelSchedule = {this.submitPlanFromTravelSchedule}                                        />
+                                            submitPlanFromTravelSchedule = {this.submitPlanFromTravelSchedule}/>
                                     </Route>
                             </div>
                             <div className="right-side">
                                   <Route path={`/searchResult/${params.city}`}>
                                     <MapContainer
                                         cityCoordinate={this.state.cityCoordinate}
-                                        selected={citySearchResult.filter(
-                                            (item) => item.checked === true
-                                        )}
+                                        // selected={[citySearchResult.filter(
+                                        //     (item) => item.checked === true
+                                        // )]}
+                                        selected={markers}
                                         responseData={this.state.result}
                                         zoom={this.state.zoom}
                                     />

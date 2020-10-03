@@ -146,8 +146,8 @@ class LoginForm extends Component{
                   //From Search Result
                   else if(target.includes("/searchResult")) {
 
-                    history.push(target);
-
+                    //history.push(target);
+                    history.push("/");
                   } 
 
                   else if(history.location.state.target === "/savedRoute") {
