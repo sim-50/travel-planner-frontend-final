@@ -14,7 +14,7 @@ class LoginForm extends Component{
   constructor(props){
     super(props);
     this.state = {
-      login: false
+      login: false,
     }
   }
   
@@ -105,7 +105,7 @@ class LoginForm extends Component{
                 // console.log(history.location.state);
 
                 localStorage.setItem("userInfo", JSON.stringify({"userName": formData.get("username")}));
-                
+
                 const target = history.location.state.target;
 
                 //From Travel Schedule
@@ -142,7 +142,9 @@ class LoginForm extends Component{
 
                   history.push(`/searchResult/${history.location.state.cityName}`);
 
-                } 
+                } else if (history.location.state.target === "/savedRoute") {
+                  history.push(`/savedRoute`);
+                }
                 //From Home Page
                 else {
 
