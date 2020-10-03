@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Table, Space,Tabs,Button, Timeline } from 'antd';
-import Modal from 'antd/lib/modal/Modal';
+//import Modal from 'antd/lib/modal/Modal';
 import axios from "axios";
 import { Travel_Plan_BASE_URL } from "../constant";
 import history from "../history";
+import { Modal } from 'antd';
 
 const { TabPane } = Tabs;
 
@@ -14,6 +15,7 @@ class RecommendPlanList extends Component {
       selectedPlanDetail: [],
       isSaved: false,
       saveStatus: "Save",
+      recommendPlanList: [],
     };
 
     setModalVisible(modalVisible) {
@@ -50,7 +52,6 @@ class RecommendPlanList extends Component {
             <Space size="middle">
               <Button onClick={() => {
                 this.setModalVisible(true);
-                console.log(record.planDetail);
                 this.setPlanDetail(record.planDetail);
                 this.setPlanName(record.name);
                 }}>
@@ -68,19 +69,18 @@ class RecommendPlanList extends Component {
                   axios
                     .post(url)
                     .then((res) => {
-                      console.log(res.data)
-                      if(res.data.responseCode === 500){
+                      if(res.status === 200){
+                        this.setState({
+                          isSaved: true,
+                          saveStatus: "Saved"
+                        });
+                        history.push('/savedRoute');
+                      } else if(res.data.responseCode === 500){
                         Modal.error({
                           Title: 'An error occurred! Try it again.'
                         })
-                      } else if(res.status === 200){
-                          this.setState({
-                            isSaved: true,
-                            saveStatus: "Saved"
-                          });
-                          history.push('/savedRoute');
-                        }
-                      })
+                      }
+                    })
                     .catch((error) =>{
                       console.log(error)
                     })
@@ -89,7 +89,68 @@ class RecommendPlanList extends Component {
           )
         },
       ];
-    
+
+    componentDidMount() {
+      const username = JSON.parse(localStorage.getItem('userInfo')).userName;
+      const cityname = this.props.cityName;
+      //how to define cityid? Make a change in back end URL from cityid to cityname
+      const url = Travel_Plan_BASE_URL + `/getrecommendationplans?username=${username}&cityname=${cityname}`;
+      axios
+        .get(url)
+        .then((response)=>{
+          console.log(response);
+          const responseObj = response.data.responseObj;
+          if(responseObj == null){
+            Modal.info({
+              title: 'Sorry, there are no recommended plan currently. Try it Later!',
+            });
+          } else if(response.data.responseCode === 500){
+            Modal.error({
+              Title: 'An error occurred! Try it again.'
+            })
+          }else{
+            const planList = response.data.responseObj.planDataList;
+            const plans = [];
+            // const plansWithUsername = [];
+            for(let i = 0; i < planList.length; i++){
+              let key = planList[i].planId;
+              let name = planList[i].planName;
+              let days = planList[i].routeDataList.length;
+              let planDetail = [];
+              for(let j = 0; j < days; j++){
+                let attractions = [];
+                for(let k = 0; k < planList[i].routeDataList[j].attractionDataList.length; k++){
+                  let attraction = {
+                    name: planList[i].routeDataList[j].attractionDataList[k].attractionName,
+                    geometry: planList[i].routeDataList[j].attractionDataList[k].geometry,
+                  }
+                  attractions.push(attraction);
+                }
+                let route = {
+                  day: planList[i].routeDataList[j].day,
+                  route: attractions,
+                }
+                planDetail.push(route);
+              }
+              let plan = {
+                key: key,
+                name: name,
+                days: days,
+                planDetail: planDetail,
+              }
+              plans.push(plan);
+            }
+            this.setState({
+              recommendPlanList: plans,
+            });
+
+            this.props.getRecommendsBack(this.state.recommendPlanList);
+          }})
+          .catch((error)=> {
+            console.log("err in fetch cityInfo -> ", error);
+          })
+    }
+
     render() {
         return(
             <div className='tableContainer'>
@@ -97,8 +158,7 @@ class RecommendPlanList extends Component {
                     bodyStyle={{fontSize:"6em"}}
                     className = 'tableChild'
                     columns={this.columns}
-                    //dataSource={this.props.planList}
-                    dataSource = {this.props.recommendPlanList}
+                    dataSource = {this.state.recommendPlanList}
                     pagination={{ pageSize: 5 }}
                 />
                 <Modal

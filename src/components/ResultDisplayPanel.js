@@ -12,6 +12,15 @@ import history from "../history";
 const {Text} =  Typography;
 
 class ResultDisplayPanel extends Component {
+    state = {
+        recommendPlanList: [],
+    }
+    
+    getRecommendPlans = (recommendPlanList)=>{
+        this.setState({
+            recommendPlanList: recommendPlanList,
+        })
+    }
 
     render() {
         const { cityName, cityImg, citySearchResult, selectedList, allTypes } = this.props;
@@ -42,7 +51,8 @@ class ResultDisplayPanel extends Component {
                                 <RecommendPlanList
                                     showOnMap={this.props.showOnMap}
                                     //planList={this.props.planList}
-                                    recommendPlanList = {this.props.recommendPlanList}
+                                    cityName={this.props.cityName}
+                                    getRecommendsBack = {this.getRecommendPlans}
                                 />
                                 <Button type="primary" className="backwardButton" onClick = {this.props.backToSearchResult}>Back to places list</Button>
                             </Route>
