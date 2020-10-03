@@ -30,4 +30,10 @@ export function sendRequest(waypoint, callback) {
         });
     }
 
+// The following two values must be different to work properly!
 
+// Used to set zoom level before show routes on map.
+export const zoomBefore = 11;
+
+// Used to set zoom level after show routes on map.
+export const zoomAfter = 12;

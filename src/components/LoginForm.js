@@ -91,19 +91,19 @@ class LoginForm extends Component{
       axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
         .then(res => {
           
-          if(res.data.responseCode == 400){
+          if(res.data.responseCode === 400){
             Modal.error({
               title: 'Wrong username or password',
               content: 'Please check your username or password and try again',
             });
           }
-          else if(res.data.responseCode == 500){
+          else if(res.data.responseCode === 500){
             Modal.error({
               title: 'LogIn fail. Please try again later',
               content: 'Try again',
             });
           }
-          else if(res.status == 200){
+          else if(res.status === 200){
             Modal.success({
               content: "Congratulations! Successul Log In!",
               onOk(){
@@ -146,8 +146,8 @@ class LoginForm extends Component{
                   //From Search Result
                   else if(target.includes("/searchResult")) {
 
-                    history.push(target);
-
+                    //history.push(target);
+                    history.push("/");
                   } 
 
                   else if(history.location.state.target === "/savedRoute") {
