@@ -18,7 +18,7 @@ class TravelSchedulePanel extends Component {
         this.newTabIndex = 3;
         const initialPanes = [
             { title: 'Day 1', content: 'Content of Tab Day 1', key: '1', closable: false, },    // At least there is 1-day plan.
-            { title: 'Day 2', content: 'Content of Tab Day 2', key: '2' },
+            { title: 'Day 2', content: 'Content of Tab Day 2', key: '2', closable: true,  },
         ];
         this.state = {
             activeKey: initialPanes[0].key,
@@ -43,7 +43,8 @@ class TravelSchedulePanel extends Component {
         const activeKey = `${this.newTabIndex++}`;
 
         const newPanes = [...panes];
-        newPanes.push({ title: `Day ${panes.length + 1}`, content: `Content of Tab Day ${panes.length + 1}`, key: activeKey });
+        newPanes[newPanes.length - 1].closable = false;
+        newPanes.push({ title: `Day ${panes.length + 1}`, content: `Content of Tab Day ${panes.length + 1}`, key: activeKey, closable: true });
         plan.push([]);
         this.setState({
             panes: newPanes,
@@ -62,6 +63,9 @@ class TravelSchedulePanel extends Component {
             }
         });
         const newPanes = panes.filter(pane => pane.key !== targetKey);
+        if(newPanes.length > 1) {
+            newPanes[newPanes.length - 1].closable = true;
+        }
         plan.pop();
         if (newPanes.length && newActiveKey === targetKey) {
             if (lastIndex >= 0) {
