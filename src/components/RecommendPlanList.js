@@ -69,13 +69,13 @@ class RecommendPlanList extends Component {
                   axios
                     .post(url)
                     .then((res) => {
-                      if(res.status === 200){
+                      if(res.data.responseCode === "200"){
                         this.setState({
                           isSaved: true,
                           saveStatus: "Saved"
                         });
                         history.push('/savedRoute');
-                      } else if(res.data.responseCode === 500){
+                      } else if(res.data.responseCode === "500"){
                         Modal.error({
                           Title: 'An error occurred! Try it again.'
                         })
@@ -104,11 +104,11 @@ class RecommendPlanList extends Component {
             Modal.info({
               title: 'Sorry, there are no recommended plan currently. Try it Later!',
             });
-          } else if(response.data.responseCode === 500){
+          } else if(response.data.responseCode === "500"){
             Modal.error({
               Title: 'An error occurred! Try it again.'
             })
-          }else{
+          }else if(response.data.responseCode === "200"){
             const planList = response.data.responseObj.planDataList;
             const plans = [];
             // const plansWithUsername = [];

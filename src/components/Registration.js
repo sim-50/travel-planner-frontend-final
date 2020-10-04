@@ -60,7 +60,7 @@ class Registration extends Component{
                 }
             ).then(function(response){
                 // Show successful
-                if(response.data.responseCode == 200){
+                if(response.data.responseCode === "200"){
                     Modal.success({
                         content: "Congratulations! Successul registrarion! Welcome to join us!"
                     })
@@ -68,14 +68,14 @@ class Registration extends Component{
                 }
 
                 // Show username duplicate
-                if(response.data.responseCode == 409){
+                if(response.data.responseCode === "409"){
                     Modal.error({
                         title: 'Unable to create an account',
                         content: 'The user name has already existed. Please use another user name',
                     });
                 }
 
-                if(response.data.responseCode == 500){
+                if(response.data.responseCode === "500"){
                     Modal.error({
                         title: 'Unable to create an account',
                         content: 'Please try again later',
