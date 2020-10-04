@@ -72,9 +72,11 @@ class App extends Component {
                       />
                     </Col>
                     <Col span={8} className="id-class">
+                      <span id = "headner-hello1">Hi ! </span>
                       <div>{userInfo === null ? '' : userInfo.userName}</div>
                       {/* <div>{this.state.userName === null ? '' : this.state.userName}</div> */}
-                      <Divider type="vertical"/>
+                      {/* <Divider type="vertical"/> */}
+                      <span id ="headner-span">|</span>
                       <Button type="link" onClick={this.handleLogButtonClick} className="logButton" >
                             {/* {this.state.userName === null ? 'Sign In' : 'Sign Out'} */}
                             {userInfo === null  ? 'Sign In' : 'Sign Out'}
