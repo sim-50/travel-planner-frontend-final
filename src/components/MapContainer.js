@@ -14,14 +14,15 @@ const MapWithMarker = withGoogleMap((props) => (
 
     >
         {props.markers.map( location => (
-            
             <Marker
-                icon={{
+                icon={
+                    {
                     path: 'M864 113.92C614.72-28.8 480 256 230.08 113.92l128 475.84c249.6 142.72 384-142.72 634.56 0zM123.2 38.72A50.24 50.24 0 0 0 49.6 96l240.32 896 96-25.92-240.32-896a50.24 50.24 0 0 0-22.4-31.36z',
+                    anchor: new window.google.maps.Point(470,1021),
                     fillColor: '#e24f3d',
                     fillOpacity: 1.0,
                     strokeWeight: 0,
-                    scale: 0.028,
+                    scale: 0.029,
                 }}
                 key={location.key}
                 name={location.name}
