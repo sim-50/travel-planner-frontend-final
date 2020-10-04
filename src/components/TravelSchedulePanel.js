@@ -163,6 +163,7 @@ class TravelSchedulePanel extends Component {
                 <div className = "btnG">
                     <div className = "planName">
                       <Input 
+                      className = "btnGInput"
                       placeholder=" Name your plan" 
                       prefix={<EditOutlined />} 
                       onChange = {(e) => {

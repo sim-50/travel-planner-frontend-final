@@ -51,6 +51,19 @@
     margin: 1em 0;
 }
 
+#headner-hello1{
+  margin-right: .6em;
+}
+
+.id-class{
+  line-height: 2.2;
+}
+
+#headner-span{
+  margin-left: 1em;
+  color: gray;
+}
+
 .humIcon{
   border-right: .2px solid #d2d2d2;
   padding-right: 1em !important;
