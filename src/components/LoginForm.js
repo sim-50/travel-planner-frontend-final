@@ -152,13 +152,25 @@ class LoginForm extends Component{
                   //From Search Result
                   else if(target.includes("/searchResult")) {
                     
-                      history.push("/");
+                    history.push("/");
                     
                   } 
 
-                  else if(history.location.state.target === "/savedRoute") {
-
-                    history.push(`/savedRoute`);
+                  else if(target.includes("/savedRoute")) {
+                    const array = target.split("/");
+                    if(array.length === 3) {
+                      const city = array[array.length - 1]
+                      history.push({
+                        pathname: `/savedRoute`,
+                        state: {
+                          target: `${city}`
+                        }
+                        
+                      })
+                    } else {
+                      history.push(`/savedRoute`);
+                    }
+                    
                     
                   }
 
