@@ -23,7 +23,7 @@
 
 .left-side {
     padding-top: 10px;
-    width: 30%;
+    width: 45%;
 }
 
 
@@ -69,6 +69,12 @@
     padding-top: 12px;
 }
 
+.ant-table-pagination-right{
+  float: left;
+}
+
+
+
 .ant-typography{
     margin-left: 4px;
     margin-right: 4px;
@@ -84,7 +90,7 @@ button.search-route{
 .search-route{
   color: #fff;
   position: absolute;
-  bottom: 2em;
+  bottom: 2.2em;
   width: fit-content;
   right: 1em;
 }
@@ -103,15 +109,53 @@ button.search-route{
 .ant-table-tbody > tr > td {
   border-bottom: transparent !important
 }
+..ant-table.ant-table-small {
+  font-size: .8em;
+}
+.ant-table.ant-table-small {
+  font-size: .8em;
+}
 
-.travelScheduleContainer {
-    font-size: 14px;
-    min-width: 580px;
+.ant-btn-icon-only.ant-btn-sm {
+  width: fit-content;
+  height: fit-content;
+  font-size: .6em;
+  border-radius: 2px;
+  padding: .5em;
+}
+
+.ant-tabs-content {
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  overflow: auto;
+}
+
+.ant-pagination.mini .ant-pagination-item {
+  min-width: fit-content;
+  height: fit-content;
+  margin: 0;
+  line-height: 22px;
+  font-size: .7em;
+}
+
+.ant-transfer-operation .ant-btn .anticon{
+  font-size: 0.7em;
+}
+
+span.ant-tag {
+  font-size: .8em;
+  border-radius: 5px;
+}
+
+.ant-pagination.mini .ant-pagination-prev, .ant-pagination.mini .ant-pagination-next{
+  min-width: 24px;
+  height: auto;
+  margin: 0;
 }
 
 .tabsContainer {
-    padding: 10px;
-    margin-left: 10px;    
+    padding: 1em 0;
     position: relative;
 }
 
@@ -179,10 +223,11 @@ button.search-route{
   border: none;
 }
 
-.btnG span{
+.btnG .ant-input-affix-wrapper{
   width: fit-content;
   background: transparent;
-  border: none;
+  border: .3px solid #f1f1f1;
+  border-radius: 5px;
 }
 
 .btnG input{
@@ -196,11 +241,6 @@ button.search-route{
   border-radius: 5px;
 }
 
-.planName{
-  width: fit-content;
-  border: .3px solid #f1f1f1;
-  border-radius: 5px;
-}
 
 #btn1 disabled{
   color: gray;
@@ -216,7 +256,14 @@ button.ant-tabs-tab-remove {
   padding-right: 0;
 }
 
+#btn2{
+  margin-left: .5em;
+}
 
+
+.btnGInput{
+  border-right: 1px solid red
+}
 
 
 
