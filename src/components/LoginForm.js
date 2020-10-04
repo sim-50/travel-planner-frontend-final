@@ -58,7 +58,7 @@ class LoginForm extends Component{
                 <h3>Log in.</h3>
                 <form className = 'input' ref={fm => {this.form=fm}}>
                     <input type="text" name="username" placeholder= "Username" required={true}  id = 'input1'/>
-                    <input type="password" name="password" placeholder= "Password"  id = 'input2'/>
+                    <input type="password" name="password" placeholder= "Password"  id = 'input2' onKeyDown={(e)=>{this.onKeyDown(e)}}/>
                 </form>
   
                 <div className = "button">
@@ -78,7 +78,12 @@ class LoginForm extends Component{
       )
     }
  
-  
+  onKeyDown(event){
+    // if key is enter
+    if (event.keyCode === 13) {
+      this.login();
+    }
+  }
 
   login(){
       const formData = new FormData(this.form);
@@ -105,7 +110,7 @@ class LoginForm extends Component{
           }
           else if(res.status === 200){
             Modal.success({
-              content: "Congratulations! Successul Log In!",
+              content: "Successfully logged in!",
               onOk(){
 
                 localStorage.setItem("userInfo", JSON.stringify({"userName": formData.get("username")}));

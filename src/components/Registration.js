@@ -62,7 +62,7 @@ class Registration extends Component{
                 // Show successful
                 if(response.data.responseCode === "200"){
                     Modal.success({
-                        content: "Congratulations! Successul registrarion! Welcome to join us!"
+                        content: "Congratulations! Successfully registered! Welcome to join us!"
                     })
                     history.push({pathname: `/login`, state: {target: history.location.state.target}});
                 }

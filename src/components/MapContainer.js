@@ -200,12 +200,13 @@ export class MapContainer extends Component {
     }
 
     render(){
-
+        // check if there is a container class (left panel height), if not set default to 120% viewport height
+        const height = document.getElementsByClassName("container").length == 0 ? "120vh" : document.getElementsByClassName("container")[0].clientHeight;
         return(
         <div>
             <MapWithMarker
                 // Map setting                
-                containerElement={<div style={{height: "115vh", width: "100%"}} />}
+                containerElement={<div style={{height: height, width: "100%"}} />}
                 loadingElement={<div style={{ height: `100%` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
 

@@ -109,7 +109,7 @@ button.search-route{
 .ant-table-tbody > tr > td {
   border-bottom: transparent !important
 }
-..ant-table.ant-table-small {
+.ant-table.ant-table-small {
   font-size: .8em;
 }
 .ant-table.ant-table-small {
