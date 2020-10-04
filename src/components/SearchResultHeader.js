@@ -11,6 +11,7 @@ import User_icon from "../asset/image/user.svg";
 const { SubMenu } = Menu;
 class SearchResultHeader extends Component{
     state = {
+        cityName: "New York",
         current: 'searchResult',
         userName: null,
     };
@@ -22,14 +23,19 @@ class SearchResultHeader extends Component{
           localStorage.clear();
           history.push(`/login`);
         } else if (e.key === "savedRoute") {
-          const username = JSON.parse(localStorage.getItem('userInfo')).userName;
+          const username = JSON.parse(localStorage.getItem('userInfo'));
           if (username !== null) {
-            history.push(`/savedRoute`);
+            history.push({
+              pathname: `/savedRoute`,
+              state: {
+                target: `${this.props.cityName}`,
+              }
+            });
           } else {
             history.push({
               pathname: `/login`,
               state: {
-                target: "/savedRoute",
+                target: `/searchResult/${this.props.cityName}`,
               }
             });
           }
