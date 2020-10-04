@@ -181,7 +181,7 @@ class SavedPlans extends Component {
         .delete(url)
         .then((response)=>{
           console.log(response);
-          if(response.data.responseCode === 200) {
+          if(response.data.responseCode === "200") {
             // delete plan from display
             let newPlanList = this.state.savedPlanList;
             newPlanList = newPlanList.filter(entry=>{
@@ -190,7 +190,7 @@ class SavedPlans extends Component {
             this.setState({
               savedPlanList: newPlanList,
             });
-          } else if (response.data.responseCode === 500) {
+          } else if (response.data.responseCode === "500") {
             console.log("err in deleting user plan -> responseCode: 500");
           }
         })
