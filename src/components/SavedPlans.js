@@ -197,6 +197,7 @@ class SavedPlans extends Component {
             <Button onClick={() => {
               this.setModalVisible(true);
               this.setPlanDetail(record.planDetail);
+              console.log(record.planDetail);
               this.setPlanName(record.name);
             }}>
               Details
