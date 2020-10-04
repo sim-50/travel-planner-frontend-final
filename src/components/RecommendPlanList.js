@@ -74,7 +74,7 @@ class RecommendPlanList extends Component {
                           isSaved: true,
                           saveStatus: "Saved"
                         });
-                        history.push('/savedRoute');
+                        history.push({pathname: '/savedRoute', state: {target: this.props.cityName}});
                       } else if(res.data.responseCode === "500"){
                         Modal.error({
                           Title: 'An error occurred! Try it again.'

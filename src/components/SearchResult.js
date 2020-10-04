@@ -249,7 +249,12 @@ class SearchResult extends Component {
         .post(url, plan)
         .then((response) => {
           if(response.data.responseCode === "200") {
-            history.push(`/savedRoute`);
+            history.push({
+              pathname: `/savedRoute`,
+              state: {
+                target: `${this.props.match.params.city}`
+              }
+            });
           }
         })
         .catch((error) => {
@@ -265,7 +270,7 @@ class SearchResult extends Component {
           pathname: `/login`,
           state: {
             planId: planId,
-            target: "/travelSchedule"
+            target: `${this.props.match.params.city}/travelSchedule`
           }
         });
 

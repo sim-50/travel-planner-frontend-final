@@ -315,7 +315,7 @@ class SavedPlans extends Component {
                             </Tabs>
                           </Modal>
                       </div>   
-                        <span className = "backg" onClick={() => history.goBack()}>
+                        <span className = "backg" onClick={() => history.push(`/searchResult/${history.location.state.target}`)}>
                           <img src={backAarrow} alt=""/>
                           <p>Back to result page</p>
                         </span>

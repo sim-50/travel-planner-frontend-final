@@ -113,7 +113,7 @@ class LoginForm extends Component{
                 const target = history.location.state.target;
 
                 //From Travel Schedule
-                if(target === "/travelSchedule") {
+                if(target.includes("/travelSchedule")) {
 
                   const url = Travel_Plan_BASE_URL + `/addplan`;
                   const uuid = history.location.state.planId;
@@ -125,9 +125,15 @@ class LoginForm extends Component{
 
                   axios
                     .post(url, plan)
-                    .then((response) => {
+                    .then((res) => {
                       if(res.data.responseCode === "200") {
-                        history.push(`/savedRoute`);
+                        const city = target.split("/")[0];
+                        history.push({
+                          pathname: `/savedRoute`,
+                          state: {
+                            target: `${city}`
+                          }
+                        });
                         window.location.reload();
                       }
                     })
@@ -145,9 +151,9 @@ class LoginForm extends Component{
                   }
                   //From Search Result
                   else if(target.includes("/searchResult")) {
-
-                    //history.push(target);
-                    history.push("/");
+                    
+                      history.push("/");
+                    
                   } 
 
                   else if(history.location.state.target === "/savedRoute") {
