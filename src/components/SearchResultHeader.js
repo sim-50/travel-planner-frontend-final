@@ -95,8 +95,10 @@ class SearchResultHeader extends Component{
                   <a href="/"><img src= {Travel_planner_logo} alt="logo" className = "logo2"/></a>
                 </Col>
                 <Col span= {8}  className="id-class">
+                  <span id = "headner-hello1">Hi ! </span>
                   <div>{userInfo === null ? '' : userInfo.userName}</div>
-                  <Divider type="vertical"/>
+                  {/* <Divider type="vertical"/> */}
+                  <span id ="headner-span">|</span>
                   <Button type="link" onClick={this.handleLogButtonClick} className="logButton">
                     {userInfo === null ? 'Sign In' : 'Sign Out'}</Button>
                   <img src={User_icon} className="user-icon" alt="user" />

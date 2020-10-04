@@ -205,7 +205,7 @@ export class MapContainer extends Component {
         <div>
             <MapWithMarker
                 // Map setting                
-                containerElement={<div style={{height: "100vh", width: "100%"}} />}
+                containerElement={<div style={{height: "115vh", width: "100%"}} />}
                 loadingElement={<div style={{ height: `100%` }} />}
                 mapElement={<div style={{ height: `100%` }} />}
 
