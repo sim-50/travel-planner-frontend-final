@@ -12,6 +12,15 @@ import history from "../history";
 const {Text} =  Typography;
 
 class ResultDisplayPanel extends Component {
+    state = {
+        recommendPlanList: [],
+    }
+    
+    getRecommendPlans = (recommendPlanList)=>{
+        this.setState({
+            recommendPlanList: recommendPlanList,
+        })
+    }
 
     render() {
         const { cityName, cityImg, citySearchResult, selectedList, allTypes } = this.props;
@@ -35,14 +44,15 @@ class ResultDisplayPanel extends Component {
                                     filterByName={this.props.filterByName} 
                                     filterByType={this.props.filterByType} 
                                     sendRequest={this.props.sendRequest}
-                                    updateWaypoints={this.props.updateWaypoints}
+                                    pinOnMap={this.props.pinOnMap}
                                 />
                             </Route>
                             <Route path={`/searchResult/${cityName}/recommendPlans`}>
                                 <RecommendPlanList
                                     showOnMap={this.props.showOnMap}
-                                    planList={this.props.planList}
-                                // recommendPlanList = {this.props.recommendationPlanList}
+                                    //planList={this.props.planList}
+                                    cityName={this.props.cityName}
+                                    getRecommendsBack = {this.getRecommendPlans}
                                 />
                                 <Button type="primary" className="backwardButton" onClick = {this.props.backToSearchResult}>Back to places list</Button>
                             </Route>

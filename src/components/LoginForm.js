@@ -19,7 +19,14 @@ class LoginForm extends Component{
   }
   
   render(){
-    // console.log(this.state.login)
+    let target = null; 
+    if(typeof history.location.state !== "undefined") {
+      let state = history.location.state;
+      if(typeof state.target !== "undefined") {
+        target = history.location.state.target;
+      }
+    }
+    
       return(
         <Layout className = 'loginWrapper'>
            <Header className="home-header">
@@ -60,7 +67,8 @@ class LoginForm extends Component{
 
         
                 <p className= 'signupLink'>Don't have an account? 
-                <Link to = "/Registration">
+                <Link to = {{ pathname: "/Registration", state: {target: target === null ? "/" : target }}}>
+                {/* <Link to = "/Registration"> */}
                   <span>Sign up</span>
                 </Link>
                 </p>
@@ -74,35 +82,31 @@ class LoginForm extends Component{
 
   login(){
       const formData = new FormData(this.form);
-      console.log('username is '+ formData.get('username'));
+      // console.log('username is '+ formData.get('username'));
       // console.log('username is ' + username)
       // console.log('password is ' + password)
       // console.log(history.location.state);
-      // if(history.location.state.target === "/recommendPlans"){
-      //   history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`)
-      // }
 
       //axios call
       axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
         .then(res => {
-          console.log(res);
-          if(res.data.responseCode == 400){
+          
+          if(res.data.responseCode === 400){
             Modal.error({
               title: 'Wrong username or password',
               content: 'Please check your username or password and try again',
             });
           }
-          else if(res.data.responseCode == 500){
+          else if(res.data.responseCode === 500){
             Modal.error({
               title: 'LogIn fail. Please try again later',
               content: 'Try again',
             });
           }
-          else if(res.status == 200){
+          else if(res.status === 200){
             Modal.success({
               content: "Congratulations! Successul Log In!",
               onOk(){
-                // console.log(history.location.state);
 
                 localStorage.setItem("userInfo", JSON.stringify({"userName": formData.get("username")}));
 
@@ -117,42 +121,53 @@ class LoginForm extends Component{
                   const plan = JSON.parse(localStorage.getItem(uuid));
                   plan.username = userInfo.userName;
 
-                  history.push("/savedRoute");
+                  // history.push("/savedRoute");
 
                   axios
                     .post(url, plan)
                     .then((response) => {
                       if(response.status === 200) {
                         history.push(`/savedRoute`);
+                        window.location.reload();
                       }
                     })
                     .catch((error) => {
                       console.log("err in saving plan -> ", error);
                     });
 
-                } 
-                //Click on recommendPlans
-                else if(target=== "/recommendPlans") {
-                  
-                  history.push(`/searchResult/${history.location.state.cityName}/recommendPlans`);
-                  
-                }
-                //From Search Result
-                else if(target === "/searchResult") {
+                } else {
 
-                  history.push(`/searchResult/${history.location.state.cityName}`);
+                  //Click on recommendPlans
+                  if(target.includes("/recommendPlans")) {
+                    
+                    history.push(`/searchResult/${target}`);
+                    
+                  }
+                  //From Search Result
+                  else if(target.includes("/searchResult")) {
 
-                } else if (history.location.state.target === "/savedRoute") {
-                  history.push(`/savedRoute`);
-                }
-                //From Home Page
-                else {
+                    //history.push(target);
+                    history.push("/");
+                  } 
 
-                  history.push("/");
+                  else if(history.location.state.target === "/savedRoute") {
 
-                }
+                    history.push(`/savedRoute`);
+                    
+                  }
 
-                window.location.reload();
+                  //From Home Page
+                  else {
+
+                    history.push("/");
+
+                  }
+
+                  window.location.reload();
+
+              }
+
+                
               }
             })
             

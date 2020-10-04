@@ -50,8 +50,8 @@ class SearchResultHeader extends Component{
       history.push({
         pathname: `/login`,
         state: {
-          target: `/searchResult`,
-          cityName: this.props.cityName
+          target: `/searchResult/${this.props.cityName}`,
+
         }
       });
       window.location.reload();

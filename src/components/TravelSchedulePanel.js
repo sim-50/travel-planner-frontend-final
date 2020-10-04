@@ -155,7 +155,7 @@ class TravelSchedulePanel extends Component {
                                 itemTransferToLocal={this.itemTransferToLocal}
                                 itemTransferToGlobal={this.itemTransferToGlobal}
                                 paneKey={pane.key}
-                                selectedAttractions={selectedAttractions.filter(item => item.paneKey == 0 || item.paneKey == pane.key)} 
+                                selectedAttractions={selectedAttractions.filter(item => item.paneKey === 0 || item.paneKey === pane.key)} 
                             />
                         </TabPane>
                     ))}

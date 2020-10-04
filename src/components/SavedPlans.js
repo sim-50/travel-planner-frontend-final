@@ -6,7 +6,7 @@ import MapContainer from "./MapContainer";
 import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
 import { Travel_Plan_BASE_URL } from "../constant";
 import axios from "axios";
-import { sendRequest } from "./RouteUtils";
+import { sendRequest, zoomBefore, zoomAfter } from "./RouteUtils";
 import SearchResultHeader from "./SearchResultHeader";
 import backAarrow from "../asset/image/back-arrow.svg";
 import history from "../history";
@@ -15,9 +15,10 @@ const { TabPane } = Tabs;
 class SavedPlans extends Component {
     state = {
         cityName: "Los Angeles",
-        cityCoordinate: {},
+        cityCoordinate: null,
+        zoom: 12,
         cityImg: "https://media.nomadicmatt.com/laguide1.jpg",
-        waypoints: [],
+        markers: [],
         result: [],
         isDraw: false,
         // needed by modal
@@ -31,12 +32,18 @@ class SavedPlans extends Component {
 
     showOnMap = (plan) => {
       const routes = [];
+      let markers = [];
       plan.map((day) =>{
           routes.push(day.route)
+          markers = markers.concat(day.route);
       });
+      for(let i = 0; i < markers.length; i++) {
+        markers[i].key = i;
+      }
 
       this.setState({
           savedRoutes: routes,
+          markers: markers,
       },this.sendRequest);
     };
     
@@ -46,12 +53,23 @@ class SavedPlans extends Component {
     sendRequest = () => {
 
         const routes = this.state.savedRoutes;
+        const markers = this.state.markers;
 
         this.setState({
           result: [],
+          markers: [],
+          zoom: zoomBefore,
         }, ()=> {
+          let lat = [];
+          let lng = [];
           for(let i = 0; i < routes.length; i++) {
-
+            for(let j = 0; j < routes[i].length; j++) {
+              lat.push(routes[i][j].geometry.location.lat);
+              lng.push(routes[i][j].geometry.location.lng);
+            }
+            if(routes[i].length < 2) {
+              continue;
+            }
             sendRequest(routes[i], (response) => {
                 let newResult = this.state.result;
                 // response.color=randomColor({
@@ -60,16 +78,49 @@ class SavedPlans extends Component {
                 //  });
                 response.color=this.color[newResult.length];
                 response.actualColor=response.color;
-    
+                response.key=i+1;
                 newResult.push(response);
                 // newResult = [response];
                 this.setState(
                     { 
                         result: newResult,
+                        markers: markers,
                         isDraw: true,
+                        zoom: zoomAfter
                     });
             });
         }
+
+        function avg(array)  {
+          if(array.length === 0) {
+            return null;
+          } else if(array.length === 1) {
+            return array[0];
+          } else {
+            let max = array[0];
+            let min = array[0];
+            for(let k = 0; k < array.length; k++) {
+              max = array[k] > max ? array[k] : max;
+              min = array[k] < min ? array[k] : min;
+            }
+            return (max + min) / 2;
+          }
+          
+        }
+        let latAvg = avg(lat);
+        let lngAvg = avg(lng);
+        if(latAvg !== null) {
+          const cityCoordinate = {
+            lat: latAvg,
+            lng: lngAvg
+          }
+          this.setState({
+            cityCoordinate: cityCoordinate,
+            
+          })
+        }
+
+
         })
     }
 
@@ -130,7 +181,7 @@ class SavedPlans extends Component {
         .delete(url)
         .then((response)=>{
           console.log(response);
-          if(response.data.responseCode == 200) {
+          if(response.data.responseCode === 200) {
             // delete plan from display
             let newPlanList = this.state.savedPlanList;
             newPlanList = newPlanList.filter(entry=>{
@@ -139,7 +190,7 @@ class SavedPlans extends Component {
             this.setState({
               savedPlanList: newPlanList,
             });
-          } else if (response.data.responseCode == 500) {
+          } else if (response.data.responseCode === 500) {
             console.log("err in deleting user plan -> responseCode: 500");
           }
         })
@@ -166,6 +217,7 @@ class SavedPlans extends Component {
                       lat: response.data.responseObj.coordinate[0],
                       lng: response.data.responseObj.coordinate[1],
                   },
+                  markers: []
                   // citySearchResult: response.data.responseObj.results,
                   // allTypes: response.data.responseObj.allTypes,
               });
@@ -273,8 +325,9 @@ class SavedPlans extends Component {
                     <div className="right-side">
                       <MapContainer
                         cityCoordinate={this.state.cityCoordinate}
-                        selected={[]}
+                        selected={this.state.markers}
                         responseData={this.state.result}
+                        zoom={this.state.zoom}
                       />
                     </div>
                   </div>

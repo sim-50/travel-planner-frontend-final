@@ -50,7 +50,7 @@ class LocationOptionList extends Component {
             //* selectedRows indicates the objects array of all the selected rows
             //console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
             this.props.updateSelectedLocation(selectedRowKeys);
-            this.props.updateWaypoints(selectedRows);
+            this.props.pinOnMap(selectedRows);
             //console.log("clicked", selectedRows);
             //console.log(selectedRowKeys);
         }
@@ -119,7 +119,7 @@ class LocationOptionList extends Component {
                             disabled={selectedList.length < 2 ? true : false}
                             onClick={this.props.switchToTravelSchedulePanel}>
                             Start Planning
-                            </Button>
+                        </Button>
                     </Tooltip>
                 </div>
             </div>
