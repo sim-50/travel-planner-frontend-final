@@ -181,7 +181,7 @@ class SavedPlans extends Component {
         .delete(url)
         .then((response)=>{
           console.log(response);
-          if(response.data.responseCode === 200) {
+          if(response.data.responseCode === "200") {
             // delete plan from display
             let newPlanList = this.state.savedPlanList;
             newPlanList = newPlanList.filter(entry=>{
@@ -190,7 +190,7 @@ class SavedPlans extends Component {
             this.setState({
               savedPlanList: newPlanList,
             });
-          } else if (response.data.responseCode === 500) {
+          } else if (response.data.responseCode === "500") {
             console.log("err in deleting user plan -> responseCode: 500");
           }
         })
@@ -315,7 +315,7 @@ class SavedPlans extends Component {
                             </Tabs>
                           </Modal>
                       </div>   
-                        <span className = "backg" onClick={() => history.goBack()}>
+                        <span className = "backg" onClick={() => history.push(`/searchResult/${history.location.state.target}`)}>
                           <img src={backAarrow} alt=""/>
                           <p>Back to result page</p>
                         </span>

@@ -91,13 +91,13 @@ class LoginForm extends Component{
       axios.post(Travel_Plan_BASE_URL + '/login', new URLSearchParams(formData))
         .then(res => {
           
-          if(res.data.responseCode === 400){
+          if(res.data.responseCode === "400"){
             Modal.error({
               title: 'Wrong username or password',
               content: 'Please check your username or password and try again',
             });
           }
-          else if(res.data.responseCode === 500){
+          else if(res.data.responseCode === "500"){
             Modal.error({
               title: 'LogIn fail. Please try again later',
               content: 'Try again',
@@ -113,7 +113,7 @@ class LoginForm extends Component{
                 const target = history.location.state.target;
 
                 //From Travel Schedule
-                if(target === "/travelSchedule") {
+                if(target.includes("/travelSchedule")) {
 
                   const url = Travel_Plan_BASE_URL + `/addplan`;
                   const uuid = history.location.state.planId;
@@ -125,9 +125,15 @@ class LoginForm extends Component{
 
                   axios
                     .post(url, plan)
-                    .then((response) => {
-                      if(response.status === 200) {
-                        history.push(`/savedRoute`);
+                    .then((res) => {
+                      if(res.data.responseCode === "200") {
+                        const city = target.split("/")[0];
+                        history.push({
+                          pathname: `/savedRoute`,
+                          state: {
+                            target: `${city}`
+                          }
+                        });
                         window.location.reload();
                       }
                     })
@@ -145,14 +151,26 @@ class LoginForm extends Component{
                   }
                   //From Search Result
                   else if(target.includes("/searchResult")) {
-
-                    //history.push(target);
+                    
                     history.push("/");
+                    
                   } 
 
-                  else if(history.location.state.target === "/savedRoute") {
-
-                    history.push(`/savedRoute`);
+                  else if(target.includes("/savedRoute")) {
+                    const array = target.split("/");
+                    if(array.length === 3) {
+                      const city = array[array.length - 1]
+                      history.push({
+                        pathname: `/savedRoute`,
+                        state: {
+                          target: `${city}`
+                        }
+                        
+                      })
+                    } else {
+                      history.push(`/savedRoute`);
+                    }
+                    
                     
                   }
 

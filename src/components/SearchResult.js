@@ -45,13 +45,19 @@ class SearchResult extends Component {
 
     showOnMap = (plan) => {
         const routes = [];
+        let markers = [];
         plan.map((day) =>{
-            routes.push(day.route)
+            routes.push(day.route);
+            markers = markers.concat(day.route);
         });
+        for(let i = 0; i < markers.length; i++) {
+          markers[i].key = i;
+        }
 
         this.setState({
             routes: routes,
-        },this.sendRequest);
+            markers: markers,
+        }, this.sendRequest);
     };
     
     color = ['#411b5e', '#0026ff', '#22bab5', '#55ff00', '#aaff00', '#ffff00', '#ffbb00', '#ff9900', '#ff5500', '#ff3300', '#bf2a2a', '#780765', '#000000'];
@@ -231,7 +237,7 @@ class SearchResult extends Component {
         }]
       }
 
-      console.log(plan);
+      // console.log(plan);
 
       const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -242,8 +248,13 @@ class SearchResult extends Component {
         axios
         .post(url, plan)
         .then((response) => {
-          if(response.status === 200) {
-            history.push(`/savedRoute`);
+          if(response.data.responseCode === "200") {
+            history.push({
+              pathname: `/savedRoute`,
+              state: {
+                target: `${this.props.match.params.city}`
+              }
+            });
           }
         })
         .catch((error) => {
@@ -259,7 +270,7 @@ class SearchResult extends Component {
           pathname: `/login`,
           state: {
             planId: planId,
-            target: "/travelSchedule"
+            target: `${this.props.match.params.city}/travelSchedule`
           }
         });
 

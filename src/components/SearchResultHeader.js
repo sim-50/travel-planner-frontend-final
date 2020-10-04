@@ -11,6 +11,7 @@ import User_icon from "../asset/image/user.svg";
 const { SubMenu } = Menu;
 class SearchResultHeader extends Component{
     state = {
+        cityName: "New York",
         current: 'searchResult',
         userName: null,
     };
@@ -22,14 +23,19 @@ class SearchResultHeader extends Component{
           localStorage.clear();
           history.push(`/login`);
         } else if (e.key === "savedRoute") {
-          const username = JSON.parse(localStorage.getItem('userInfo')).userName;
+          const username = JSON.parse(localStorage.getItem('userInfo'));
           if (username !== null) {
-            history.push(`/savedRoute`);
+            history.push({
+              pathname: `/savedRoute`,
+              state: {
+                target: `${this.props.cityName}`,
+              }
+            });
           } else {
             history.push({
               pathname: `/login`,
               state: {
-                target: "/savedRoute",
+                target: `/savedRoute/${this.props.cityName}`,
               }
             });
           }
@@ -89,8 +95,10 @@ class SearchResultHeader extends Component{
                   <a href="/"><img src= {Travel_planner_logo} alt="logo" className = "logo2"/></a>
                 </Col>
                 <Col span= {8}  className="id-class">
+                  <span id = "headner-hello1">Hi ! </span>
                   <div>{userInfo === null ? '' : userInfo.userName}</div>
-                  <Divider type="vertical"/>
+                  {/* <Divider type="vertical"/> */}
+                  <span id ="headner-span">|</span>
                   <Button type="link" onClick={this.handleLogButtonClick} className="logButton">
                     {userInfo === null ? 'Sign In' : 'Sign Out'}</Button>
                   <img src={User_icon} className="user-icon" alt="user" />
