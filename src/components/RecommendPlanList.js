@@ -102,7 +102,7 @@ class RecommendPlanList extends Component {
           const responseObj = response.data.responseObj;
           if(responseObj == null){
             Modal.info({
-              title: 'Sorry, there are no recommended plan currently. Try it Later!',
+              title: 'Sorry, there is no recommended plan currently. Try it Later!',
             });
           } else if(response.data.responseCode === 500){
             Modal.error({
