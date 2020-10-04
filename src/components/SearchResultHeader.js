@@ -35,7 +35,7 @@ class SearchResultHeader extends Component{
             history.push({
               pathname: `/login`,
               state: {
-                target: `/searchResult/${this.props.cityName}`,
+                target: `/savedRoute/${this.props.cityName}`,
               }
             });
           }
